@@ -3,4 +3,4 @@ project(FileSeperator C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(FileSeperator main.c)
+add_executable(FileSeperator main.c printHelper.h fileHelper.h)

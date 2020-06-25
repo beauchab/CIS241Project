@@ -6,11 +6,27 @@
 
 #IncludeRegexTransform: 
 
+C:/Users/brent/CLionProjects/FileSeperator/fileHelper.h
+stdio.h
+-
+string.h
+-
+
 C:/Users/brent/CLionProjects/FileSeperator/main.c
 stdio.h
 -
 string.h
 -
+printHelper.h
+C:/Users/brent/CLionProjects/FileSeperator/printHelper.h
+fileHelper.h
+C:/Users/brent/CLionProjects/FileSeperator/fileHelper.h
 stdlib.h
+-
+
+C:/Users/brent/CLionProjects/FileSeperator/printHelper.h
+stdio.h
+-
+string.h
 -
 

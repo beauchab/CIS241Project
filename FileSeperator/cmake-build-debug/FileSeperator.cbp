@@ -85,7 +85,16 @@
 		<Unit filename="C:/Users/brent/CLionProjects/FileSeperator/fileHelper.h">
 			<Option target="FileSeperator"/>
 		</Unit>
+		<Unit filename="C:/Users/brent/CLionProjects/FileSeperator/kmeans.h">
+			<Option target="FileSeperator"/>
+		</Unit>
+		<Unit filename="C:/Users/brent/CLionProjects/FileSeperator/linearRegression.h">
+			<Option target="FileSeperator"/>
+		</Unit>
 		<Unit filename="C:/Users/brent/CLionProjects/FileSeperator/main.c">
+			<Option target="FileSeperator"/>
+		</Unit>
+		<Unit filename="C:/Users/brent/CLionProjects/FileSeperator/means.h">
 			<Option target="FileSeperator"/>
 		</Unit>
 		<Unit filename="C:/Users/brent/CLionProjects/FileSeperator/printHelper.h">

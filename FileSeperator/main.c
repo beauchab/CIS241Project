@@ -12,18 +12,19 @@ Description: This Program opens the data given to us by the professor,
 #include <string.h>
 #include "printHelper.h"
 #include "fileHelper.h"
+#include "pythagoreanMeans.h"
 #include <stdlib.h>
 
-//Function Prototypes
-void stateMachine(struct stateControl *u, struct theData *d, struct files *f);
-void exitProgram(struct stateControl *u, struct files *f);
-int userContinue();
+//State Definitions
+#define READ_INPUT 0
+#define PRINT_DATA 1
+#define EXIT  2
 
 //Structs
 struct stateControl {
     int state;
     int flags[5];
-    int userContinue = 1;
+    int userContinue;
 };
 struct outData {
     char ***arOut;
@@ -40,10 +41,10 @@ struct files{
     FILE *outFileP;
 };
 
-//State Definitions
-#define READ_INPUT 0
-#define PRINT_DATA 1
-#define EXIT  2
+//Function Prototypes
+void stateMachine(struct stateControl *u, struct theData *d, struct files *f);
+void exitProgram(struct stateControl *u, struct files *f);
+int userContinue();
 
 //choose the two element rows as args
 int main()
@@ -51,6 +52,8 @@ int main()
     struct stateControl sC;
     struct theData d;
     struct files f;
+
+    sC.userContinue = 1;
 
     //char* arOut[2330][]
 

@@ -94,10 +94,13 @@
 		<Unit filename="C:/Users/brent/CLionProjects/FileSeperator/main.c">
 			<Option target="FileSeperator"/>
 		</Unit>
-		<Unit filename="C:/Users/brent/CLionProjects/FileSeperator/means.h">
+		<Unit filename="C:/Users/brent/CLionProjects/FileSeperator/printHelper.h">
 			<Option target="FileSeperator"/>
 		</Unit>
-		<Unit filename="C:/Users/brent/CLionProjects/FileSeperator/printHelper.h">
+		<Unit filename="C:/Users/brent/CLionProjects/FileSeperator/pythagoreanMeans.h">
+			<Option target="FileSeperator"/>
+		</Unit>
+		<Unit filename="C:/Users/brent/CLionProjects/FileSeperator/usefulStatsFunctions.h">
 			<Option target="FileSeperator"/>
 		</Unit>
 		<Unit filename="C:/Users/brent/CLionProjects/FileSeperator/CMakeLists.txt">

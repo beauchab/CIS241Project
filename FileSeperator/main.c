@@ -75,7 +75,7 @@ void printData(char arP[2330][5][20])
 
 int printTab(void)
 {
-    printf("\n");
+    printf("\t");
     return 0;
 }
 
@@ -84,3 +84,26 @@ int printNewLine(void)
     printf("\n");
     return 0;
 }
+
+//have to create a pointer to the array in order to pass array back to main
+int* dataLinerization(struct Data data[]) 
+{
+	int i = 0, j, date, month;
+	static int newArray[];
+
+	while( i < sizeof(Data))
+	{
+		month = strtok(data.date[i], "/");
+		date[i] = strtok(NULL, "/");
+		i++;
+	}
+	
+	while(j < date)
+	{
+		newArray[j] = j + 1;
+		j++;
+		
+	}
+	return newArray;
+}
+	

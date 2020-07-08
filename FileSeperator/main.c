@@ -85,20 +85,21 @@ int printNewLine(void)
     return 0;
 }
 
-//have to create a pointer to the array in order to pass array back to main
+
 int* dataLinerization(struct Data data[]) 
 {
-	int i = 0, j, date, month;
-	static int newArray[];
+	int i = 0, j=0, date[foo(data)], month[foo(data)];
+	static int newArray[][];
 
-	while( i < sizeof(Data))
+	while( i < foo(data))
 	{
 		month = strtok(data.date[i], "/");
 		date[i] = strtok(NULL, "/");
 		i++;
 	}
+	i=0;
 	
-	while(j < date)
+	while(j < date[i])
 	{
 		newArray[j] = j + 1;
 		j++;

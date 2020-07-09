@@ -1,90 +1,202 @@
+/**********************************************************************
+Name: File Sperator
+Description: This Program opens the data given to us by the professor,
+             and ...
+@author - Green Team SS20 CIS241
+@updated - 6/25/2020
+@param - classData.csv
+@return -
+**********************************************************************/
+//Included Libraries
 #include <stdio.h>
 #include <string.h>
+#include "printHelper.h"
+#include "fileHelper.h"
+#include "pythagoreanMeans.h"
 #include <stdlib.h>
 
+//State Definitions
+#define READ_INPUT 0
+#define PRINT_DATA 1
+#define EXIT  2
+
+//Structs
+struct stateControl {
+    int state;
+    int flags[5];
+    int userContinue;
+};
+struct outData {
+    char ***arOut;
+    int length;
+    int width;
+    int depth;
+};
+struct theData {
+    char arIn[2330][5][20];
+    struct outData oD;
+};
+struct files{
+    FILE *inFileP;
+    FILE *outFileP;
+};
+
 //Function Prototypes
-int printTab(void);
-int printNewLine(void);
-void readFileData(FILE *fp, char arP[2330][5][20]);
-void printData(char arP[2330][5][20]);
+void stateMachine(struct stateControl *u, struct theData *d, struct files *f);
+void exitProgram(struct stateControl *u, struct files *f);
+int userContinue();
 
 //choose the two element rows as args
 int main()
 {
-    char* arIn[2330][5];
-    FILE *fp;
+    struct stateControl sC;
+    struct theData d;
+    struct files f;
+
+    sC.userContinue = 1;
 
     //char* arOut[2330][]
 
 
+    f.inFileP = fopen("classData.csv", "r");
+
     // CLion is giving me a hard time with printing this fixed it for me, you may comment it out.
-    setbuf(stdout, NULL);
+    //setbuf(stdout, NULL);
+    do
+    {
+        stateMachine(&sC, &d, &f);
+    }
+    while(sC.userContinue);
 
-    fp = fopen("classData.csv", "r");
 
-    readFileData(fp, arIn);
-    printData(arIn);
+
+    //readFileData(f.inFileP, d.arIn);
+    //printData(d.arIn);
 
     printf("Hello, World!\n");
     return 0;
 }
 
-
-
-void readFileData(FILE *fp, char arP[2330][5][20])
+/**********************************************************************
+Name:userContinue
+Description: This function checks if the user would like to continue
+             running the program
+@author - Brendan P. Beauchamp
+@updated - 5/20/2020
+@param - void
+@return - int ans
+                This is a value which states 1 if the user would like
+                to continue running the program or 0 if the would not.
+**********************************************************************/
+int userContinue()
 {
-    char buff[200] = "";
-    char *delim = ",";
-    int n = 0, m = 0;
+    int ans = 0;
 
-    //Read Header
-    fgets(buff, sizeof(buff), fp);
+    printf("Would you like to run the program again?\n");
+    printf("Type 1 for yes, 0 for no:");
+    scanf("%d", &ans);
 
-    //read in a line
-    while (fgets(buff, sizeof(buff), fp) != NULL)
+    if(ans != 1)
     {
-        //Tokenize line into array elements
-        //Tokenize user input as stated in midterm file
-        strcpy(arP[m][n++], strtok(buff, delim));
-        while (n < 5)
-        {
-            strcpy(arP[m][n], strtok(NULL, delim));
-            n++;
-        }
-        n = 0;
-        m++;
+        ans = 0;
     }
+
+    return ans;
 }
 
-void printData(char arP[2330][5][20])
+/**********************************************************************
+Name:userContinue
+Description: This function checks if the user would like to continue
+             running the program
+@author - Brendan P. Beauchamp
+@updated - 5/20/2020
+@param - void
+@return - int ans
+                This is a value which states 1 if the user would like
+                to continue running the program or 0 if the would not.
+**********************************************************************/
+int receiveInput()
 {
-    int i,j;
-    int (*pT)(void) = &printTab;
-    int (*pN)(void) = &printNewLine;
+    int ans = 0;
 
-    for(i=0; i<2330; i++)
+    printf("What would you like to do?\n");
+    printf("Options:");
+
+    //FIXME
+    //Function for Displaying Options
+
+    scanf("%d", &ans);
+
+    if(ans != 1)
     {
-        for(j=0; j<5; j++)
-        {
-            printf("%s", arP[j][i]);
-            (i==5) ? (*pN) : (*pT);
-
-        }
+        ans = 0;
     }
+
+    return ans;
 }
 
-int printTab(void)
+/**********************************************************************
+Name: stateMachine
+Description: This is the state machine for the program.
+@author - Brendan P. Beauchamp
+@updated - 6/25/2020
+@param - struct stateControl *u
+                            This is a structure which contains
+                            variables used in state control
+@param - struct theData *d
+                            This is a structure containing data for
+                            the main program, and parsed data
+@param - struct files *f
+                            This is a structure containing data for
+                            open files in the program
+@return - void
+**********************************************************************/
+void stateMachine(struct stateControl *u, struct theData *d, struct files *f)
 {
-    printf("\t");
-    return 0;
+    switch(u->state) {
+
+        case READ_INPUT  :
+            readFileData(f->inFileP,d->arIn);
+            break;
+
+        case PRINT_DATA  :
+            printData(d->arIn);
+            break;
+
+        case EXIT       :
+            //Function for closing files and setting the control structure to exit
+            exitProgram(u, f);
+            break;
+
+        /* you can have any number of case statements */
+
+        default :
+            //FIXME
+            //Function for stating improper input
+
+            break;
+    }
+
 }
 
-int printNewLine(void)
+/**********************************************************************
+Name:
+Description:
+@author - Brendan P. Beauchamp
+@updated - 6/25/2020
+@param - struct stateControl *u
+                            This is a structure which contains
+                            variables used in state control
+@param - struct files *f
+                            This is a structure containing data for
+                            open files in the program
+@return - void
+**********************************************************************/
+void exitProgram(struct stateControl *u, struct files *f)
 {
-    printf("\n");
-    return 0;
+    u->userContinue = 0;
+    fclose(f->inFileP);
 }
-
 
 int* dataLinerization(struct Data data[]) 
 {

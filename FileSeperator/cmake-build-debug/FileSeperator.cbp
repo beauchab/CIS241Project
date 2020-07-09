@@ -82,7 +82,25 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="C:/Users/brent/CLionProjects/FileSeperator/fileHelper.h">
+			<Option target="FileSeperator"/>
+		</Unit>
+		<Unit filename="C:/Users/brent/CLionProjects/FileSeperator/kmeans.h">
+			<Option target="FileSeperator"/>
+		</Unit>
+		<Unit filename="C:/Users/brent/CLionProjects/FileSeperator/linearRegression.h">
+			<Option target="FileSeperator"/>
+		</Unit>
 		<Unit filename="C:/Users/brent/CLionProjects/FileSeperator/main.c">
+			<Option target="FileSeperator"/>
+		</Unit>
+		<Unit filename="C:/Users/brent/CLionProjects/FileSeperator/printHelper.h">
+			<Option target="FileSeperator"/>
+		</Unit>
+		<Unit filename="C:/Users/brent/CLionProjects/FileSeperator/pythagoreanMeans.h">
+			<Option target="FileSeperator"/>
+		</Unit>
+		<Unit filename="C:/Users/brent/CLionProjects/FileSeperator/usefulStatsFunctions.h">
 			<Option target="FileSeperator"/>
 		</Unit>
 		<Unit filename="C:/Users/brent/CLionProjects/FileSeperator/CMakeLists.txt">

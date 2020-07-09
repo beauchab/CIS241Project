@@ -153,7 +153,6 @@ Description: This is the state machine for the program.
 **********************************************************************/
 void stateMachine(struct stateControl *u, struct theData *d, struct files *f)
 {
-
     switch(u->state) {
 
         case READ_INPUT  :
@@ -177,6 +176,7 @@ void stateMachine(struct stateControl *u, struct theData *d, struct files *f)
 
             break;
     }
+
 }
 
 /**********************************************************************
@@ -197,3 +197,26 @@ void exitProgram(struct stateControl *u, struct files *f)
     u->userContinue = 0;
     fclose(f->inFileP);
 }
+
+int* dataLinerization(struct Data data[]) 
+{
+	int i = 0, j=0, date[foo(data)], month[foo(data)];
+	static int newArray[][];
+
+	while( i < foo(data))
+	{
+		month = strtok(data.date[i], "/");
+		date[i] = strtok(NULL, "/");
+		i++;
+	}
+	i=0;
+	
+	while(j < date[i])
+	{
+		newArray[j] = j + 1;
+		j++;
+		
+	}
+	return newArray;
+}
+	

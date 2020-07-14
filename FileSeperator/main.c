@@ -14,11 +14,16 @@ Description: This Program opens the data given to us by the professor,
 #include "fileHelper.h"
 #include "pythagoreanMeans.h"
 #include <stdlib.h>
+#include "linearRegression.h"
+#include "usefulStats.h"
 
 //State Definitions
-#define READ_INPUT 0
-#define PRINT_DATA 1
-#define EXIT  2
+#define READ_INPUT        0
+#define PRINT_DATA        1//FIXME THIS SHOULD LAUNCH A SECONDARY STATE MACHINE (i.e. What data you want to print?)
+#define LINEAR_REGRESSION 2
+#define KMEANS            3
+#define OUTLIER_DETECTION 4
+#define EXIT              5
 
 //Structs
 struct stateControl {
@@ -45,6 +50,7 @@ struct files{
 void stateMachine(struct stateControl *u, struct theData *d, struct files *f);
 void exitProgram(struct stateControl *u, struct files *f);
 int userContinue();
+int receiveInput(struct stateControl *u);
 
 //choose the two element rows as args
 int main()
@@ -52,8 +58,8 @@ int main()
     struct stateControl sC;
     struct theData d;
     struct files f;
-
     sC.userContinue = 1;
+    sC.state = READ_INPUT;
 
     //char* arOut[2330][]
 
@@ -61,12 +67,12 @@ int main()
     f.inFileP = fopen("classData.csv", "r");
 
     // CLion is giving me a hard time with printing this fixed it for me, you may comment it out.
-    //setbuf(stdout, NULL);
+    setbuf(stdout, NULL);
     do
     {
         stateMachine(&sC, &d, &f);
     }
-    while(sC.userContinue);
+    while(receiveInput(&sC));
 
 
 
@@ -115,24 +121,38 @@ Description: This function checks if the user would like to continue
                 This is a value which states 1 if the user would like
                 to continue running the program or 0 if the would not.
 **********************************************************************/
-int receiveInput()
+int receiveInput(struct stateControl *u)
 {
-    int ans = 0;
+    int ans;
+    int invalid = 1;
+    do {
+        printf("MAIN: STATE MACHINE?\n");
+        printf("What would you like to do?\n");
+        printf("Options:\n");
 
-    printf("What would you like to do?\n");
-    printf("Options:");
+        //FIXME INCLUDE NEW OPTION EVERY TIME ONE IS MADE
+        printf("0:\tRead Data\n");
+        printf("1:\tPrint Data\n");
+        printf("2:\tLinear Regression\n");
+        printf("3:\tKMeans\n");
+        printf("4:\tOutlier Detection\n");
+        printf("5:\tEXIT\n");
 
-    //FIXME
-    //Function for Displaying Options
+        scanf("%d", &ans);
 
-    scanf("%d", &ans);
+        //Answer is incorrect
+        if(ans < 0 || ans > 5 )
+        {
+            printf("\nINVALID INPUT!\n");
+        } else{
+            invalid = 0;
+        }
+    }while(invalid);
 
-    if(ans != 1)
-    {
-        ans = 0;
-    }
+    //Set State
+    u->state = ans;
 
-    return ans;
+    return u->state == EXIT ? 0 : 1;
 }
 
 /**********************************************************************
@@ -156,19 +176,34 @@ void stateMachine(struct stateControl *u, struct theData *d, struct files *f)
     switch(u->state) {
 
         case READ_INPUT  :
+            //State Machine for Reading Input
             readFileData(f->inFileP,d->arIn);
             break;
 
         case PRINT_DATA  :
+            //State Machine for Printing Data
             printData(d->arIn);
+            break;
+
+        case LINEAR_REGRESSION  :
+            //State Machine for Linear Regression
+
+            break;
+
+        case KMEANS  :
+            //State Machine for KMEANS
+
+            break;
+
+        case OUTLIER_DETECTION  :
+            //State Machine for Outlier Detection
+
             break;
 
         case EXIT       :
             //Function for closing files and setting the control structure to exit
             exitProgram(u, f);
             break;
-
-        /* you can have any number of case statements */
 
         default :
             //FIXME
@@ -178,7 +213,6 @@ void stateMachine(struct stateControl *u, struct theData *d, struct files *f)
     }
 
 }
-
 /**********************************************************************
 Name:
 Description:
@@ -198,6 +232,7 @@ void exitProgram(struct stateControl *u, struct files *f)
     fclose(f->inFileP);
 }
 
+/*
 int* dataLinerization(struct Data data[]) 
 {
 	int i = 0, j=0, date[foo(data)], month[foo(data)];
@@ -219,4 +254,4 @@ int* dataLinerization(struct Data data[])
 	}
 	return newArray;
 }
-	
+ */

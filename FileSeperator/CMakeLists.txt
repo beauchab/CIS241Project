@@ -3,4 +3,4 @@ project(FileSeperator C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(FileSeperator main.c printHelper.h fileHelper.h pythagoreanMeans.h kmeans.h linearRegression.h usefulStats.h SUBMENU_LinearRegression.h globalDefinitions.h)
+add_executable(FileSeperator main.c printHelper.h fileHelper.h pythagoreanMeans.h kmeans.h linearRegression.h usefulStats.h SUBMENU_LinearRegression.h globalDefinitions.h outlierDetection.h)

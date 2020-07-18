@@ -41,7 +41,6 @@ Description: This function maps the data of arrays x and y to a function
 @updated - 7/8/2020
 @param - double x[]
                     This is an array which contains all of the x values
-                    for the linear regression.
 @param - double y[]
                     This is an array which contains all of the y values
                     for the linear regression.
@@ -57,9 +56,7 @@ lrCo linearRegression(double x[], double y[], int size)
     lrCo lRegC;
     double yBar,xBar,varX,varY;
 
-    //FIXME yHAT MUST BE CONVERTED INTO A POINTER pYHAT TO DYNAMICALLY ALLOCATE SPACE
-    double *pYHat = (double*) malloc(size * sizeof(double));  //memory allocated
-    double yHat[size];
+    double *yHat = (double*) malloc(size * sizeof(double));  //memory allocated
 
     //xBar and yBar using arithmetic mean
     xBar = arithmeticMean(x, size);

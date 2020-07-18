@@ -17,6 +17,9 @@ double calcVar(double x[], double xBar, int n);
 double calcStdDev(double Var);
 double calcCovXY(double x[], double xBar, double y[], double yBar, int n);
 double calcCorXY(double covXY, double varX, double varY);
+void analyzeRSquared(double r);
+void analyzeCovXY(double c);
+void analyzeCorXY(double c);
 /**********************************************************************
 Name: calcVar
 Description: This function calculates the variance of a dataset that
@@ -127,5 +130,96 @@ double calcCorXY(double covXY, double varX, double varY)
     double cor;
     cor = covXY/(sqrt(varX*varY));
     return cor;
+}
+/**********************************************************************
+Name: analyzeRSquared
+Description: This function takes an input of the r squared value of
+             the linear regression and prints a statement describing
+             the accuracy of the regression.
+@author - Brendan P. Beauchamp
+@updated - 7/17/2020
+@param - double r
+            This is a double which represents the value of r squared.
+@return - void
+**********************************************************************/
+void analyzeRSquared(double r)
+{
+    if      (r>0.999)
+    {
+        printf("Regression is exact");
+    }
+    else if (r>0.85)
+    {
+        printf("Regression is a very precise");
+    }
+    else if (r>0.50)
+    {
+        printf("Regression is a loose");
+    }
+    else
+    {
+        printf("Regression is not an accurate");
+    }
+    printf(" representation of data\n\n");
+}
+/**********************************************************************
+Name: analyzeCovXY
+Description: This function takes an input of the covariance value of
+             the linear regression and prints a statement describing
+             the relationship exhibited within the two data sets.
+@author - Brendan P. Beauchamp
+@updated - 7/17/2020
+@param - double c
+            This value represents the covariance between the two data
+            sets in the linear regression.
+@return - void
+**********************************************************************/
+void analyzeCovXY(double c)
+{
+    if      (c>0.0)
+    {
+        printf("Data sets exhibit positive relationship\n\n");
+    }
+    else if (c<0.0)
+    {
+        printf("Data sets exhibit negative relationship\n\n");
+    }
+    else
+    {
+        printf("Data sets exhibit no relationship\n\n");
+    }
+}
+/**********************************************************************
+Name: analyzeCorXY
+Description: This function takes an input of a double representing the
+             correlation coefficient, and prints a statement which
+             describes the correlation between the two data sets in the
+             regression.
+@author - Brendan P. Beauchamp
+@updated - 7/17/2020
+@param - double c
+        This is a double representing the correlation coefficient
+        between the two data sets in the linear regression.
+@return - void
+**********************************************************************/
+void analyzeCorXY(double c)
+{
+    if      (c>0.80)
+    {
+        printf("Significant positive");
+    }
+    else if (c>0.0)
+    {
+        printf("Insignificant positive");
+    }
+    else if (c<-0.80)
+    {
+        printf("Significant negative");
+    }
+    else
+    {
+        printf("Insignificant negative");
+    }
+    printf(" relationship between data sets\n\n");
 }
 #endif //FILESEPERATOR_USEFULSTATS_H

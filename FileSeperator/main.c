@@ -111,12 +111,14 @@ int userContinue()
 }
 
 /**********************************************************************
-Name:userContinue
-Description: This function checks if the user would like to continue
-             running the program
+Name:recieveInput
+Description: This function is used to determine what the user would
+             like to do in the main menu
 @author - Brendan P. Beauchamp
-@updated - 5/20/2020
-@param - void
+@updated - 7/17/2020
+@param - struct stateControl *u
+                This is a structure which contains variables useful to
+                maintaining the state of the program.
 @return - int ans
                 This is a value which states 1 if the user would like
                 to continue running the program or 0 if the would not.
@@ -126,7 +128,7 @@ int receiveInput(struct stateControl *u)
     int ans;
     int invalid = 1;
     do {
-        printf("MAIN: STATE MACHINE?\n");
+        printf("MAIN: STATE MACHINE\n");
         printf("What would you like to do?\n");
         printf("Options:\n");
 
@@ -157,7 +159,7 @@ int receiveInput(struct stateControl *u)
 
 /**********************************************************************
 Name: stateMachine
-Description: This is the state machine for the program.
+Description: This is the state machine for the main menu.
 @author - Brendan P. Beauchamp
 @updated - 6/25/2020
 @param - struct stateControl *u
@@ -211,7 +213,6 @@ void stateMachine(struct stateControl *u, struct theData *d, struct files *f)
 
             break;
     }
-
 }
 /**********************************************************************
 Name:

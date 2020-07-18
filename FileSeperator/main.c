@@ -1,86 +1,258 @@
+/**********************************************************************
+Name: File Sperator
+Description: This Program opens the data given to us by the professor,
+             and ...
+@author - Green Team SS20 CIS241
+@updated - 6/25/2020
+@param - classData.csv
+@return -
+**********************************************************************/
+//Included Libraries
 #include <stdio.h>
 #include <string.h>
+#include "printHelper.h"
+#include "fileHelper.h"
+#include "pythagoreanMeans.h"
 #include <stdlib.h>
+#include "linearRegression.h"
+#include "usefulStats.h"
+
+//State Definitions
+#define READ_INPUT        0
+#define PRINT_DATA        1//FIXME THIS SHOULD LAUNCH A SECONDARY STATE MACHINE (i.e. What data you want to print?)
+#define LINEAR_REGRESSION 2
+#define KMEANS            3
+#define OUTLIER_DETECTION 4
+#define EXIT              5
+
+//Structs
+struct stateControl {
+    int state;
+    int flags[5];
+    int userContinue;
+};
+struct outData {
+    char ***arOut;
+    int length;
+    int width;
+    int depth;
+};
+struct theData {
+    char arIn[2330][5][20];
+    struct outData oD;
+};
+struct files{
+    FILE *inFileP;
+    FILE *outFileP;
+};
 
 //Function Prototypes
-int printTab(void);
-int printNewLine(void);
-void readFileData(FILE *fp, char arP[2330][5][20]);
-void printData(char arP[2330][5][20]);
+void stateMachine(struct stateControl *u, struct theData *d, struct files *f);
+void exitProgram(struct stateControl *u, struct files *f);
+int userContinue();
+int receiveInput(struct stateControl *u);
 
 //choose the two element rows as args
 int main()
 {
-    char* arIn[2330][5];
-    FILE *fp;
+    struct stateControl sC;
+    struct theData d;
+    struct files f;
+    sC.userContinue = 1;
+    sC.state = READ_INPUT;
 
     //char* arOut[2330][]
 
 
+    f.inFileP = fopen("classData.csv", "r");
+
     // CLion is giving me a hard time with printing this fixed it for me, you may comment it out.
     setbuf(stdout, NULL);
+    do
+    {
+        stateMachine(&sC, &d, &f);
+    }
+    while(receiveInput(&sC));
 
-    fp = fopen("classData.csv", "r");
 
-    readFileData(fp, arIn);
-    printData(arIn);
+
+    //readFileData(f.inFileP, d.arIn);
+    //printData(d.arIn);
 
     printf("Hello, World!\n");
     return 0;
 }
 
-
-
-void readFileData(FILE *fp, char arP[2330][5][20])
+/**********************************************************************
+Name:userContinue
+Description: This function checks if the user would like to continue
+             running the program
+@author - Brendan P. Beauchamp
+@updated - 5/20/2020
+@param - void
+@return - int ans
+                This is a value which states 1 if the user would like
+                to continue running the program or 0 if the would not.
+**********************************************************************/
+int userContinue()
 {
-    char buff[200] = "";
-    char *delim = ",";
-    int n = 0, m = 0;
+    int ans = 0;
 
-    //Read Header
-    fgets(buff, sizeof(buff), fp);
+    printf("Would you like to run the program again?\n");
+    printf("Type 1 for yes, 0 for no:");
+    scanf("%d", &ans);
 
-    //read in a line
-    while (fgets(buff, sizeof(buff), fp) != NULL)
+    if(ans != 1)
     {
-        //Tokenize line into array elements
-        //Tokenize user input as stated in midterm file
-        strcpy(arP[m][n++], strtok(buff, delim));
-        while (n < 5)
+        ans = 0;
+    }
+
+    return ans;
+}
+
+/**********************************************************************
+Name:recieveInput
+Description: This function is used to determine what the user would
+             like to do in the main menu
+@author - Brendan P. Beauchamp
+@updated - 7/17/2020
+@param - struct stateControl *u
+                This is a structure which contains variables useful to
+                maintaining the state of the program.
+@return - int ans
+                This is a value which states 1 if the user would like
+                to continue running the program or 0 if the would not.
+**********************************************************************/
+int receiveInput(struct stateControl *u)
+{
+    int ans;
+    int invalid = 1;
+    do {
+        printf("MAIN: STATE MACHINE\n");
+        printf("What would you like to do?\n");
+        printf("Options:\n");
+
+        //FIXME INCLUDE NEW OPTION EVERY TIME ONE IS MADE
+        printf("0:\tRead Data\n");
+        printf("1:\tPrint Data\n");
+        printf("2:\tLinear Regression\n");
+        printf("3:\tKMeans\n");
+        printf("4:\tOutlier Detection\n");
+        printf("5:\tEXIT\n");
+
+        scanf("%d", &ans);
+
+        //Answer is incorrect
+        if(ans < 0 || ans > 5 )
         {
-            strcpy(arP[m][n], strtok(NULL, delim));
-            n++;
+            printf("\nINVALID INPUT!\n");
+        } else{
+            invalid = 0;
         }
-        n = 0;
-        m++;
+    }while(invalid);
+
+    //Set State
+    u->state = ans;
+
+    return u->state == EXIT ? 0 : 1;
+}
+
+/**********************************************************************
+Name: stateMachine
+Description: This is the state machine for the main menu.
+@author - Brendan P. Beauchamp
+@updated - 6/25/2020
+@param - struct stateControl *u
+                            This is a structure which contains
+                            variables used in state control
+@param - struct theData *d
+                            This is a structure containing data for
+                            the main program, and parsed data
+@param - struct files *f
+                            This is a structure containing data for
+                            open files in the program
+@return - void
+**********************************************************************/
+void stateMachine(struct stateControl *u, struct theData *d, struct files *f)
+{
+    switch(u->state) {
+
+        case READ_INPUT  :
+            //State Machine for Reading Input
+            readFileData(f->inFileP,d->arIn);
+            break;
+
+        case PRINT_DATA  :
+            //State Machine for Printing Data
+            printData(d->arIn);
+            break;
+
+        case LINEAR_REGRESSION  :
+            //State Machine for Linear Regression
+
+            break;
+
+        case KMEANS  :
+            //State Machine for KMEANS
+
+            break;
+
+        case OUTLIER_DETECTION  :
+            //State Machine for Outlier Detection
+
+            break;
+
+        case EXIT       :
+            //Function for closing files and setting the control structure to exit
+            exitProgram(u, f);
+            break;
+
+        default :
+            //FIXME
+            //Function for stating improper input
+
+            break;
     }
 }
-
-void printData(char arP[2330][5][20])
+/**********************************************************************
+Name:
+Description:
+@author - Brendan P. Beauchamp
+@updated - 6/25/2020
+@param - struct stateControl *u
+                            This is a structure which contains
+                            variables used in state control
+@param - struct files *f
+                            This is a structure containing data for
+                            open files in the program
+@return - void
+**********************************************************************/
+void exitProgram(struct stateControl *u, struct files *f)
 {
-    int i,j;
-    int (*pT)(void) = &printTab;
-    int (*pN)(void) = &printNewLine;
-
-    for(i=0; i<2330; i++)
-    {
-        for(j=0; j<5; j++)
-        {
-            printf("%s", arP[j][i]);
-            (i==5) ? (*pN) : (*pT);
-
-        }
-    }
+    u->userContinue = 0;
+    fclose(f->inFileP);
 }
 
-int printTab(void)
+/*
+int* dataLinerization(struct Data data[]) 
 {
-    printf("\n");
-    return 0;
-}
+	int i = 0, j=0, date[foo(data)], month[foo(data)];
+	static int newArray[][];
 
-int printNewLine(void)
-{
-    printf("\n");
-    return 0;
+	while( i < foo(data))
+	{
+		month = strtok(data.date[i], "/");
+		date[i] = strtok(NULL, "/");
+		i++;
+	}
+	i=0;
+	
+	while(j < date[i])
+	{
+		newArray[j] = j + 1;
+		j++;
+		
+	}
+	return newArray;
 }
+ */

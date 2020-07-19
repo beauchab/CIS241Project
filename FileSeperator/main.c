@@ -17,7 +17,7 @@ Description: This Program opens the data given to us by the professor,
 #include "linearRegression.h"
 #include "usefulStats.h"
 
-//State Definitions
+//MAIN State Machine Definitions
 #define READ_INPUT        0
 #define PRINT_DATA        1//FIXME THIS SHOULD LAUNCH A SECONDARY STATE MACHINE (i.e. What data you want to print?)
 #define LINEAR_REGRESSION 2
@@ -30,16 +30,6 @@ struct stateControl {
     int state;
     int flags[5];
     int userContinue;
-};
-struct outData {
-    char ***arOut;
-    int length;
-    int width;
-    int depth;
-};
-struct theData {
-    char arIn[2330][5][20];
-    struct outData oD;
 };
 struct files{
     FILE *inFileP;

@@ -140,8 +140,9 @@ int lrSub_stateMachine(lrSC *u, char dataSet[2330][5][20])
             break;
 
         default :
-            //FIXME
-            //Function for stating improper input
+            //ERROR -> Exit state machine
+            printf("\nERROR: EXITING LINEAR REGRESSION\n");
+            u->state = LR_EXIT;
             break;
     }
     return u->userContinue;

@@ -1,5 +1,5 @@
 /**********************************************************************
-Name: fileHelper.h
+Name: linearRegression.h
 Description: This is a library of functions which implement linear
              regression. Linear regression extrapolates a function of
              the form y = ax + b, this library's main function call
@@ -12,6 +12,7 @@ Description: This is a library of functions which implement linear
 #define FILESEPERATOR_LINEARREGRESSION_H
 //Included Libraries
 #include "pythagoreanMeans.h"
+#include "usefulStats.h"
 //Structs
 typedef struct linearRegressionCoefficients
 {
@@ -29,10 +30,7 @@ double calcAlpha(double x[], double xBar, double y[], double yBar, int n);
 double calcBeta(double yBar, double xBar, double alpha);
 void calcYHat(double x[], double yHat[], double alpha, double beta, int n);
 double calcR_2(double y[], double yHat[], double yBar, int n);
-double calcVar(double x[], double xBar, int n);
-double calcStdDev(double Var);
-double calcCovXY(double x[], double xBar, double y[], double yBar, int n);
-double calcCorXY(double covXY, double varX, double varY);
+void lrSub_printRegression(lrCo c);
 /**********************************************************************
 Name:linearRegression
 Description: This function maps the data of arrays x and y to a function
@@ -43,10 +41,9 @@ Description: This function maps the data of arrays x and y to a function
 @updated - 7/8/2020
 @param - double x[]
                     This is an array which contains all of the x values
-                    for the linear regression
 @param - double y[]
                     This is an array which contains all of the y values
-                    for the linear regression
+                    for the linear regression.
 @param - int size
                     This is the size of arrays x and y
 @return - struct linearRegressionCoefficients (lrco) lRegC
@@ -58,7 +55,8 @@ lrCo linearRegression(double x[], double y[], int size)
 {
     lrCo lRegC;
     double yBar,xBar,varX,varY;
-    double yHat[size];
+
+    double *yHat = (double*) malloc(size * sizeof(double));  //memory allocated
 
     //xBar and yBar using arithmetic mean
     xBar = arithmeticMean(x, size);
@@ -96,19 +94,19 @@ Description: This program calculates the linear regression coefficient
 @updated - 7/8/2020
 @param - double x[]
                     This is an array which contains all of the x values
-                    for the linear regression
+                    for the linear regression.
 @param - double xBar
                     This is a double value which represents the
-                    arithmetic mean of the data set x
+                    arithmetic mean of the data set x.
 @param - double y[]
                     This is an array which contains all of the y values
-                    for the linear regression
+                    for the linear regression.
 @param - double yBar
                     This is a double value which represents the
-                    arithmetic mean of the data set y
+                    arithmetic mean of the data set y.
 @param - double n
                     This is an integer which represents the size of the
-                    data sets x and y
+                    data sets x and y.
 @return - double alpha
                     This is the linear regression coefficient which
                     represents the slope of the linear regression.
@@ -134,7 +132,7 @@ double calcAlpha(double x[], double xBar, double y[], double yBar, int n)
 Name: calcBeta
 Description: This program calculates the linear regression coefficient
              b (beta) in the equation y = ax + b. This coefficient is
-             found using the equation below
+             found using the equation below.
 
                 b = ybar - (a * xbar)
 
@@ -142,10 +140,10 @@ Description: This program calculates the linear regression coefficient
 @updated - 7/8/2020
 @param - double yBar
                     This is a double value which represents the
-                    arithmetic mean of the data set y
+                    arithmetic mean of the data set y.
 @param - double xBar
                     This is a double value which represents the
-                    arithmetic mean of the data set x
+                    arithmetic mean of the data set x.
 @param - double alpha
                     This is the linear regression coefficient which
                     represents the slope of the linear regression.
@@ -173,10 +171,10 @@ Description: This function takes an input of array x, its size, and the
 @updated - 7/8/2020
 @param - double x[]
                     This is an array which contains all of the x values
-                    for the linear regression
+                    for the linear regression.
 @param - double yHat[]
                     This is an array of predicted values for y using
-                    the linear regression coefficients
+                    the linear regression coefficients.
 @param - double alpha
                     This is the linear regression coefficient which
                     represents the slope of the linear regression.
@@ -186,7 +184,7 @@ Description: This function takes an input of array x, its size, and the
                     regression.
 @param - int n
                     This is an integer which represents the size of the
-                    data sets
+                    data sets.
 @return - void
 **********************************************************************/
 void calcYHat(double x[], double yHat[], double alpha, double beta, int n)
@@ -207,16 +205,16 @@ Description: This function calculates the R squared value of the linear
 @updated - 7/8/2020
 @param - double y[]
                     This is an array which contains all of the y values
-                    for the linear regression
+                    for the linear regression.
 @param - double yHat[]
                     This is an array of predicted values for y using
-                    the linear regression coefficients
+                    the linear regression coefficients.
 @param - double yBar
                     This is a double value which represents the
-                    arithmetic mean of the data set y
+                    arithmetic mean of the data set y.
 @param - int n
                     This is an integer which represents the size of the
-                    data sets
+                    data sets.
 @return - double R_2
                     This scalar is a measure of how closely the
                     data points in y fit to the regression y = ax + b.
@@ -236,113 +234,39 @@ double calcR_2(double y[], double yHat[], double yBar, int n)
     return R_2;
 }
 /**********************************************************************
-Name: calcVar
-Description: This function calculates the variance of a dataset that
-             is input to the function. The formula for variance is:
-
-                    var = sum((x-xBar)^2)/(n-1)
-
+Name: lrSub_printRegression
+Description: This is a function which prints the linear regression
+             coefficients for a computed linear regression.
 @author - Brendan P. Beauchamp
-@updated - 7/8/2020
-@param - double x[]
-                    This is an array which contains the dataset to
-                    calculate the variance of
-@param - double xBar
-                    This is the mean of the dataset to calculate the
-                    variance of
-@param -  int n
-                    This is the size of the dataset
-@return - double var
-                    This is the variance of the dataset
+@updated - 7/17/2020
+@param - lrCo c
+            This is a structure containing the linear regression
+            coefficients to be printed to the user.
+@return - void
 **********************************************************************/
-double calcVar(double x[], double xBar, int n)
+void lrSub_printRegression(lrCo c)
 {
-    double var,num;
-    int i;
+    //Equation Y = ax + b
+    printf("Regression Equation:\n");
+    printf("\tY = %lfx + %lf\n\n",c.alpha,c.beta);
+    printf("Alpha\t%lf\n",c.alpha);
+    printf("Beta\t%lf\n",c.beta);
 
-    //sum the numerator
-    for( i = 0; i < n; i++)
-    {
-        num += pow((x[i] - xBar),2);
-    }
+    //Standard Deviations
+    printf("Standard Deviation X\t%lf\n",c.stdDevX);
+    printf("Standard Deviation Y\t%lf\n",c.stdDevY);
 
-    var = num/(n-1);
-    return var;
-}
-/**********************************************************************
-Name: calcStdDev
-Description: This function calculates the standard deviation of a
-             dataset given its variance
-@author - Brendan P. Beauchamp
-@updated - 7/8/2020
-@param - double var
-                    This is the variance of the dataset
-@return - double stdDev
-                    This is the standard deviation of the dataset
-**********************************************************************/
-double calcStdDev(double var)
-{
-    double stdDev;
-    stdDev = sqrt(var);
-    return stdDev;
-}
-/**********************************************************************
-Name: calcCovXY
-Description: This function calculates the covariance between two
-             data sets.
-@author - Brendan P. Beauchamp
-@updated - 7/8/2020
-@param - double x[]
-                    This is an array which contains all of the x values
-                    for the linear regression
-@param - double xBar
-                    This is a double value which represents the
-                    arithmetic mean of the data set x
-@param - double y[]
-                    This is an array which contains all of the y values
-                    for the linear regression
-@param - double yBar
-                    This is a double value which represents the
-                    arithmetic mean of the data set y
-@param - double n
-                    This is an integer which represents the size of the
-                    data sets x and y
-@return - double cov
-                    This is the covariance of the two datasets
-**********************************************************************/
-double calcCovXY(double x[], double xBar, double y[], double yBar, int n)
-{
-    double cov, num;
-    int i;
+    //Regressional Analysis Correlation
+    //R Squared
+    printf("R Squared\t%lf\n",c.R_2);
+    analyzeRSquared(c.R_2);
 
-    for( i = 0; i < n; i++)
-    {
-        num += ((x[i] - xBar)*(y[i] - yBar));
-    }
+    //Covariance
+    printf("Covariance XY\t%lf\n",c.covXY);
+    analyzeCovXY(c.covXY);
 
-    cov = num/(n-1);
-    return cov;
-}
-/**********************************************************************
-Name:
-Description:
-@author - Brendan P. Beauchamp
-@updated - 7/8/2020
-@param - double covXY
-                        This is the covariance between the datasets
-                        X and Y
-@param - double varX
-                        This is the variance of the dataset X
-@param - double varY
-                        This is the variance of the dataset Y
-@return - double cor
-                        This is the correlation coefficient between
-                        the datasets X and Y
-**********************************************************************/
-double calcCorXY(double covXY, double varX, double varY)
-{
-    double cor;
-    cor = covXY/(sqrt(varX*varY));
-    return cor;
+    //Correlation Coefficient
+    printf("Correlation Coefficent XY\t%lf\n",c.corXY);
+    analyzeCorXY(c.corXY);
 }
 #endif //FILESEPERATOR_LINEARREGRESSION_H

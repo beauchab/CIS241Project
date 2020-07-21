@@ -170,7 +170,7 @@ void stateMachine(struct stateControl *u, dat *d, struct files *f)
 
         case READ_INPUT  :
             //State Machine for Reading Input
-            readFileData(f->inFileP,*d);
+            readFileData(f->inFileP,d);
             break;
 
         case PRINT_DATA  :

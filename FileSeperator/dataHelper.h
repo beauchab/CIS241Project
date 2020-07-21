@@ -32,10 +32,10 @@ typedef struct theData {
 
 //Function Prototypes
 void selectColumn(parDTok pDat[2330], int colChoice, void *cDat[2330]);
-void parseData(int dTyp, char *tok, parDTok pDat);
-nDate parseDate(char tok[20]);
-double parseDub(char tok[20]);
-int parseInt(char tok[20]);
+void parseData(int dTyp, char tok[20], parDTok *pDat);
+nDate parseDate(char **tok);
+double parseDub(char *tok);
+int parseInt(char *tok);
 void selectColumn(parDTok pDat[2330], int colChoice, void *cDat[2330]);
 
 /**********************************************************************
@@ -145,33 +145,33 @@ Description: This function is a state machine which controls the
 @return - void
 **********************************************************************/
 //FIXME FUNCTION DOES NOT PROPERLY TRANSFER D.ARIN CHAR ARRAY
-void parseData(int dTyp, char *tok, parDTok pDat)
+void parseData(int dTyp, char *tok, parDTok *pDat)
 {
     switch(dTyp) {
 
         case DATE  :
             //Parsing date structure {int,int,int}
-            pDat.date = parseDate(tok);
+            pDat->date = parseDate(&tok);
             break;
 
         case SPY_PUT_CALL_RATIO  :
             //Parsing SPY Put Call Ratio {double}
-            pDat.spyPutCallRatio = parseDub(tok);
+            pDat->spyPutCallRatio = parseDub(tok);
             break;
 
         case SPY_PUT_VOLUME   :
             //Parsing SPY Put Volume {int}
-            pDat.spyPutVolume = parseInt(tok);
+            pDat->spyPutVolume = parseInt(tok);
             break;
 
         case SPY_CALL_VOLUME  :
             //Parsing SPY Call Volume {int}
-            pDat.spyCallVolume = parseInt(tok);
+            pDat->spyCallVolume = parseInt(tok);
             break;
 
         case TOTAL_SPY_OPTIONS_VOLUME  :
             //Parsing SPY Total Options Volume {int}
-            pDat.spyTotalOptionsVolume = parseInt(tok);
+            pDat->spyTotalOptionsVolume = parseInt(tok);
             break;
 
         default :
@@ -201,16 +201,18 @@ Description: This function takes an input of a string which is a member
                 This is a member type of the structure parDTok which
                 represents a date.
 **********************************************************************/
-nDate parseDate(char tok[20])
+nDate parseDate(char **tok)
 {
     nDate ret;
-    char *day, *month, *year;
+    char temp[20], day[10], month[10], year[10];
     char delim[2] = "/";
 
+    strcpy(temp, tok);
+
     //Tokenize input
-    strcpy(day, strtok(tok, delim));
-    strcpy(month, strtok(tok, delim));
-    strcpy(year, strtok(tok, delim));
+    strcpy(day, strtok(temp, delim));
+    strcpy(month, strtok(NULL, delim));
+    strcpy(year, strtok(NULL, delim));
 
     //Convert input to date structure
     ret.day = parseInt(day);
@@ -239,7 +241,7 @@ Description: This function takes an input of a string which is a member
                 This is a double value which represents the SPY put
                 call ratio.
 **********************************************************************/
-double parseDub(char tok[20])
+double parseDub(char *tok)
 {
     char *ptr;
     double ret;
@@ -267,7 +269,7 @@ Description: This function takes an input of a string which is a member
                 SPY Put volume, SPY Call Volume, or Total SPY Options
                 Volume.
 **********************************************************************/
-int parseInt(char tok[20])
+int parseInt(char *tok)
 {
     return atoi(tok);
 }

@@ -12,7 +12,7 @@ Description: This is a library of file functions to help the
 #include <string.h>
 #include "dataHelper.h"
 //Function Prototypes
-void readFileData(FILE *fp, dat d);
+void readFileData(FILE *fp, dat *d);
 
 /**********************************************************************
 Name: readFileData
@@ -32,10 +32,11 @@ Description: This program takes an input of a file pointer to the
                                 file data after it has been read.
 @return - void
 **********************************************************************/
-void readFileData(FILE *fp, dat d)
+void readFileData(FILE *fp, dat *d)
 {
     char buff[200];
     char delim[2] = ",";
+    //char temp[20];
     int n = 0, m = 0;
 
     //Read Header
@@ -46,14 +47,18 @@ void readFileData(FILE *fp, dat d)
     {
         //Tokenize line into array elements
         //Tokenize user input as stated in midterm file
-        strcpy(&d.arIn[m][n][0], strtok(buff, delim));
-        parseData(n, d.arIn[m][n], d.parsedData[m]);
+        strcpy(&d->arIn[m][n][0], strtok(buff, delim));
+        //strcpy(temp, &d->arIn[m][n][0]);
+        //parseData(n, temp, &d->parsedData[m]);
+        parseData(n, d->arIn[m][n][0], &d->parsedData[m]);
 
         n++;
         while (n < 5)
         {
-            strcpy(&d.arIn[m][n][0], strtok(NULL, delim));
-            parseData(n, d.arIn[m][n], d.parsedData[m]);
+            strcpy(&d->arIn[m][n][0], strtok(NULL, delim));
+            //strcpy(temp, &d->arIn[m][n][0]);
+            //parseData(n, temp, &d->parsedData[m]);
+            parseData(n, d->arIn[m][n][0], &d->parsedData[m]);
 
             n++;
         }

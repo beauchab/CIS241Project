@@ -47,7 +47,7 @@ int receiveInput(struct stateControl *u);
 int main()
 {
     struct stateControl sC;
-    dat d;
+    dat d = { .arIn = {0}, .parsedData = {0} };
     struct files f;
     sC.userContinue = 1;
     sC.state = READ_INPUT;
@@ -58,16 +58,16 @@ int main()
     f.inFileP = fopen("classData.csv", "r");
 
     // CLion is giving me a hard time with printing this fixed it for me, you may comment it out.
-    setbuf(stdout, NULL);
-    do
-    {
-        stateMachine(&sC, &d, &f);
-    }
-    while(receiveInput(&sC));
+//    setbuf(stdout, NULL);
+//    do
+//    {
+//        stateMachine(&sC, &d, &f);
+//    }
+//    while(receiveInput(&sC));
 
 
 
-    //readFileData(f.inFileP, d.arIn);
+    readFileData(f.inFileP, &d);
     //printData(d.arIn);
 
     printf("Hello, World!\n");
@@ -170,7 +170,7 @@ void stateMachine(struct stateControl *u, dat *d, struct files *f)
 
         case READ_INPUT  :
             //State Machine for Reading Input
-            readFileData(f->inFileP,d);
+            readFileData(f->inFileP, d);
             break;
 
         case PRINT_DATA  :
@@ -225,11 +225,10 @@ void exitProgram(struct stateControl *u, struct files *f)
 }
 
 /*
-int* dataLinerization(struct Data data[]) 
+int* dataLinerization(struct Data data[])
 {
 	int i = 0, j=0, date[foo(data)], month[foo(data)];
 	static int newArray[][];
-
 	while( i < foo(data))
 	{
 		month = strtok(data.date[i], "/");
@@ -237,12 +236,10 @@ int* dataLinerization(struct Data data[])
 		i++;
 	}
 	i=0;
-	
 	while(j < date[i])
 	{
 		newArray[j] = j + 1;
 		j++;
-		
 	}
 	return newArray;
 }

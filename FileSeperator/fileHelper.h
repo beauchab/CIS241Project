@@ -27,16 +27,17 @@ Description: This program takes an input of a file pointer to the
                                 This is a pointer  to the
                                 classData.csv file which contains the
                                 input data for the project.
-@param - char arP[2330][5][20]
-                                This is an array which contains the
-                                file data after it has been read.
+@param - dat *d
+                                This is a pointer to a data structure
+                                to hold read and parsed data.
 @return - void
 **********************************************************************/
 void readFileData(FILE *fp, dat *d)
 {
     char buff[200];
+    char temp[20];
+    char tempDate[2330][20];
     char delim[2] = ",";
-    //char temp[20];
     int n = 0, m = 0;
 
     //Read Header
@@ -47,23 +48,27 @@ void readFileData(FILE *fp, dat *d)
     {
         //Tokenize line into array elements
         //Tokenize user input as stated in midterm file
-        strcpy(&d->arIn[m][n][0], strtok(buff, delim));
-        //strcpy(temp, &d->arIn[m][n][0]);
-        //parseData(n, temp, &d->parsedData[m]);
-        parseData(n, d->arIn[m][n][0], &d->parsedData[m]);
+        strcpy(temp, strtok(buff, delim));
+        strcpy(&d->arIn[m][n][0], temp);
+        strcpy(&tempDate[m][0], temp);
 
         n++;
+
         while (n < 5)
         {
             strcpy(&d->arIn[m][n][0], strtok(NULL, delim));
-            //strcpy(temp, &d->arIn[m][n][0]);
-            //parseData(n, temp, &d->parsedData[m]);
-            parseData(n, d->arIn[m][n][0], &d->parsedData[m]);
+            parseData(n, d->arIn[m][n], &d->parsedData[m]);
 
             n++;
         }
         n = 0;
         m++;
+    }
+
+    for(n = 0; n < 2330; n++)
+    {
+        d->parsedData[n].date = parseDate(&tempDate[n][0]);
+        d->parsedData[n].linDate = n;
     }
 }
 

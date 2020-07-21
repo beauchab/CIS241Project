@@ -10,8 +10,9 @@ Description: This is a library of file functions to help the
 //Includes
 #include <stdio.h>
 #include <string.h>
+#include "dataHelper.h"
 //Function Prototypes
-void readFileData(FILE *fp, char arP[2330][5][20]);
+void readFileData(FILE *fp, dat d);
 
 /**********************************************************************
 Name: readFileData
@@ -31,7 +32,7 @@ Description: This program takes an input of a file pointer to the
                                 file data after it has been read.
 @return - void
 **********************************************************************/
-void readFileData(FILE *fp, char arP[2330][5][20])
+void readFileData(FILE *fp, dat d)
 {
     char buff[200];
     char delim[2] = ",";
@@ -45,11 +46,15 @@ void readFileData(FILE *fp, char arP[2330][5][20])
     {
         //Tokenize line into array elements
         //Tokenize user input as stated in midterm file
-        strcpy(&arP[m][n][0], strtok(buff, delim));
+        strcpy(&d.arIn[m][n][0], strtok(buff, delim));
+        parseData(n, d.arIn[m][n], d.parsedData[m]);
+
         n++;
         while (n < 5)
         {
-            strcpy(&arP[m][n][0], strtok(NULL, delim));
+            strcpy(&d.arIn[m][n][0], strtok(NULL, delim));
+            parseData(n, d.arIn[m][n], d.parsedData[m]);
+
             n++;
         }
         n = 0;

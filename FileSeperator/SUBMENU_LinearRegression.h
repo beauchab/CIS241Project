@@ -21,6 +21,7 @@ Description: This is a library which controls the Linear Regression
 #include "linearRegression.h"
 #include "globalDefinitions.h"
 #include "usefulStats.h"
+#include "dataHelper.h"
 //State Definitions
 #define LR_PERFORM_REGRESSION       0
 #define LR_ANALYZE_REGRESSION       1
@@ -31,20 +32,23 @@ typedef struct LR_StateControl {
     int userContinue;
 }lrSC;
 typedef struct LR_DataPoints {
-    char* nameXY;
+    char nameXY[40];
     lrCo *lrP;
     int xData;
+    void *xDatVec[2330];
     int yData;
+    void *yDatVec[2330];
 }lrDP;
 
 //Function Prototypes
 int lrSub_receiveInput(lrSC *u);
 void lrSub_exit(lrSC *u);
-int lrSub_stateMachine(lrSC *u, char dataSet[2330][5][20]);
-void lrSub_performRegression(char dataSet[2330][5][20]);
+int lrSub_stateMachine(lrSC *u, parDTok *dat[2330]);
+void lrSub_performRegression(parDTok *dat[2330]);
 char *lrSub_dataName(int i);
 int lrSub_selectData(char* var);
-void linearRegressionSubMenu(char dataSet[2330][5][20]);
+void linearRegressionSubMenu(parDTok *dat[2330]);
+lrCo *castToRegression(int xTyp, int yTyp, void *xDat[2330], void *yDat[2330]);
 
 /**********************************************************************
 Name: linearRegressionSubMenu
@@ -52,17 +56,17 @@ Description: This function is the main driver for the linear regression
              submenu
 @author - Brendan P. Beauchamp
 @updated - 7/17/2020
-@param - char dataSet[2330][5][20]
+@param - parDTok *dat[2330]
                 This is the dataset read from Dr. Bhuse's input file
 @return - void
 **********************************************************************/
-void linearRegressionSubMenu(char dataSet[2330][5][20])
+void linearRegressionSubMenu(parDTok *dat[2330])
 {
     lrSC session;
     session.userContinue = 1;
     while(lrSub_receiveInput(&session))
     {
-        lrSub_stateMachine(&session, dataSet);
+        lrSub_stateMachine(&session, dat);
     }
 }
 /**********************************************************************
@@ -90,7 +94,9 @@ int lrSub_receiveInput(lrSC *u)
         printf("1:\tAnalyze Regression\n");
         printf("2:\tEXIT\n");
 
+        printf("Answer:\t");
         scanf("%d", &ans);
+        printf("\n");
 
         //Answer is incorrect
         if(ans < 0 || ans > 2 )
@@ -120,13 +126,13 @@ Description: This is the state machine for the linear regression sub menu.
                 This variable states whether the user would like to
                 continue running
 **********************************************************************/
-int lrSub_stateMachine(lrSC *u, char dataSet[2330][5][20])
+int lrSub_stateMachine(lrSC *u, parDTok *dat[2330])
 {
     switch(u->state) {
 
         case LR_PERFORM_REGRESSION  :
             //State Machine for choosing what to regress
-            lrSub_performRegression(dataSet);
+            lrSub_performRegression(dat);
             break;
 
         case LR_ANALYZE_REGRESSION  :
@@ -176,11 +182,10 @@ Description: This function asks the user which columns of Dr. Bhuse's
                 This is the dataset read from Dr. Bhuse's input file
 @return - void
 **********************************************************************/
-void lrSub_performRegression(char dataSet[2330][5][20])
+void lrSub_performRegression(parDTok *dat[2330])
 {
     lrDP data;
-    data.nameXY = "";
-    char* xDataType, yDataType;
+    char xDataType[20], yDataType[20];
 
     printf("Performing Linear Regression\n");
     printf("Y = aX + b\n");
@@ -195,21 +200,23 @@ void lrSub_performRegression(char dataSet[2330][5][20])
 
     //Select X Data Set
     data.xData = lrSub_selectData('X');
-    xDataType = lrSub_dataName(data.xData);
+    strcpy(xDataType, lrSub_dataName(data.xData));
 
     //Select Y Data Set
     data.yData = lrSub_selectData('Y');
-    yDataType = lrSub_dataName(data.yData);
+    strcpy(yDataType, lrSub_dataName(data.yData));
 
     //Concatenate Name of Data Structure "xDataType,yDataType"
-    strcat(data.nameXY, xDataType);
+    strcpy(data.nameXY, xDataType);
     strcat(data.nameXY, yDataType);
 
     //Select Columns to Regress
-
+    selectColumn(dat, data.xData, data.xDatVec);
+    selectColumn(dat, data.yData, data.yDatVec);
 
     //Perform Regression
-    //FIXME *data.lrP = linearRegression(double x[], double y[], int size);
+    printf("I'm at the regression. Horray!\n");
+    data.lrP = castToRegression(data.xData, data.yData, data.xDatVec, data.yDatVec);
 
     //Add to List
     //FIXME IMPLEMENT LIST
@@ -281,9 +288,11 @@ int lrSub_selectData(char* var)
     int invalid = 1;
 
     do {
-        printf("Select Data Set for%c\n", var);
+        printf("Select Data Set for %c\n", var);
 
+        printf("Answer:\t");
         scanf("%d", &ans);
+        printf("\n");
 
         //Answer is incorrect
         if(ans < 0 || ans > 4 )
@@ -295,5 +304,55 @@ int lrSub_selectData(char* var)
     }while(invalid);
 
     return ans;
+}
+
+/**********************************************************************
+Name:
+Description:
+@author - Brendan P. Beauchamp
+@updated - 7/21/2020
+@param -
+@return -
+**********************************************************************/
+lrCo *castToRegression(int xTyp, int yTyp, void *xDat[2330], void *yDat[2330])
+{
+    lrCo ret;
+    int xT, yT, cTp;
+
+    xT = ((xTyp == 0)||(xTyp == 2)||(xTyp == 3)) ? 0 : 1;
+    yT = ((xTyp == 0)||(xTyp == 2)||(xTyp == 3)) ? 0 : 1;
+    cTp = xT + yT;
+
+    switch(cTp) {
+
+        case 0:
+            //x -> int, y -> int
+            unsigned int (*x)[2330] = (unsigned int (*)[2330]) xDat;
+            unsigned int (*y)[2330] = (unsigned int (*)[2330]) yDat;
+            ret = linearRegression((double*)x, (double*)y, 2330);
+            break;
+
+        case 1:
+            //x -> int, y -> double
+            ret = linearRegression((int*)xDat, (double*)yDat, 2330);
+            break;
+
+        case 2:
+            //x -> double, y -> int
+            ret = linearRegression((double*)xDat, (int*)yDat, 2330);
+            break;
+
+        case 3:
+            //x -> double, y -> double
+            ret = linearRegression((double*)xDat, (double*)yDat, 2330);
+            break;
+
+
+        default :
+            printf("Error\n");
+            break;
+    }
+
+    return &ret;
 }
 #endif //FILESEPERATOR_SUBMENU_LINEARREGRESSION_H

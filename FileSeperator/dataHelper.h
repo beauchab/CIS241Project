@@ -76,7 +76,8 @@ void selectColumn(parDTok pDat[2330], int colChoice, void *cDat[2330])
                 //Allocate Space for Type
                 cDat[i] = malloc(sizeof(int));
                 //Cast Member to Array Location
-                *((int*)cDat[i]) = pDat->linDate;
+                *((int*)cDat[i]) = pDat[i].linDate;
+                //printf("%d ", *((int*)cDat[i]));          THIS ONE WORKS
                 break;
 
                 //Selected SPY Put Call Ratio {double}
@@ -84,7 +85,8 @@ void selectColumn(parDTok pDat[2330], int colChoice, void *cDat[2330])
                 //Allocate Space for Type
                 cDat[i] = malloc(sizeof(double));
                 //Cast Member to Array Location
-                *((double*)cDat[i]) = pDat->spyPutCallRatio;
+                *((double*)cDat[i]) = pDat[i].spyPutCallRatio;
+                //printf("%lf ", *((double*)cDat[i]));      THIS ONE WORKS
                 break;
 
                 //Selected SPY Put Volume {int}
@@ -92,7 +94,8 @@ void selectColumn(parDTok pDat[2330], int colChoice, void *cDat[2330])
                 //Allocate Space for Type
                 cDat[i] = malloc(sizeof(int));
                 //Cast Member to Array Location
-                *((int*)cDat[i]) = pDat->spyPutVolume;
+                *((int*)cDat[i]) = pDat[i].spyPutVolume;
+                //printf("%d ", *((int*)cDat[i]));          THIS ONE WORKS
                 break;
 
                 //Selected SPY Call Volume {int}
@@ -100,7 +103,8 @@ void selectColumn(parDTok pDat[2330], int colChoice, void *cDat[2330])
                 //Allocate Space for Type
                 cDat[i] = malloc(sizeof(int));
                 //Cast Member to Array Location
-                *((int*)cDat[i]) = pDat->spyCallVolume;
+                *((int*)cDat[i]) = pDat[i].spyCallVolume;
+                //printf("%d ", *((int*)cDat[i]));          THIS ONE WORKS
                 break;
 
                 //Parsing SPY Total Options Volume {int}
@@ -108,7 +112,8 @@ void selectColumn(parDTok pDat[2330], int colChoice, void *cDat[2330])
                 //Allocate Space for Type
                 cDat[i] = malloc(sizeof(int));
                 //Cast Member to Array Location
-                *((int*)cDat[i]) = pDat->spyTotalOptionsVolume;
+                *((int*)cDat[i]) = pDat[i].spyTotalOptionsVolume;
+                //printf("%d ", *((int*)cDat[i]));          THIS ONE WORKS
                 break;
 
             default :

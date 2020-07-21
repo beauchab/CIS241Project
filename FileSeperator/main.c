@@ -17,6 +17,7 @@ Description: This Program opens the data given to us by the professor,
 #include "linearRegression.h"
 #include "usefulStats.h"
 #include "dataHelper.h"
+#include "SUBMENU_LinearRegression.h"
 
 //MAIN State Machine Definitions
 #define READ_INPUT        0
@@ -58,16 +59,16 @@ int main()
     f.inFileP = fopen("classData.csv", "r");
 
     // CLion is giving me a hard time with printing this fixed it for me, you may comment it out.
-//    setbuf(stdout, NULL);
-//    do
-//    {
-//        stateMachine(&sC, &d, &f);
-//    }
-//    while(receiveInput(&sC));
+    setbuf(stdout, NULL);
+    do
+    {
+        stateMachine(&sC, &d, &f);
+    }
+    while(receiveInput(&sC));
 
 
 
-    readFileData(f.inFileP, &d);
+    //readFileData(f.inFileP, &d);
     //printData(d.arIn);
 
     printf("Hello, World!\n");
@@ -131,7 +132,9 @@ int receiveInput(struct stateControl *u)
         printf("4:\tOutlier Detection\n");
         printf("5:\tEXIT\n");
 
+        printf("Answer:\t");
         scanf("%d", &ans);
+        printf("\n");
 
         //Answer is incorrect
         if(ans < 0 || ans > 5 )
@@ -180,7 +183,7 @@ void stateMachine(struct stateControl *u, dat *d, struct files *f)
 
         case LINEAR_REGRESSION  :
             //State Machine for Linear Regression
-
+            linearRegressionSubMenu(d->parsedData);
             break;
 
         case KMEANS  :

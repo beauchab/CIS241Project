@@ -6,11 +6,21 @@
 
 #IncludeRegexTransform: 
 
+C:/Users/brent/CLionProjects/FileSeperatorCopy/dataHelper.h
+globalDefinitions.h
+C:/Users/brent/CLionProjects/FileSeperatorCopy/globalDefinitions.h
+stdlib.h
+-
+
 C:/Users/brent/CLionProjects/FileSeperatorCopy/fileHelper.h
 stdio.h
 -
 string.h
 -
+dataHelper.h
+C:/Users/brent/CLionProjects/FileSeperatorCopy/dataHelper.h
+
+C:/Users/brent/CLionProjects/FileSeperatorCopy/globalDefinitions.h
 
 C:/Users/brent/CLionProjects/FileSeperatorCopy/linearRegression.h
 pythagoreanMeans.h
@@ -35,6 +45,8 @@ linearRegression.h
 C:/Users/brent/CLionProjects/FileSeperatorCopy/linearRegression.h
 usefulStats.h
 C:/Users/brent/CLionProjects/FileSeperatorCopy/usefulStats.h
+dataHelper.h
+C:/Users/brent/CLionProjects/FileSeperatorCopy/dataHelper.h
 
 C:/Users/brent/CLionProjects/FileSeperatorCopy/printHelper.h
 stdio.h

@@ -16,6 +16,7 @@ Description: This Program opens the data given to us by the professor,
 #include <stdlib.h>
 #include "linearRegression.h"
 #include "usefulStats.h"
+#include "dataHelper.h"
 
 //MAIN State Machine Definitions
 #define READ_INPUT        0
@@ -37,7 +38,7 @@ struct files{
 };
 
 //Function Prototypes
-void stateMachine(struct stateControl *u, struct theData *d, struct files *f);
+void stateMachine(struct stateControl *u, dat *d, struct files *f);
 void exitProgram(struct stateControl *u, struct files *f);
 int userContinue();
 int receiveInput(struct stateControl *u);
@@ -46,7 +47,7 @@ int receiveInput(struct stateControl *u);
 int main()
 {
     struct stateControl sC;
-    struct theData d;
+    dat d;
     struct files f;
     sC.userContinue = 1;
     sC.state = READ_INPUT;
@@ -155,7 +156,7 @@ Description: This is the state machine for the main menu.
 @param - struct stateControl *u
                             This is a structure which contains
                             variables used in state control
-@param - struct theData *d
+@param - dat *d
                             This is a structure containing data for
                             the main program, and parsed data
 @param - struct files *f
@@ -163,13 +164,13 @@ Description: This is the state machine for the main menu.
                             open files in the program
 @return - void
 **********************************************************************/
-void stateMachine(struct stateControl *u, struct theData *d, struct files *f)
+void stateMachine(struct stateControl *u, dat *d, struct files *f)
 {
     switch(u->state) {
 
         case READ_INPUT  :
             //State Machine for Reading Input
-            readFileData(f->inFileP,d->arIn);
+            readFileData(f->inFileP,*d);
             break;
 
         case PRINT_DATA  :

@@ -205,6 +205,9 @@ void lrSub_performRegression(char dataSet[2330][5][20])
     strcat(data.nameXY, xDataType);
     strcat(data.nameXY, yDataType);
 
+    //Select Columns to Regress
+
+
     //Perform Regression
     //FIXME *data.lrP = linearRegression(double x[], double y[], int size);
 

@@ -32,8 +32,8 @@ typedef struct theData {
 
 //Function Prototypes
 void selectColumn(parDTok pDat[2330], int colChoice, void *cDat[2330]);
-void parseData(int dTyp, char *tok, parDTok pDat);
-nDate parseDate(char tok[20]);
+void parseData(int dTyp, char *tok, parDTok *pDat);
+nDate parseDate(char *tok);
 double parseDub(char tok[20]);
 int parseInt(char tok[20]);
 void selectColumn(parDTok pDat[2330], int colChoice, void *cDat[2330]);
@@ -61,7 +61,7 @@ Description: This is a function which allows the user to select a column
 void selectColumn(parDTok pDat[2330], int colChoice, void *cDat[2330])
 {
     int i;
-    
+
     for(i = 0; i < 2330; i++)
     {
         switch (colChoice)
@@ -79,7 +79,7 @@ void selectColumn(parDTok pDat[2330], int colChoice, void *cDat[2330])
                 *((int*)cDat[i]) = pDat->linDate;
                 break;
 
-            //Selected SPY Put Call Ratio {double}
+                //Selected SPY Put Call Ratio {double}
             case SPY_PUT_CALL_RATIO  :
                 //Allocate Space for Type
                 cDat[i] = malloc(sizeof(double));
@@ -87,7 +87,7 @@ void selectColumn(parDTok pDat[2330], int colChoice, void *cDat[2330])
                 *((double*)cDat[i]) = pDat->spyPutCallRatio;
                 break;
 
-            //Selected SPY Put Volume {int}
+                //Selected SPY Put Volume {int}
             case SPY_PUT_VOLUME   :
                 //Allocate Space for Type
                 cDat[i] = malloc(sizeof(int));
@@ -95,7 +95,7 @@ void selectColumn(parDTok pDat[2330], int colChoice, void *cDat[2330])
                 *((int*)cDat[i]) = pDat->spyPutVolume;
                 break;
 
-            //Selected SPY Call Volume {int}
+                //Selected SPY Call Volume {int}
             case SPY_CALL_VOLUME  :
                 //Allocate Space for Type
                 cDat[i] = malloc(sizeof(int));
@@ -103,7 +103,7 @@ void selectColumn(parDTok pDat[2330], int colChoice, void *cDat[2330])
                 *((int*)cDat[i]) = pDat->spyCallVolume;
                 break;
 
-            //Parsing SPY Total Options Volume {int}
+                //Parsing SPY Total Options Volume {int}
             case TOTAL_SPY_OPTIONS_VOLUME  :
                 //Allocate Space for Type
                 cDat[i] = malloc(sizeof(int));
@@ -137,7 +137,7 @@ Description: This function is a state machine which controls the
                 member of the dat structure. This single member value
                 along with dTyp are used to determine the type (4cols)
                 and value of a member of the parDTok structure.
-@param - parDTok pDat
+@param - parDTok *pDat
                 This is a parameterized data token which contains
                 parsed members of the .csv input file. The structure
                 contains these values in their numeric, manipulable
@@ -145,33 +145,33 @@ Description: This function is a state machine which controls the
 @return - void
 **********************************************************************/
 //FIXME FUNCTION DOES NOT PROPERLY TRANSFER D.ARIN CHAR ARRAY
-void parseData(int dTyp, char *tok, parDTok pDat)
+void parseData(int dTyp, char *tok, parDTok *pDat)
 {
     switch(dTyp) {
 
         case DATE  :
             //Parsing date structure {int,int,int}
-            pDat.date = parseDate(tok);
+            pDat->date = parseDate(tok);
             break;
 
         case SPY_PUT_CALL_RATIO  :
             //Parsing SPY Put Call Ratio {double}
-            pDat.spyPutCallRatio = parseDub(tok);
+            pDat->spyPutCallRatio = parseDub(tok);
             break;
 
         case SPY_PUT_VOLUME   :
             //Parsing SPY Put Volume {int}
-            pDat.spyPutVolume = parseInt(tok);
+            pDat->spyPutVolume = parseInt(tok);
             break;
 
         case SPY_CALL_VOLUME  :
             //Parsing SPY Call Volume {int}
-            pDat.spyCallVolume = parseInt(tok);
+            pDat->spyCallVolume = parseInt(tok);
             break;
 
         case TOTAL_SPY_OPTIONS_VOLUME  :
             //Parsing SPY Total Options Volume {int}
-            pDat.spyTotalOptionsVolume = parseInt(tok);
+            pDat->spyTotalOptionsVolume = parseInt(tok);
             break;
 
         default :
@@ -201,16 +201,16 @@ Description: This function takes an input of a string which is a member
                 This is a member type of the structure parDTok which
                 represents a date.
 **********************************************************************/
-nDate parseDate(char tok[20])
+nDate parseDate(char *tok)
 {
     nDate ret;
-    char *day, *month, *year;
+    char day[5], month[5], year[5];
     char delim[2] = "/";
 
     //Tokenize input
     strcpy(day, strtok(tok, delim));
-    strcpy(month, strtok(tok, delim));
-    strcpy(year, strtok(tok, delim));
+    strcpy(month, strtok(NULL, delim));
+    strcpy(year, strtok(NULL, delim));
 
     //Convert input to date structure
     ret.day = parseInt(day);

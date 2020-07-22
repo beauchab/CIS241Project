@@ -16,7 +16,7 @@ Description: This is a library which controls the kmeans Sub Menu.
 #include "globalDefinitions.h"
 
 //State Definitions
-#define KM_
+#define 
 
 /**********************************************************************
 Name: kmeansSubMenu
@@ -28,7 +28,7 @@ Description: This function is the main driver for the kmeans
                 This is the dataset read from Dr. Bhuse's input file
 @return - void
 **********************************************************************/
-void linearRegressionSubMenu(char dataSet[2330][5][20])
+void kmeansSubMenu(char dataSet[2330][5][20])
 {
     lrSC session;
     session.userContinue = 1;
@@ -38,6 +38,49 @@ void linearRegressionSubMenu(char dataSet[2330][5][20])
     }
 }
 
+/**********************************************************************
+Name:kmeansSub_receiveInput
+Description: This function is utilized to determine what the user will 
+	     pass into the kmeans function.
+@author - Taylor A. Rieger
+@updated - 7/17/2020
+@param - lrSC *u
+                This is a structure which contains variables useful to
+                maintaining the state of the linear regression sub menu.
+@return - int {1,0}
+                This is a value which states 1 if the user would like
+                to continue running the program or 0 if the would not.
+**********************************************************************/
+int lrSub_receiveInput(lrSC *u)
+{
+    int ans;
+    int invalid = 1;
+    do {
+        printf("Linear Regression: STATE MACHINE\n");
+        printf("What would you like to do?\n");
+        printf("Options:\n");
+        printf("0:\tPerform Regression\n");
+        printf("1:\tAnalyze Regression\n");
+        printf("2:\tEXIT\n");
+
+        printf("Answer:\t");
+        scanf("%d", &ans);
+        printf("\n");
+
+        //Answer is incorrect
+        if(ans < 0 || ans > 2 )
+        {
+            printf("\nINVALID INPUT!\n");
+        } else{
+            invalid = 0;
+        }
+    }while(invalid);
+
+    //Set State
+    u->state = ans;
+
+    return u->state == LR_EXIT ? 0 : 1;
+}
 
 
 

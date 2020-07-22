@@ -25,11 +25,11 @@ typedef struct linearRegressionCoefficients
     double corXY;
 }lrCo;
 //Function Prototypes
-lrCo linearRegression(double x[], double y[], int size);
-double calcAlpha(double x[], double xBar, double y[], double yBar, int n);
+lrCo linearRegression(void *x[], void *y[], int size);
+double calcAlpha(void *x[], double xBar, void *y[], double yBar, int n);
 double calcBeta(double yBar, double xBar, double alpha);
-void calcYHat(double x[], double **yHat, double alpha, double beta, int n);
-double calcR_2(double y[], double yHat[], double yBar, int n);
+void calcYHat(void *x[], double *yHat[], double alpha, double beta, int n);
+double calcR_2(void *y[], double yHat[], double yBar, int n);
 void lrSub_printRegression(lrCo c);
 /**********************************************************************
 Name:linearRegression
@@ -51,15 +51,15 @@ Description: This function maps the data of arrays x and y to a function
                 of the linear regression of x and y. These coefficients
                 are labeled alpha for a and beta for b.
 **********************************************************************/
-lrCo linearRegression(double x[], double y[], int size)
+lrCo linearRegression(void *x[], void *y[], int size)
 {
     lrCo lRegC;
     double yBar,xBar,varX,varY;
 
     double *yHat = (double*) malloc(size * sizeof(double));  //memory allocated
 
-    printf("%lf", x[0]);
-    printf("%lf", y[0]);
+    printf("%p\n",&x[0]);
+    printf("%p\n",&y[0]);
 
     //xBar and yBar using arithmetic mean
     xBar = arithmeticMean(x, size);
@@ -114,7 +114,7 @@ Description: This program calculates the linear regression coefficient
                     This is the linear regression coefficient which
                     represents the slope of the linear regression.
 **********************************************************************/
-double calcAlpha(double x[], double xBar, double y[], double yBar, int n)
+double calcAlpha(void *x[], double xBar, void *y[], double yBar, int n)
 {
     double den = 0;//bottom of alpha formula
     double num = 0;//top of alpha formula
@@ -122,10 +122,10 @@ double calcAlpha(double x[], double xBar, double y[], double yBar, int n)
     int i;//iterator
 
     for(i = 0; i < n; ++i){
-        num += ((x[i] - xBar)*(y[i] - yBar));//calculates the top of the alpha formula and sums values
+        num += ((*(int*)x[i] - xBar)*(*(int*)y[i] - yBar));//calculates the top of the alpha formula and sums values
     }
     for(i = 0; i < n; ++i){
-        den += pow((x[i] - xBar),2);//calculates the bottom of the alpha formula
+        den += pow((*(int*)x[i] - xBar),2);//calculates the bottom of the alpha formula
     }
     alpha = (num/den);//divides top by bottom to get alpha
 
@@ -190,14 +190,14 @@ Description: This function takes an input of array x, its size, and the
                     data sets.
 @return - void
 **********************************************************************/
-void calcYHat(double x[], double **yHat, double alpha, double beta, int n)
+void calcYHat(void *x[], double *yHat[], double alpha, double beta, int n)
 {
     int i;
 
-    for( i = 0; i < n; i++)
+    for(i = 0; i < n; i++)
     {
-        (*yHat)[i] = (alpha * x[i]) + beta;
-        printf("%lf", yHat[i]);
+        *yHat[i] = (alpha * *(int*)x[i]) + beta;
+        //printf("%lf\n",*yHat[i]);
     }
 }
 /**********************************************************************
@@ -223,15 +223,15 @@ Description: This function calculates the R squared value of the linear
                     This scalar is a measure of how closely the
                     data points in y fit to the regression y = ax + b.
 **********************************************************************/
-double calcR_2(double y[], double yHat[], double yBar, int n)
+double calcR_2(void *y[], double yHat[], double yBar, int n)
 {
     double R_2, num, den;
     int i;
 
     for( i = 0; i < n; i++)
     {
-        num += pow((y[i] - yHat[i]),2);
-        den += pow((y[i] - yBar),2);
+        num += pow((*(int*)y[i] - yHat[i]),2);
+        den += pow((*(int*)y[i] - yBar),2);
     }
 
     R_2 = 1 - (num/den);

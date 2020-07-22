@@ -327,24 +327,26 @@ lrCo *castToRegression(int xTyp, int yTyp, void *xDat[2330], void *yDat[2330])
 
         case 0:
             //x -> int, y -> int
-            unsigned int (*x)[2330] = (unsigned int (*)[2330]) xDat;
-            unsigned int (*y)[2330] = (unsigned int (*)[2330]) yDat;
-            ret = linearRegression((double*)x, (double*)y, 2330);
+            printf("%p\n", &xDat[0]);
+            printf("%p\n", &yDat[0]);
+            ret = linearRegression(xDat, yDat, 2330);
             break;
 
         case 1:
             //x -> int, y -> double
-            ret = linearRegression((int*)xDat, (double*)yDat, 2330);
+            printf("%p\n", &xDat[0]);
+            printf("%p\n", &yDat[0]);
+            ret = linearRegression(xDat, yDat, 2330);
             break;
 
         case 2:
             //x -> double, y -> int
-            ret = linearRegression((double*)xDat, (int*)yDat, 2330);
+            ret = linearRegression(xDat, yDat, 2330);
             break;
 
         case 3:
             //x -> double, y -> double
-            ret = linearRegression((double*)xDat, (double*)yDat, 2330);
+            ret = linearRegression(xDat, yDat, 2330);
             break;
 
 

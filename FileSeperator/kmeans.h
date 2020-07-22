@@ -5,7 +5,7 @@ Description: This library implements kmeans clustering functionality
              it has been used with the permission of the author.
 @author - Ethan Brodsky
 @updated - October 2011
-@param - 
+@param -
 @return -
 **********************************************************************/
 #ifndef FILESEPERATOR_KMEANS_H
@@ -42,13 +42,12 @@ void copy_assignment_array(int n, int* src, int* tgt);
 int assignment_change_count(int n, int a[], int b[]);
 
 /**********************************************************************
-Name: fail
-Description: This function prints the string that the parameter is 
-	     pointing to and then exits the code.
+Name:
+Description:
 @author - Ethan Brodsky
 @updated - October 2011
-@param - char* 
-@return - 
+@param -
+@return -
 **********************************************************************/
 void fail(char* str)
 {
@@ -56,8 +55,8 @@ void fail(char* str)
     exit(-1);
 }
 /**********************************************************************
-Name: calc_distance	
-Description: This function calculates the distance 
+Name:
+Description:
 @author - Ethan Brodsky
 @updated - October 2011
 @param -

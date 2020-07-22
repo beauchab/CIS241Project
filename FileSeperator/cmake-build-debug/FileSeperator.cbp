@@ -82,7 +82,16 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="C:/Users/brent/CLionProjects/FileSeperatorCopy/SUBMENU_Kmeans.h">
+			<Option target="FileSeperator"/>
+		</Unit>
 		<Unit filename="C:/Users/brent/CLionProjects/FileSeperatorCopy/SUBMENU_LinearRegression.h">
+			<Option target="FileSeperator"/>
+		</Unit>
+		<Unit filename="C:/Users/brent/CLionProjects/FileSeperatorCopy/SUBMENU_OutlierDetection.h">
+			<Option target="FileSeperator"/>
+		</Unit>
+		<Unit filename="C:/Users/brent/CLionProjects/FileSeperatorCopy/dataHelper.h">
 			<Option target="FileSeperator"/>
 		</Unit>
 		<Unit filename="C:/Users/brent/CLionProjects/FileSeperatorCopy/fileHelper.h">

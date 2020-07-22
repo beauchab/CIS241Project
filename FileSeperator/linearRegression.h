@@ -28,7 +28,7 @@ typedef struct linearRegressionCoefficients
 lrCo linearRegression(void *x[], void *y[], int size);
 double calcAlpha(void *x[], double xBar, void *y[], double yBar, int n);
 double calcBeta(double yBar, double xBar, double alpha);
-void calcYHat(void *x[], double *yHat[], double alpha, double beta, int n);
+void calcYHat(void *x[], double yHat[], double alpha, double beta, int n);
 double calcR_2(void *y[], double yHat[], double yBar, int n);
 void lrSub_printRegression(lrCo c);
 /**********************************************************************
@@ -55,8 +55,8 @@ lrCo linearRegression(void *x[], void *y[], int size)
 {
     lrCo lRegC;
     double yBar,xBar,varX,varY;
-
-    double *yHat = (double*) malloc(size * sizeof(double));  //memory allocated
+    double yHat[2330];
+    //double *yHat = (double*) malloc(size * sizeof(double));  //memory allocated
 
     printf("%p\n",&x[0]);
     printf("%p\n",&y[0]);
@@ -71,7 +71,7 @@ lrCo linearRegression(void *x[], void *y[], int size)
 
     //determines Rsquared value
     calcYHat(x, &yHat, lRegC.alpha, lRegC.beta, size);
-    lRegC.R_2 = calcR_2(y, yHat, yBar, size);
+    lRegC.R_2 = calcR_2(y, &yHat, yBar, size);
 
     //calculate variances and standard deviations
     varX = calcVar(x, xBar, size);
@@ -190,14 +190,12 @@ Description: This function takes an input of array x, its size, and the
                     data sets.
 @return - void
 **********************************************************************/
-void calcYHat(void *x[], double *yHat[], double alpha, double beta, int n)
+void calcYHat(void *x[], double yHat[], double alpha, double beta, int n)
 {
     int i;
-
     for( i = 0; i < n; i++)
     {
-        *yHat[i ] = (alpha * *(int*)x[i]) + beta;
-        printf("%lf\n",*yHat[i]);
+        yHat[i] = (double)(alpha * *(int*)x[i]) + beta; //Yhat = aX +b
     }
 }
 /**********************************************************************
@@ -230,6 +228,8 @@ double calcR_2(void *y[], double yHat[], double yBar, int n)
 
     for( i = 0; i < n; i++)
     {
+        printf("%lf\n", yHat[i]);
+        printf("%d\n", y[i]);
         num += pow((*(int*)y[i] - yHat[i]),2);
         den += pow((*(int*)y[i] - yBar),2);
     }

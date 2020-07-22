@@ -16,8 +16,8 @@ Description: This Program opens the data given to us by the professor,
 #include <stdlib.h>
 #include "linearRegression.h"
 #include "usefulStats.h"
-#include "dataHelper.h"
-#include "SUBMENU_LinearRegression.h"
+#include "datahelper.h"
+#include "outlierDetection.h"
 
 //MAIN State Machine Definitions
 #define READ_INPUT        0
@@ -39,7 +39,7 @@ struct files{
 };
 
 //Function Prototypes
-void stateMachine(struct stateControl *u, dat *d, struct files *f);
+void stateMachine(struct stateControl *u, struct theData *d, struct files *f);
 void exitProgram(struct stateControl *u, struct files *f);
 int userContinue();
 int receiveInput(struct stateControl *u);
@@ -48,7 +48,7 @@ int receiveInput(struct stateControl *u);
 int main()
 {
     struct stateControl sC;
-    dat d = { .arIn = {0}, .parsedData = {0} };
+    struct theData d;
     struct files f;
     sC.userContinue = 1;
     sC.state = READ_INPUT;
@@ -68,10 +68,10 @@ int main()
 
 
 
-    //readFileData(f.inFileP, &d);
+    //readFileData(f.inFileP, d.arIn);
     //printData(d.arIn);
 
-    printf("Hello, World!\n");
+    printf("\n\t*EXITING*\n");
     return 0;
 }
 
@@ -132,9 +132,7 @@ int receiveInput(struct stateControl *u)
         printf("4:\tOutlier Detection\n");
         printf("5:\tEXIT\n");
 
-        printf("Answer:\t");
         scanf("%d", &ans);
-        printf("\n");
 
         //Answer is incorrect
         if(ans < 0 || ans > 5 )
@@ -159,7 +157,7 @@ Description: This is the state machine for the main menu.
 @param - struct stateControl *u
                             This is a structure which contains
                             variables used in state control
-@param - dat *d
+@param - struct theData *d
                             This is a structure containing data for
                             the main program, and parsed data
 @param - struct files *f
@@ -167,13 +165,13 @@ Description: This is the state machine for the main menu.
                             open files in the program
 @return - void
 **********************************************************************/
-void stateMachine(struct stateControl *u, dat *d, struct files *f)
+void stateMachine(struct stateControl *u, struct theData *d, struct files *f)
 {
     switch(u->state) {
 
         case READ_INPUT  :
             //State Machine for Reading Input
-            readFileData(f->inFileP, d);
+            readFileData(f->inFileP,d->arIn);
             break;
 
         case PRINT_DATA  :
@@ -183,7 +181,7 @@ void stateMachine(struct stateControl *u, dat *d, struct files *f)
 
         case LINEAR_REGRESSION  :
             //State Machine for Linear Regression
-            linearRegressionSubMenu(d->parsedData);
+
             break;
 
         case KMEANS  :
@@ -193,7 +191,7 @@ void stateMachine(struct stateControl *u, dat *d, struct files *f)
 
         case OUTLIER_DETECTION  :
             //State Machine for Outlier Detection
-
+            outlierDetection();
             break;
 
         case EXIT       :
@@ -232,6 +230,7 @@ int* dataLinerization(struct Data data[])
 {
 	int i = 0, j=0, date[foo(data)], month[foo(data)];
 	static int newArray[][];
+
 	while( i < foo(data))
 	{
 		month = strtok(data.date[i], "/");
@@ -239,10 +238,12 @@ int* dataLinerization(struct Data data[])
 		i++;
 	}
 	i=0;
+
 	while(j < date[i])
 	{
 		newArray[j] = j + 1;
 		j++;
+
 	}
 	return newArray;
 }

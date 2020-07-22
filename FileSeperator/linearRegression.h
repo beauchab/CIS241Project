@@ -28,7 +28,7 @@ typedef struct linearRegressionCoefficients
 lrCo linearRegression(double x[], double y[], int size);
 double calcAlpha(double x[], double xBar, double y[], double yBar, int n);
 double calcBeta(double yBar, double xBar, double alpha);
-void calcYHat(double x[], double yHat[], double alpha, double beta, int n);
+void calcYHat(double x[], double **yHat, double alpha, double beta, int n);
 double calcR_2(double y[], double yHat[], double yBar, int n);
 void lrSub_printRegression(lrCo c);
 /**********************************************************************
@@ -58,6 +58,9 @@ lrCo linearRegression(double x[], double y[], int size)
 
     double *yHat = (double*) malloc(size * sizeof(double));  //memory allocated
 
+    printf("%lf", x[0]);
+    printf("%lf", y[0]);
+
     //xBar and yBar using arithmetic mean
     xBar = arithmeticMean(x, size);
     yBar = arithmeticMean(y, size);
@@ -67,7 +70,7 @@ lrCo linearRegression(double x[], double y[], int size)
     lRegC.beta = calcBeta( yBar, xBar, lRegC.alpha);
 
     //determines Rsquared value
-    calcYHat(x, yHat, lRegC.alpha, lRegC.beta, size);
+    calcYHat(x, &yHat, lRegC.alpha, lRegC.beta, size);
     lRegC.R_2 = calcR_2(y, yHat, yBar, size);
 
     //calculate variances and standard deviations
@@ -187,13 +190,14 @@ Description: This function takes an input of array x, its size, and the
                     data sets.
 @return - void
 **********************************************************************/
-void calcYHat(double x[], double yHat[], double alpha, double beta, int n)
+void calcYHat(double x[], double **yHat, double alpha, double beta, int n)
 {
     int i;
 
     for( i = 0; i < n; i++)
     {
-        yHat[i] = (alpha * x[i]) + beta;
+        (*yHat)[i] = (alpha * x[i]) + beta;
+        printf("%lf", yHat[i]);
     }
 }
 /**********************************************************************

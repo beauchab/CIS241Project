@@ -21,7 +21,7 @@ double calcAlpha(void *x[2330], Type xT, void *y[2330], Type yT, double xBar, do
 double calcBeta(double yBar, double xBar, double alpha);
 void calcYHat(void *x[2330], Type xT, double yHat[2330], double alpha, double beta);
 double calcR_2(void *y[2330], Type yT, double yHat[2330], double yBar);
-void lrSub_printRegression(lrCo c);
+void lrSub_printRegression(lrDP d);
 /**********************************************************************
 Name:linearRegression
 Description: This function maps the data of arrays x and y to a function
@@ -304,29 +304,30 @@ Description: This is a function which prints the linear regression
             coefficients to be printed to the user.
 @return - void
 **********************************************************************/
-void lrSub_printRegression(lrCo c)
+void lrSub_printRegression(lrDP d)
 {
+    printf("Regression of %s\n\n", d.nameXY);
     //Equation Y = ax + b
     printf("Regression Equation:\n");
-    printf("\tY = %lfx + %lf\n\n",c.alpha,c.beta);
-    printf("Alpha\t%lf\n",c.alpha);
-    printf("Beta\t%lf\n",c.beta);
+    printf("\tY = %lfx + %lf\n\n",d.lrP.alpha,d.lrP.beta);
+    printf("Alpha\t\t\t\t\t\t%lf\n",d.lrP.alpha);
+    printf("Beta\t\t\t\t\t\t%lf\n",d.lrP.beta);
 
     //Standard Deviations
-    printf("Standard Deviation X\t%lf\n",c.stdDevX);
-    printf("Standard Deviation Y\t%lf\n",c.stdDevY);
+    printf("Standard Deviation X\t\t%lf\n",d.lrP.stdDevX);
+    printf("Standard Deviation Y\t\t%lf\n",d.lrP.stdDevY);
 
     //Regressional Analysis Correlation
     //R Squared
-    printf("R Squared\t%lf\n",c.R_2);
-    analyzeRSquared(c.R_2);
+    printf("\nR Squared\t\t\t\t\t%lf\n",d.lrP.R_2);
+    analyzeRSquared(d.lrP.R_2);
 
     //Covariance
-    printf("Covariance XY\t%lf\n",c.covXY);
-    analyzeCovXY(c.covXY);
+    printf("Covariance XY\t\t\t\t%lf\n",d.lrP.covXY);
+    analyzeCovXY(d.lrP.covXY);
 
     //Correlation Coefficient
-    printf("Correlation Coefficent XY\t%lf\n",c.corXY);
-    analyzeCorXY(c.corXY);
+    printf("Correlation Coefficent XY\t%lf\n",d.lrP.corXY);
+    analyzeCorXY(d.lrP.corXY);
 }
 #endif //FILESEPERATOR_LINEARREGRESSION_H

@@ -1,6 +1,5 @@
 //TODO
 //FIXME CLEAN UP STATE MACHINE
-//FIXME HOW DO WE ACTUALL CALL THE LINEAR REGRESSION FUNCTION???
 //We can skip these if we run out of time
 //FIXME IMPLEMENT LINKED LIST TO PASS DATA TO ANALYZE REGRESSION
 //FIXME IMPLEMENT ANALYZE REGRESSION
@@ -31,7 +30,7 @@ void lrSub_performRegression(parDTok *dat[2330]);
 char *lrSub_dataName(int i);
 int lrSub_selectData(char* var);
 void linearRegressionSubMenu(parDTok *dat[2330]);
-lrCo *castToRegression(int xTyp, int yTyp, void *xDat[2330], void *yDat[2330]);
+lrCo castToRegression(int xTyp, int yTyp, void *xDat[2330], void *yDat[2330]);
 
 /**********************************************************************
 Name: linearRegressionSubMenu
@@ -191,6 +190,7 @@ void lrSub_performRegression(parDTok *dat[2330])
 
     //Concatenate Name of Data Structure "xDataType,yDataType"
     strcpy(data.nameXY, xDataType);
+    strcat(data.nameXY, " and ");
     strcat(data.nameXY, yDataType);
 
     //Select Columns to Regress
@@ -198,14 +198,13 @@ void lrSub_performRegression(parDTok *dat[2330])
     selectColumn(dat, data.yData, data.yDatVec);
 
     //Perform Regression
-    printf("I'm at the regression. Horray!\n");
     data.lrP = castToRegression(data.xData, data.yData, data.xDatVec, data.yDatVec);
 
-    //Add to List
-    //FIXME IMPLEMENT LIST
-
     //Print Vars
-    lrSub_printRegression(*data.lrP);
+    lrSub_printRegression(data);
+
+    //Analyze for Outliers
+    //FIXME IMPLEMENT LIST
 }
 /**********************************************************************
 Name:lrSub_dataName
@@ -297,7 +296,7 @@ Description:
 @param -
 @return -
 **********************************************************************/
-lrCo *castToRegression(int xTyp, int yTyp, void *xDat[2330], void *yDat[2330])
+lrCo castToRegression(int xTyp, int yTyp, void *xDat[2330], void *yDat[2330])
 {
     lrCo ret;
     Type xT, yT;
@@ -307,6 +306,6 @@ lrCo *castToRegression(int xTyp, int yTyp, void *xDat[2330], void *yDat[2330])
 
     ret = linearRegression(xDat, xT, yDat, yT);
 
-    return &ret;
+    return ret;
 }
 #endif //FILESEPERATOR_SUBMENU_LINEARREGRESSION_H

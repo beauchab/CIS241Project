@@ -48,7 +48,7 @@ typedef struct LR_StateControl {
 }lrSC;
 typedef struct LR_DataPoints {
     char nameXY[40];
-    lrCo *lrP;
+    lrCo lrP;
     int xData;
     void *xDatVec[2330];
     int yData;

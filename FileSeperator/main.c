@@ -42,18 +42,13 @@ int main()
 
     // CLion is giving me a hard time with printing this fixed it for me, you may comment it out.
     setbuf(stdout, NULL);
-    do
-    {
-        stateMachine(&sC, &d, &f);
-    }
-    while(receiveInput(&sC));
+    do {
+        do {
+            stateMachine(&sC, &d, &f);
+        } while (receiveInput(&sC));
+    } while(userContinue());
 
-
-
-    //readFileData(f.inFileP, &d);
-    //printData(d.arIn);
-
-    printf("Hello, World!\n");
+    printf("Have a nice day!\n");
     return 0;
 }
 
@@ -107,21 +102,19 @@ int receiveInput(struct stateControl *u)
         printf("Options:\n");
 
         //FIXME INCLUDE NEW OPTION EVERY TIME ONE IS MADE
-        printf("0:\tRead Data\n");
         printf("1:\tPrint Data\n");
         printf("2:\tLinear Regression\n");
         printf("3:\tKMeans\n");
-        printf("4:\tOutlier Detection\n");
-        printf("5:\tEXIT\n");
+        printf("4:\tEXIT\n");
 
         printf("Answer:\t");
         scanf("%d", &ans);
         printf("\n");
 
         //Answer is incorrect
-        if(ans < 0 || ans > 5 )
+        if(ans < 1 || ans > 4 )
         {
-            printf("\nINVALID INPUT!\n");
+            printf("INVALID INPUT!\n\n");
         } else{
             invalid = 0;
         }
@@ -170,11 +163,6 @@ void stateMachine(struct stateControl *u, dat *d, struct files *f)
 
         case KMEANS  :
             //State Machine for KMEANS
-
-            break;
-
-        case OUTLIER_DETECTION  :
-            //State Machine for Outlier Detection
 
             break;
 

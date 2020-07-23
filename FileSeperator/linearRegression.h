@@ -228,7 +228,6 @@ void calcYHat(void *x[2330], Type xT, double yHat[2330], double alpha, double be
 {
     int i;
     switch(xT) {
-
         case tInt:
             for( i = 0; i < 2330; i++)
             {

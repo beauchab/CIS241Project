@@ -73,17 +73,16 @@ int lrSub_receiveInput(lrSC *u)
         printf("What would you like to do?\n");
         printf("Options:\n");
         printf("0:\tPerform Regression\n");
-        printf("1:\tAnalyze Regression\n");
-        printf("2:\tEXIT\n");
+        printf("1:\tEXIT\n");
 
         printf("Answer:\t");
         scanf("%d", &ans);
         printf("\n");
 
         //Answer is incorrect
-        if(ans < 0 || ans > 2 )
+        if(ans < 0 || ans > 1 )
         {
-            printf("\nINVALID INPUT!\n");
+            printf("INVALID INPUT!\n\n");
         } else{
             invalid = 0;
         }
@@ -115,11 +114,6 @@ int lrSub_stateMachine(lrSC *u, parDTok *dat[2330])
         case LR_PERFORM_REGRESSION  :
             //State Machine for choosing what to regress
             lrSub_performRegression(dat);
-            break;
-
-        case LR_ANALYZE_REGRESSION  :
-            //State Machine for doing analysis on a member of the linked list
-            //FIXME
             break;
 
         case LR_EXIT       :
@@ -204,7 +198,7 @@ void lrSub_performRegression(parDTok *dat[2330])
     lrSub_printRegression(data);
 
     //Analyze for Outliers
-    //FIXME IMPLEMENT LIST
+
 }
 /**********************************************************************
 Name:lrSub_dataName
@@ -301,8 +295,8 @@ lrCo castToRegression(int xTyp, int yTyp, void *xDat[2330], void *yDat[2330])
     lrCo ret;
     Type xT, yT;
 
-    xT = ((xTyp == 0)||(xTyp == 2)||(xTyp == 3)) ? tInt : tDouble;
-    yT = ((yTyp == 0)||(yTyp == 2)||(yTyp == 3)) ? tInt : tDouble;
+    xT = ((xTyp != 1)) ? tInt : tDouble;
+    yT = ((yTyp != 1)) ? tInt : tDouble;
 
     ret = linearRegression(xDat, xT, yDat, yT);
 

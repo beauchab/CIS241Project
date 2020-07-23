@@ -1,12 +1,8 @@
-//FIXME THESE FUNTIONS SHOULD BE IMPLEMENTED FOR BOTH MULTIPLE DATA TYPES
-//FIXME THE FUNCTIONS DO NOT NEED TO PASS SIZE, CAN USE SIZEOF OPERATOR
 /**********************************************************************
 Name: means.h
 Description: This library implements the three means functions
 @author - Green Team SS20 CIS241
 @updated - 7/4/2020
-@param -
-@return -
 **********************************************************************/
 #ifndef FILESEPERATOR_PYTHAGOREANMEANS_H
 #define FILESEPERATOR_PYTHAGOREANMEANS_H
@@ -31,8 +27,13 @@ Description: This function calculates the arithmetic mean of a
              data set. A = additiveSum(array)/size
 @author - Brendan P. Beauchamp
 @updated - 7/4/2020
-@param -
-@return -
+@param - void *array[]
+                This represents the data which is to have the arithmetic
+                mean calculated
+@param - Type arT
+                This represents the type of the dataset
+@return - double
+                This is the arithmetic mean returned to the user
 **********************************************************************/
 double arithmeticMean(void *array[], Type arT)
 {
@@ -63,8 +64,13 @@ Description: This function calculates the geometric mean of a
              data set. G= (multiplicitiveSum(array))^(1/size)
 @author - Brendan P. Beauchamp
 @updated - 7/4/2020
-@param -
-@return -
+@param - void *array[]
+                This represents the data which is to have the geometric
+                mean calculated
+@param - Type arT
+                This represents the type of the dataset
+@return - double
+                This is the geometric mean returned to the user
 **********************************************************************/
 double geometricMean(void *array[], Type arT)
 {
@@ -95,8 +101,13 @@ Description: This function calculates the harmonic mean of a
              data set. H= size/inverseSum(array)
 @author - Brendan P. Beauchamp
 @updated - 7/4/2020
-@param -
-@return -
+@param - void *array[]
+                This represents the data which is to have the harmonic
+                mean calculated
+@param - Type arT
+                This represents the type of the dataset
+@return - double
+                This is the harmonic mean returned to the user
 **********************************************************************/
 double harmonicMean(void *array[], Type arT)
 {
@@ -128,8 +139,13 @@ Description: This function calculates all of the means. It returns
              these means in a structure.
 @author - Brendan P. Beauchamp
 @updated - 7/4/2020
-@param -
-@return -
+@param - void *array[]
+                This represents the data which is to have the pythagorean
+                means calculated
+@param - Type arT
+                This represents the type of the dataset
+@return - means
+                This is the pythagorean means returned to the user
 **********************************************************************/
 means calcMeans(void *array[], Type arT)
 {

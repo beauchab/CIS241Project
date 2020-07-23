@@ -11,6 +11,8 @@ Description: This is a library of file functions to help the
 #include <stdio.h>
 #include <string.h>
 #include "dataHelper.h"
+#include "globalDefinitions.h"
+
 //Function Prototypes
 void readFileData(FILE *fp, dat *d);
 

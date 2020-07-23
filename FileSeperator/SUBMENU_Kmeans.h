@@ -1,8 +1,8 @@
 /************************************************************
 Name: SUBMENU_Kmeans.h
-Description: This is a library which controls the kmeans Sub Menu. 
-	     It allows the user to perform kmeans clustering based
-	     on selected input data and then exits.
+Description: This is a library which controls the kmeans Sub Menu.
+         It allows the user to perform kmeans clustering based
+         on selected input data and then exits.
 @author - Green Team SS20 CIS241
 @updated - 7/21/2020
 *************************************************************/
@@ -16,12 +16,12 @@ Description: This is a library which controls the kmeans Sub Menu.
 #include "globalDefinitions.h"
 
 //State Definitions
-#define 
+#define
 
 /**********************************************************************
 Name: kmeansSubMenu
 Description: This function is the main driver for the kmeans
-             submenu
+             submenu.
 @author - Taylor A. Rieger
 @updated - 7/22/2020
 @param - char dataSet[2330][5][20]
@@ -40,8 +40,8 @@ void kmeansSubMenu(char dataSet[2330][5][20])
 
 /**********************************************************************
 Name:kmeansSub_receiveInput
-Description: This function is utilized to determine what the user will 
-	     pass into the kmeans function.
+Description: This function is utilized to determine what the user will
+         pass into the kmeans function.
 @author - Taylor A. Rieger
 @updated - 7/17/2020
 @param - lrSC *u

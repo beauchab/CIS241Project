@@ -22,23 +22,6 @@ Description: This is a library which controls the Linear Regression
 #include "globalDefinitions.h"
 #include "usefulStats.h"
 #include "dataHelper.h"
-//State Definitions
-#define LR_PERFORM_REGRESSION       0
-#define LR_ANALYZE_REGRESSION       1
-#define LR_EXIT                     2
-//Structs
-typedef struct LR_StateControl {
-    int state;
-    int userContinue;
-}lrSC;
-typedef struct LR_DataPoints {
-    char nameXY[40];
-    lrCo *lrP;
-    int xData;
-    void *xDatVec[2330];
-    int yData;
-    void *yDatVec[2330];
-}lrDP;
 
 //Function Prototypes
 int lrSub_receiveInput(lrSC *u);
@@ -317,43 +300,12 @@ Description:
 lrCo *castToRegression(int xTyp, int yTyp, void *xDat[2330], void *yDat[2330])
 {
     lrCo ret;
-    int xT, yT, cTp;
+    Type xT, yT;
 
-    xT = ((xTyp == 0)||(xTyp == 2)||(xTyp == 3)) ? 0 : 1;
-    yT = ((xTyp == 0)||(xTyp == 2)||(xTyp == 3)) ? 0 : 1;
-    cTp = xT + yT;
+    xT = ((xTyp == 0)||(xTyp == 2)||(xTyp == 3)) ? tInt : tDouble;
+    yT = ((yTyp == 0)||(yTyp == 2)||(yTyp == 3)) ? tInt : tDouble;
 
-    switch(cTp) {
-
-        case 0:
-            //x -> int, y -> int
-            printf("%p\n", &xDat[0]);
-            printf("%p\n", &yDat[0]);
-            ret = linearRegression(xDat, yDat, 2330);
-            break;
-
-        case 1:
-            //x -> int, y -> double
-            printf("%p\n", &xDat[0]);
-            printf("%p\n", &yDat[0]);
-            ret = linearRegression(xDat, yDat, 2330);
-            break;
-
-        case 2:
-            //x -> double, y -> int
-            ret = linearRegression(xDat, yDat, 2330);
-            break;
-
-        case 3:
-            //x -> double, y -> double
-            ret = linearRegression(xDat, yDat, 2330);
-            break;
-
-
-        default :
-            printf("Error\n");
-            break;
-    }
+    ret = linearRegression(xDat, xT, yDat, yT);
 
     return &ret;
 }

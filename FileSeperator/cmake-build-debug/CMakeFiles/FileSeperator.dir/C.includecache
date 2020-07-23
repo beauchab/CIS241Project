@@ -33,6 +33,8 @@ string.h
 -
 dataHelper.h
 C:/Users/brent/CLionProjects/FileSeperatorCopy/dataHelper.h
+globalDefinitions.h
+C:/Users/brent/CLionProjects/FileSeperatorCopy/globalDefinitions.h
 
 C:/Users/brent/CLionProjects/FileSeperatorCopy/globalDefinitions.h
 
@@ -41,6 +43,8 @@ pythagoreanMeans.h
 C:/Users/brent/CLionProjects/FileSeperatorCopy/pythagoreanMeans.h
 usefulStats.h
 C:/Users/brent/CLionProjects/FileSeperatorCopy/usefulStats.h
+globalDefinitions.h
+C:/Users/brent/CLionProjects/FileSeperatorCopy/globalDefinitions.h
 
 C:/Users/brent/CLionProjects/FileSeperatorCopy/main.c
 stdio.h
@@ -63,6 +67,8 @@ dataHelper.h
 C:/Users/brent/CLionProjects/FileSeperatorCopy/dataHelper.h
 SUBMENU_LinearRegression.h
 C:/Users/brent/CLionProjects/FileSeperatorCopy/SUBMENU_LinearRegression.h
+globalDefinitions.h
+C:/Users/brent/CLionProjects/FileSeperatorCopy/globalDefinitions.h
 
 C:/Users/brent/CLionProjects/FileSeperatorCopy/printHelper.h
 stdio.h
@@ -73,8 +79,12 @@ string.h
 C:/Users/brent/CLionProjects/FileSeperatorCopy/pythagoreanMeans.h
 math.h
 -
+dataHelper.h
+C:/Users/brent/CLionProjects/FileSeperatorCopy/dataHelper.h
 
 C:/Users/brent/CLionProjects/FileSeperatorCopy/usefulStats.h
 pythagoreanMeans.h
 C:/Users/brent/CLionProjects/FileSeperatorCopy/pythagoreanMeans.h
+globalDefinitions.h
+C:/Users/brent/CLionProjects/FileSeperatorCopy/globalDefinitions.h
 

@@ -12,10 +12,11 @@ Description: This is a library of functions which implement linear
 #define FILESEPERATOR_USEFULSTATS_H
 //Included Libraries
 #include "pythagoreanMeans.h"
+#include "globalDefinitions.h"
 //Function Prototypes
-double calcVar(double x[], double xBar, int n);
+double calcVar(void *x[], Type xT, double xBar);
 double calcStdDev(double Var);
-double calcCovXY(double x[], double xBar, double y[], double yBar, int n);
+double calcCovXY(void *x[2330], Type xT, void *y[2330], Type yT, double xBar, double yBar);
 double calcCorXY(double covXY, double varX, double varY);
 void analyzeRSquared(double r);
 void analyzeCovXY(double c);
@@ -40,18 +41,30 @@ Description: This function calculates the variance of a dataset that
 @return - double var
                     This is the variance of the dataset
 **********************************************************************/
-double calcVar(double x[], double xBar, int n)
+double calcVar(void *x[], Type xT, double xBar)
 {
-    double var,num;
+    double var=0,num=0;
     int i;
 
     //sum the numerator
-    for( i = 0; i < n; i++)
-    {
-        num += pow((x[i] - xBar),2);
+    switch(xT) {
+
+        case tInt:
+            for( i = 0; i < 2330; i++)
+            {
+                num += pow((*(int*)x[i] - xBar),2);
+            }
+            break;
+
+        case tDouble:
+            for( i = 0; i < 2330; i++)
+            {
+                num += pow((*(double*)x[i] - xBar),2);
+            }
+            break;
     }
 
-    var = num/(n-1);
+    var = num/2329;
     return var;
 }
 /**********************************************************************
@@ -95,17 +108,48 @@ Description: This function calculates the covariance between two
 @return - double cov
                     This is the covariance of the two datasets
 **********************************************************************/
-double calcCovXY(double x[], double xBar, double y[], double yBar, int n)
+double calcCovXY(void *x[2330], Type xT, void *y[2330], Type yT, double xBar, double yBar)
 {
-    double cov, num;
-    int i;
+    double cov=0, num=0;
+    int i, cTp = 0;
 
-    for( i = 0; i < n; i++)
-    {
-        num += ((x[i] - xBar)*(y[i] - yBar));
+    cTp = (xT<<1) + yT;
+
+    switch(cTp) {
+        //x -> int, y -> int
+        case 0:
+            for( i = 0; i < 2330; i++)
+            {
+                num += ((*(int*)x[i] - xBar)*(*(int*)y[i] - yBar));
+            }
+        break;
+
+        //x -> int, y -> double
+        case 1:
+            for( i = 0; i < 2330; i++)
+            {
+                num += ((double)(*(int*)x[i] - xBar)*(*(double*)y[i] - yBar));
+            }
+        break;
+
+        //x -> double, y -> int
+        case 2:
+            for( i = 0; i < 2330; i++)
+            {
+                num += ((*(double*)x[i] - xBar)*((double)*(int*)y[i] - yBar));
+            }
+        break;
+
+        //x -> double, y -> double
+        case 3:
+            for( i = 0; i < 2330; i++)
+            {
+                num += ((*(double*)x[i] - xBar)*(*(double*)y[i] - yBar));
+            }
+        break;
     }
 
-    cov = num/(n-1);
+    cov = num/2329;
     return cov;
 }
 /**********************************************************************
@@ -127,7 +171,7 @@ Description: This function calculates the Correlation coefficient
 **********************************************************************/
 double calcCorXY(double covXY, double varX, double varY)
 {
-    double cor;
+    double cor=0;
     cor = covXY/(sqrt(varX*varY));
     return cor;
 }

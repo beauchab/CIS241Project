@@ -11,25 +11,6 @@ Description: This is a collection of functions which aids in the
 #include "globalDefinitions.h"
 #include <stdlib.h>
 
-//Structures
-typedef struct numericDate{
-    int day;
-    int month;
-    int year;
-}nDate;
-typedef struct parsedDataToken{
-    nDate date;
-    int linDate;
-    double spyPutCallRatio;
-    int spyPutVolume;
-    int spyCallVolume;
-    int spyTotalOptionsVolume;
-}parDTok;
-typedef struct theData {
-    char arIn[2330][5][20];
-    parDTok parsedData[2330];
-}dat;
-
 //Function Prototypes
 void selectColumn(parDTok pDat[2330], int colChoice, void *cDat[2330]);
 void parseData(int dTyp, char *tok, parDTok *pDat);

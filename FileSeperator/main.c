@@ -18,25 +18,7 @@ Description: This Program opens the data given to us by the professor,
 #include "usefulStats.h"
 #include "dataHelper.h"
 #include "SUBMENU_LinearRegression.h"
-
-//MAIN State Machine Definitions
-#define READ_INPUT        0
-#define PRINT_DATA        1//FIXME THIS SHOULD LAUNCH A SECONDARY STATE MACHINE (i.e. What data you want to print?)
-#define LINEAR_REGRESSION 2
-#define KMEANS            3
-#define OUTLIER_DETECTION 4
-#define EXIT              5
-
-//Structs
-struct stateControl {
-    int state;
-    int flags[5];
-    int userContinue;
-};
-struct files{
-    FILE *inFileP;
-    FILE *outFileP;
-};
+#include "globalDefinitions.h"
 
 //Function Prototypes
 void stateMachine(struct stateControl *u, dat *d, struct files *f);

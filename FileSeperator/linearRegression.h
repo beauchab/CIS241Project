@@ -13,23 +13,14 @@ Description: This is a library of functions which implement linear
 //Included Libraries
 #include "pythagoreanMeans.h"
 #include "usefulStats.h"
-//Structs
-typedef struct linearRegressionCoefficients
-{
-    double alpha;
-    double beta;
-    double R_2;
-    double stdDevX;
-    double stdDevY;
-    double covXY;
-    double corXY;
-}lrCo;
+#include "globalDefinitions.h"
+
 //Function Prototypes
-lrCo linearRegression(void *x[], void *y[], int size);
-double calcAlpha(void *x[], double xBar, void *y[], double yBar, int n);
+lrCo linearRegression(void *x[2330], Type xT, void *y[2330], Type yT);
+double calcAlpha(void *x[2330], Type xT, void *y[2330], Type yT, double xBar, double yBar);
 double calcBeta(double yBar, double xBar, double alpha);
-void calcYHat(void *x[], double yHat[], double alpha, double beta, int n);
-double calcR_2(void *y[], double yHat[], double yBar, int n);
+void calcYHat(void *x[2330], Type xT, double yHat[2330], double alpha, double beta);
+double calcR_2(void *y[2330], Type yT, double yHat[2330], double yBar);
 void lrSub_printRegression(lrCo c);
 /**********************************************************************
 Name:linearRegression
@@ -51,36 +42,32 @@ Description: This function maps the data of arrays x and y to a function
                 of the linear regression of x and y. These coefficients
                 are labeled alpha for a and beta for b.
 **********************************************************************/
-lrCo linearRegression(void *x[], void *y[], int size)
+lrCo linearRegression(void *x[2330], Type xT, void *y[2330], Type yT)
 {
     lrCo lRegC;
     double yBar,xBar,varX,varY;
     double yHat[2330];
-    //double *yHat = (double*) malloc(size * sizeof(double));  //memory allocated
-
-    printf("%p\n",&x[0]);
-    printf("%p\n",&y[0]);
 
     //xBar and yBar using arithmetic mean
-    xBar = arithmeticMean(x, size);
-    yBar = arithmeticMean(y, size);
+    xBar = arithmeticMean(x,xT);
+    yBar = arithmeticMean(y,yT);
 
     //calculates coefficients {a,b} for y= ax + b
-    lRegC.alpha = calcAlpha(x, xBar, y, yBar, size);
+    lRegC.alpha = calcAlpha(x, xT, y, yT, xBar, yBar);
     lRegC.beta = calcBeta( yBar, xBar, lRegC.alpha);
 
     //determines Rsquared value
-    calcYHat(x, &yHat, lRegC.alpha, lRegC.beta, size);
-    lRegC.R_2 = calcR_2(y, &yHat, yBar, size);
+    calcYHat(x, xT, &yHat, lRegC.alpha, lRegC.beta);
+    lRegC.R_2 = calcR_2(y, yT, &yHat, yBar);
 
     //calculate variances and standard deviations
-    varX = calcVar((double*)(int*)x, xBar, size);
-    varY = calcVar(y, yBar, size);
+    varX = calcVar(x, xT, xBar);
+    varY = calcVar(y, yT, yBar);
     lRegC.stdDevX = calcStdDev(varX);
     lRegC.stdDevY = calcStdDev(varY);
 
     //calculate covariance and correlation coefficient of X and Y
-    lRegC.covXY = calcCovXY(x, xBar, y, yBar, size);
+    lRegC.covXY = calcCovXY(x, xT, y, yT, xBar, yBar);
     lRegC.corXY = calcCorXY(lRegC.covXY, varX, varY);
 
     return lRegC;
@@ -114,19 +101,66 @@ Description: This program calculates the linear regression coefficient
                     This is the linear regression coefficient which
                     represents the slope of the linear regression.
 **********************************************************************/
-double calcAlpha(void *x[], double xBar, void *y[], double yBar, int n)
+double calcAlpha(void *x[2330], Type xT, void *y[2330], Type yT, double xBar, double yBar)
 {
     double den = 0;//bottom of alpha formula
     double num = 0;//top of alpha formula
     double alpha;
-    int i;//iterator
+    int i, cTp = 0;
 
-    for(i = 0; i < n; ++i){
-        num += ((*(int*)x[i] - xBar)*(*(int*)y[i] - yBar));//calculates the top of the alpha formula and sums values
+    cTp = (xT<<1) + yT;
+
+    switch(cTp) {
+
+        //x -> int, y -> int
+        case 0:
+            //calculates the top of the alpha formula and sums values
+            for(i = 0; i < 2330; ++i){
+                num += ((*(int*)x[i] - xBar)*(*(int*)y[i] - yBar));
+            }
+            //calculates the bottom of the alpha formula
+            for(i = 0; i < 2330; ++i){
+                den += pow((*(int*)x[i] - xBar),2);
+            }
+            break;
+
+        //x -> int, y -> double
+        case 1:
+            //calculates the top of the alpha formula and sums values
+            for(i = 0; i < 2330; ++i){
+                num += ((*(int*)x[i] - xBar)*(*(double*)y[i] - yBar));
+            }
+            //calculates the bottom of the alpha formula
+            for(i = 0; i < 2330; ++i){
+                den += pow((*(int*)x[i] - xBar),2);
+            }
+            break;
+
+        //x -> double, y -> int
+        case 2:
+            //calculates the top of the alpha formula and sums values
+            for(i = 0; i < 2330; ++i){
+                num += ((*(double*)x[i] - xBar)*(*(int*)y[i] - yBar));
+            }
+            //calculates the bottom of the alpha formula
+            for(i = 0; i < 2330; ++i){
+                den += pow((*(double*)x[i] - xBar),2);
+            }
+            break;
+
+        //x -> double, y -> double
+        case 3:
+            //calculates the top of the alpha formula and sums values
+            for(i = 0; i < 2330; ++i){
+                num += ((*(double*)x[i] - xBar)*(*(double*)y[i] - yBar));
+            }
+            //calculates the bottom of the alpha formula
+            for(i = 0; i < 2330; ++i){
+                den += pow((*(double*)x[i] - xBar),2);
+            }
+            break;
     }
-    for(i = 0; i < n; ++i){
-        den += pow((*(int*)x[i] - xBar),2);//calculates the bottom of the alpha formula
-    }
+
     alpha = (num/den);//divides top by bottom to get alpha
 
     return alpha;
@@ -190,12 +224,24 @@ Description: This function takes an input of array x, its size, and the
                     data sets.
 @return - void
 **********************************************************************/
-void calcYHat(void *x[], double yHat[], double alpha, double beta, int n)
+void calcYHat(void *x[2330], Type xT, double yHat[2330], double alpha, double beta)
 {
     int i;
-    for( i = 0; i < n; i++)
-    {
-        yHat[i] = (double)(alpha * *(int*)x[i]) + beta; //Yhat = aX +b
+    switch(xT) {
+
+        case tInt:
+            for( i = 0; i < 2330; i++)
+            {
+                yHat[i] = (double)(alpha * *(int*)x[i]) + beta; //Yhat = aX +b
+            }
+            break;
+
+        case tDouble:
+            for( i = 0; i < 2330; i++)
+            {
+                yHat[i] = (alpha * *(double*)x[i]) + beta; //Yhat = aX +b
+            }
+            break;
     }
 }
 /**********************************************************************
@@ -221,15 +267,27 @@ Description: This function calculates the R squared value of the linear
                     This scalar is a measure of how closely the
                     data points in y fit to the regression y = ax + b.
 **********************************************************************/
-double calcR_2(void *y[], double yHat[], double yBar, int n)
+double calcR_2(void *y[2330], Type yT, double yHat[2330], double yBar)
 {
     double R_2, num=0, den=0;
     int i;
+    switch(yT) {
 
-    for( i = 0; i < n; i++)
-    {
-        num += pow((double)(*(int*)y[i] - yHat[i]),2);
-        den += pow((*(int*)y[i] - yBar),2);
+        case tInt:
+            for( i = 0; i < 2330; i++)
+            {
+                num += pow((double)(*(int*)y[i] - yHat[i]),2);
+                den += pow((*(int*)y[i] - yBar),2);
+            }
+            break;
+
+        case tDouble:
+            for( i = 0; i < 2330; i++)
+            {
+                num += pow((*(double*)y[i] - yHat[i]),2);
+                den += pow((*(double*)y[i] - yBar),2);
+            }
+            break;
     }
 
     R_2 = 1 - (num/den);

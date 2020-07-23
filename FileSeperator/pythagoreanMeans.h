@@ -12,6 +12,7 @@ Description: This library implements the three means functions
 #define FILESEPERATOR_PYTHAGOREANMEANS_H
 //Included Libraries
 #include <math.h>
+#include "dataHelper.h"
 //Structs
 typedef struct pythagoreanMeans
 {
@@ -20,10 +21,10 @@ typedef struct pythagoreanMeans
     double harmonicM;
 }means;
 //Function Prototypes
-double arithmeticMean(void *array[], int size);
-double geometricMean(void *array[], int size);
-double harmonicMean(void *array[], int size);
-means calcMeans(void *array[], int size);
+double arithmeticMean(void *array[2330], Type arT);
+double geometricMean(void *array[2330], Type arT);
+double harmonicMean(void *array[2330], Type arT);
+means calcMeans(void *array[2330], Type arT);
 /**********************************************************************
 Name: arithmeticMean
 Description: This function calculates the arithmetic mean of a
@@ -33,15 +34,28 @@ Description: This function calculates the arithmetic mean of a
 @param -
 @return -
 **********************************************************************/
-double arithmeticMean(void *array[], int size)
+double arithmeticMean(void *array[], Type arT)
 {
     int i;
     double arithSum = 0;
-    for(i = 0; i < size; i++)
+    switch(arT)
     {
-        arithSum = arithSum + *(int*)array[i];
+        case tInt:
+            for(i = 0; i < 2330; i++)
+            {
+                arithSum = arithSum + *(int*)array[i];
+            }
+            break;
+
+        case tDouble:
+            for(i = 0; i < 2330; i++)
+            {
+                arithSum = arithSum + *(double*)array[i];
+            }
+            break;
     }
-    return arithSum/size;
+
+    return arithSum/2330;
 }
 /**********************************************************************
 Name: geometricMean
@@ -52,16 +66,28 @@ Description: This function calculates the geometric mean of a
 @param -
 @return -
 **********************************************************************/
-double geometricMean(void *array[], int size)
+double geometricMean(void *array[], Type arT)
 {
     int i;
     double geoSum = 1;
+    switch(arT) {
 
-    for(i = 0; i < size; i++)
-    {
-        geoSum = geoSum * *(int*)array[i];
+        case tInt:
+            for(i = 0; i < 2330; i++)
+            {
+                geoSum = geoSum * *(int*)array[i];
+            }
+            break;
+
+        case tDouble:
+            for(i = 0; i < 2330; i++)
+            {
+                geoSum = geoSum * *(double*)array[i];
+            }
+            break;
+
     }
-    return pow(geoSum, 1.0/(double)size);
+    return pow(geoSum, 1.0/2330.0);
 }
 /**********************************************************************
 Name: geometricMean
@@ -72,17 +98,29 @@ Description: This function calculates the harmonic mean of a
 @param -
 @return -
 **********************************************************************/
-double harmonicMean(void *array[], int size)
+double harmonicMean(void *array[], Type arT)
 {
     int i;
     double arithSumInv = 0;
     double invX = 0.0;
+    switch(arT) {
 
-    for (i = 0; i < size; i++) {
-        invX = 1 / (*(double*) array[i]);
-        arithSumInv = arithSumInv + invX;
+        case tInt:
+            for (i = 0; i < 2330; i++) {
+                invX = 1 / (*(int*) array[i]);
+                arithSumInv = arithSumInv + invX;
+            }
+            break;
+
+        case tDouble:
+            for (i = 0; i < 2330; i++) {
+                invX = 1 / (*(double*) array[i]);
+                arithSumInv = arithSumInv + invX;
+            }
+            break;
+
     }
-    return ((double) size / arithSumInv);
+    return (2330.0 / arithSumInv);
 }
 /**********************************************************************
 Name: calcMeans
@@ -93,13 +131,13 @@ Description: This function calculates all of the means. It returns
 @param -
 @return -
 **********************************************************************/
-means calcMeans(void *array[], int size)
+means calcMeans(void *array[], Type arT)
 {
     means mS;
 
-    mS.arithmeticM =  arithmeticMean(array,size);
-    mS.geometricM = geometricMean(array,size);
-    mS.harmonicM = harmonicMean(array,size);
+    mS.arithmeticM =  arithmeticMean(array, arT);
+    mS.geometricM = geometricMean(array, arT);
+    mS.harmonicM = harmonicMean(array, arT);
 
     return mS;
 }

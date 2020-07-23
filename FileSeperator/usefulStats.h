@@ -13,9 +13,9 @@ Description: This is a library of functions which implement linear
 //Included Libraries
 #include "pythagoreanMeans.h"
 //Function Prototypes
-double calcVar(double x[], double xBar, int n);
+double calcVar(void *x[], double xBar, int n);
 double calcStdDev(double Var);
-double calcCovXY(double x[], double xBar, double y[], double yBar, int n);
+double calcCovXY(void *x[], double xBar, void *y[], double yBar, int n);
 double calcCorXY(double covXY, double varX, double varY);
 void analyzeRSquared(double r);
 void analyzeCovXY(double c);
@@ -40,15 +40,15 @@ Description: This function calculates the variance of a dataset that
 @return - double var
                     This is the variance of the dataset
 **********************************************************************/
-double calcVar(double x[], double xBar, int n)
+double calcVar(void *x[], double xBar, int n)
 {
-    double var,num;
+    double var=0,num=0;
     int i;
 
     //sum the numerator
     for( i = 0; i < n; i++)
     {
-        num += pow((x[i] - xBar),2);
+        num += pow((*(int*)x[i] - xBar),2);
     }
 
     var = num/(n-1);
@@ -95,14 +95,14 @@ Description: This function calculates the covariance between two
 @return - double cov
                     This is the covariance of the two datasets
 **********************************************************************/
-double calcCovXY(double x[], double xBar, double y[], double yBar, int n)
+double calcCovXY(void *x[], double xBar, void *y[], double yBar, int n)
 {
-    double cov, num;
+    double cov=0, num=0;
     int i;
 
     for( i = 0; i < n; i++)
     {
-        num += ((x[i] - xBar)*(y[i] - yBar));
+        num += ((*(int*)x[i] - xBar)*(*(int*)y[i] - yBar));
     }
 
     cov = num/(n-1);
@@ -127,7 +127,7 @@ Description: This function calculates the Correlation coefficient
 **********************************************************************/
 double calcCorXY(double covXY, double varX, double varY)
 {
-    double cor;
+    double cor=0;
     cor = covXY/(sqrt(varX*varY));
     return cor;
 }

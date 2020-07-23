@@ -74,7 +74,7 @@ lrCo linearRegression(void *x[], void *y[], int size)
     lRegC.R_2 = calcR_2(y, &yHat, yBar, size);
 
     //calculate variances and standard deviations
-    varX = calcVar(x, xBar, size);
+    varX = calcVar((double*)(int*)x, xBar, size);
     varY = calcVar(y, yBar, size);
     lRegC.stdDevX = calcStdDev(varX);
     lRegC.stdDevY = calcStdDev(varY);
@@ -223,14 +223,12 @@ Description: This function calculates the R squared value of the linear
 **********************************************************************/
 double calcR_2(void *y[], double yHat[], double yBar, int n)
 {
-    double R_2, num, den;
+    double R_2, num=0, den=0;
     int i;
 
     for( i = 0; i < n; i++)
     {
-        printf("%lf\n", yHat[i]);
-        printf("%d\n", y[i]);
-        num += pow((*(int*)y[i] - yHat[i]),2);
+        num += pow((double)(*(int*)y[i] - yHat[i]),2);
         den += pow((*(int*)y[i] - yBar),2);
     }
 

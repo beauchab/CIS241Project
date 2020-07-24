@@ -161,7 +161,7 @@ Description: This function asks the user which columns of Dr. Bhuse's
 void lrSub_performRegression(parDTok *dat[2330])
 {
     lrDP data;
-    char xDataType[20], yDataType[20];
+    char xDataType[40], yDataType[40];
 
     printf("Performing Linear Regression\n");
     printf("Y = aX + b\n");
@@ -184,7 +184,7 @@ void lrSub_performRegression(parDTok *dat[2330])
 
     //Concatenate Name of Data Structure "xDataType,yDataType"
     strcpy(data.nameXY, xDataType);
-    strcat(data.nameXY, " and ");
+    strcat(data.nameXY, " and \0");
     strcat(data.nameXY, yDataType);
 
     //Select Columns to Regress
@@ -196,7 +196,7 @@ void lrSub_performRegression(parDTok *dat[2330])
 
     //Print Vars
     lrSub_printRegression(data);
-
+    //printf("\nRegression of %s\n", xDataType);
     //Analyze for Outliers
 
 }
@@ -220,27 +220,27 @@ char *lrSub_dataName(int i)
     switch(i) {
 
         case DATE  :
-            ans = "Date";
+            ans = "Date\0";
             break;
 
         case SPY_PUT_CALL_RATIO            :
-            ans = "SPY Put Call Ratio";
+            ans = "SPY Put Call Ratio\0";
             break;
 
         case SPY_PUT_VOLUME                :
-            ans = "Spy Put Volume";
+            ans = "Spy Put Volume\0";
             break;
 
         case SPY_CALL_VOLUME                :
-            ans = "SPY Call Volume";
+            ans = "SPY Call Volume\0";
             break;
 
         case TOTAL_SPY_OPTIONS_VOLUME       :
-            ans = "Total SPY Options Volume";
+            ans = "Total SPY Options Volume\0";
             break;
 
         default :
-            ans = "Error";
+            ans = "Error\0";
             break;
     }
     return ans;

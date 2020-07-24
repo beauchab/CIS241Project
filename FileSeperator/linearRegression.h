@@ -58,7 +58,7 @@ lrCo linearRegression(void *x[2330], Type xT, void *y[2330], Type yT)
 
     //determines Rsquared value
     calcYHat(x, xT, &yHat, lRegC.alpha, lRegC.beta);
-    lRegC.R_2 = calcR_2(y, yT, &yHat, yBar);
+    lRegC.R_2 = calcR_2(y, yT, yHat, yBar);
 
     //calculate variances and standard deviations
     varX = calcVar(x, xT, xBar);

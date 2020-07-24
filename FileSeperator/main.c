@@ -19,6 +19,7 @@ Description: This Program opens the data given to us by the professor,
 #include "dataHelper.h"
 #include "SUBMENU_LinearRegression.h"
 #include "globalDefinitions.h"
+#include "kmeans.h"
 
 //Function Prototypes
 void stateMachine(struct stateControl *u, dat *d, struct files *f);
@@ -144,6 +145,13 @@ Description: This is the state machine for the main menu.
 **********************************************************************/
 void stateMachine(struct stateControl *u, dat *d, struct files *f)
 {
+
+    double input[2330];
+    double initialCentroids[] = {100000, 200000, 300000};
+    int final[3];
+    int i;
+
+
     switch(u->state) {
 
         case READ_INPUT  :
@@ -164,6 +172,11 @@ void stateMachine(struct stateControl *u, dat *d, struct files *f)
         case KMEANS  :
             //State Machine for KMEANS
 
+            for(i = 0; i < 2330; i++){
+                input[i] = (double)d->parsedData[i].spyCallVolume;
+            }
+
+            kmeans(1, (double *) &input, 2330, 3, initialCentroids, final);
             break;
 
         case EXIT       :

@@ -161,9 +161,7 @@ void parseData(int dTyp, char *tok, parDTok *pDat)
             break;
 
         default :
-            //FIXME
-            //Function for stating improper input
-
+            printf("Error");
             break;
     }
 }

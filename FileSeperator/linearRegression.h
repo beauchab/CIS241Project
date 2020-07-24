@@ -21,7 +21,7 @@ double calcAlpha(void *x[2330], Type xT, void *y[2330], Type yT, double xBar, do
 double calcBeta(double yBar, double xBar, double alpha);
 void calcYHat(void *x[2330], Type xT, double yHat[2330], double alpha, double beta);
 double calcR_2(void *y[2330], Type yT, double yHat[2330], double yBar);
-void lrSub_printRegression(lrCo c);
+void lrSub_printRegression(lrDP d);
 /**********************************************************************
 Name:linearRegression
 Description: This function maps the data of arrays x and y to a function
@@ -58,7 +58,7 @@ lrCo linearRegression(void *x[2330], Type xT, void *y[2330], Type yT)
 
     //determines Rsquared value
     calcYHat(x, xT, &yHat, lRegC.alpha, lRegC.beta);
-    lRegC.R_2 = calcR_2(y, yT, &yHat, yBar);
+    lRegC.R_2 = calcR_2(y, yT, yHat, yBar);
 
     //calculate variances and standard deviations
     varX = calcVar(x, xT, xBar);
@@ -77,9 +77,7 @@ Name: calcAlpha
 Description: This program calculates the linear regression coefficient
              a (alpha) in the equation y = ax + b. This coefficient is
              found using the equation below
-
                  a = sum((x_i - xbar)(y_i - ybar))/sum((x_i - xbar)^2)
-
 @author - Brendan P. Beauchamp
 @updated - 7/8/2020
 @param - double x[]
@@ -124,7 +122,7 @@ double calcAlpha(void *x[2330], Type xT, void *y[2330], Type yT, double xBar, do
             }
             break;
 
-        //x -> int, y -> double
+            //x -> int, y -> double
         case 1:
             //calculates the top of the alpha formula and sums values
             for(i = 0; i < 2330; ++i){
@@ -136,7 +134,7 @@ double calcAlpha(void *x[2330], Type xT, void *y[2330], Type yT, double xBar, do
             }
             break;
 
-        //x -> double, y -> int
+            //x -> double, y -> int
         case 2:
             //calculates the top of the alpha formula and sums values
             for(i = 0; i < 2330; ++i){
@@ -148,7 +146,7 @@ double calcAlpha(void *x[2330], Type xT, void *y[2330], Type yT, double xBar, do
             }
             break;
 
-        //x -> double, y -> double
+            //x -> double, y -> double
         case 3:
             //calculates the top of the alpha formula and sums values
             for(i = 0; i < 2330; ++i){
@@ -170,9 +168,7 @@ Name: calcBeta
 Description: This program calculates the linear regression coefficient
              b (beta) in the equation y = ax + b. This coefficient is
              found using the equation below.
-
                 b = ybar - (a * xbar)
-
 @author - Brendan P. Beauchamp
 @updated - 7/8/2020
 @param - double yBar
@@ -201,9 +197,7 @@ Description: This function takes an input of array x, its size, and the
              coefficients of linear regression to calculate a predicted
              value for y at that measurement (i.e. yHat). This is done
              using the equation:
-
                 yHat[i] = a*x[i] + b
-
 @author - Brendan P. Beauchamp
 @updated - 7/8/2020
 @param - double x[]
@@ -228,7 +222,6 @@ void calcYHat(void *x[2330], Type xT, double yHat[2330], double alpha, double be
 {
     int i;
     switch(xT) {
-
         case tInt:
             for( i = 0; i < 2330; i++)
             {
@@ -304,29 +297,30 @@ Description: This is a function which prints the linear regression
             coefficients to be printed to the user.
 @return - void
 **********************************************************************/
-void lrSub_printRegression(lrCo c)
+void lrSub_printRegression(lrDP d)
 {
+    printf("Regression of %s\n\n", d.nameXY);
     //Equation Y = ax + b
     printf("Regression Equation:\n");
-    printf("\tY = %lfx + %lf\n\n",c.alpha,c.beta);
-    printf("Alpha\t%lf\n",c.alpha);
-    printf("Beta\t%lf\n",c.beta);
+    printf("\tY = %lfx + %lf\n\n",d.lrP.alpha,d.lrP.beta);
+    printf("Alpha\t\t\t\t\t\t%lf\n",d.lrP.alpha);
+    printf("Beta\t\t\t\t\t\t%lf\n",d.lrP.beta);
 
     //Standard Deviations
-    printf("Standard Deviation X\t%lf\n",c.stdDevX);
-    printf("Standard Deviation Y\t%lf\n",c.stdDevY);
+    printf("Standard Deviation X\t\t%lf\n",d.lrP.stdDevX);
+    printf("Standard Deviation Y\t\t%lf\n",d.lrP.stdDevY);
 
     //Regressional Analysis Correlation
     //R Squared
-    printf("R Squared\t%lf\n",c.R_2);
-    analyzeRSquared(c.R_2);
+    printf("\nR Squared\t\t\t\t\t%lf\n",d.lrP.R_2);
+    analyzeRSquared(d.lrP.R_2);
 
     //Covariance
-    printf("Covariance XY\t%lf\n",c.covXY);
-    analyzeCovXY(c.covXY);
+    printf("Covariance XY\t\t\t\t%lf\n",d.lrP.covXY);
+    analyzeCovXY(d.lrP.covXY);
 
     //Correlation Coefficient
-    printf("Correlation Coefficent XY\t%lf\n",c.corXY);
-    analyzeCorXY(c.corXY);
+    printf("Correlation Coefficent XY\t%lf\n",d.lrP.corXY);
+    analyzeCorXY(d.lrP.corXY);
 }
 #endif //FILESEPERATOR_LINEARREGRESSION_H

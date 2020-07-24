@@ -4,9 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "C:/Users/brent/CLionProjects/FileSeperatorCopy/main.c" "C:/Users/brent/CLionProjects/FileSeperatorCopy/cmake-build-debug/CMakeFiles/FileSeperator.dir/main.c.obj"
+  "/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/main.c" "/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/cmake-build-debug/CMakeFiles/FileSeperator.dir/main.c.o"
   )
-set(CMAKE_C_COMPILER_ID "MSVC")
+set(CMAKE_C_COMPILER_ID "AppleClang")
 
 # The include file search paths:
 set(CMAKE_C_TARGET_INCLUDE_PATH

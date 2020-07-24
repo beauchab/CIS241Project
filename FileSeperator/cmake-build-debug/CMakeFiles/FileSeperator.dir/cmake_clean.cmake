@@ -1,8 +1,6 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/FileSeperator.dir/main.c.obj"
-  "FileSeperator.exe"
-  "FileSeperator.exe.manifest"
-  "FileSeperator.lib"
+  "CMakeFiles/FileSeperator.dir/main.c.o"
+  "FileSeperator"
   "FileSeperator.pdb"
 )
 

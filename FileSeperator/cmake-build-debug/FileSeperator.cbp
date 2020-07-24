@@ -4,124 +4,120 @@
 	<Project>
 		<Option title="FileSeperator"/>
 		<Option makefile_is_custom="1"/>
-		<Option compiler="msvc8"/>
+		<Option compiler="gcc"/>
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="C:/Users/brent/CLionProjects/FileSeperatorCopy/cmake-build-debug"/>
+				<Option working_dir="/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="nmake /NOLOGO /f C:\Users\brent\CLionProjects\FileSeperatorCopy\cmake-build-debug\Makefile VERBOSE=1 all"/>
-					<CompileFile command="nmake /NOLOGO /f C:\Users\brent\CLionProjects\FileSeperatorCopy\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="nmake /NOLOGO /f C:\Users\brent\CLionProjects\FileSeperatorCopy\cmake-build-debug\Makefile VERBOSE=1 clean"/>
-					<DistClean command="nmake /NOLOGO /f C:\Users\brent\CLionProjects\FileSeperatorCopy\cmake-build-debug\Makefile VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="FileSeperator">
-				<Option output="C:/Users/brent/CLionProjects/FileSeperatorCopy/cmake-build-debug/FileSeperator.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/Users/brent/CLionProjects/FileSeperatorCopy/cmake-build-debug"/>
-				<Option object_output="./"/>
-				<Option type="1"/>
-				<Option compiler="msvc8"/>
-				<Compiler>
-					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.22.27905\include"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\NETFXSDK\4.7.2\include\um"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\shared"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\um"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\winrt"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\cppwinrt"/>
-				</Compiler>
-				<MakeCommands>
-					<Build command="nmake /NOLOGO /f C:\Users\brent\CLionProjects\FileSeperatorCopy\cmake-build-debug\Makefile VERBOSE=1 FileSeperator"/>
-					<CompileFile command="nmake /NOLOGO /f C:\Users\brent\CLionProjects\FileSeperatorCopy\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="nmake /NOLOGO /f C:\Users\brent\CLionProjects\FileSeperatorCopy\cmake-build-debug\Makefile VERBOSE=1 clean"/>
-					<DistClean command="nmake /NOLOGO /f C:\Users\brent\CLionProjects\FileSeperatorCopy\cmake-build-debug\Makefile VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="FileSeperator/fast">
-				<Option output="C:/Users/brent/CLionProjects/FileSeperatorCopy/cmake-build-debug/FileSeperator.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/Users/brent/CLionProjects/FileSeperatorCopy/cmake-build-debug"/>
-				<Option object_output="./"/>
-				<Option type="1"/>
-				<Option compiler="msvc8"/>
-				<Compiler>
-					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Tools\MSVC\14.22.27905\include"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\NETFXSDK\4.7.2\include\um"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\ucrt"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\shared"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\um"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\winrt"/>
-					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.18362.0\cppwinrt"/>
-				</Compiler>
-				<MakeCommands>
-					<Build command="nmake /NOLOGO /f C:\Users\brent\CLionProjects\FileSeperatorCopy\cmake-build-debug\Makefile VERBOSE=1 FileSeperator/fast"/>
-					<CompileFile command="nmake /NOLOGO /f C:\Users\brent\CLionProjects\FileSeperatorCopy\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="nmake /NOLOGO /f C:\Users\brent\CLionProjects\FileSeperatorCopy\cmake-build-debug\Makefile VERBOSE=1 clean"/>
-					<DistClean command="nmake /NOLOGO /f C:\Users\brent\CLionProjects\FileSeperatorCopy\cmake-build-debug\Makefile VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="edit_cache">
-				<Option working_dir="C:/Users/brent/CLionProjects/FileSeperatorCopy/cmake-build-debug"/>
-				<Option type="4"/>
-				<MakeCommands>
-					<Build command="nmake /NOLOGO /f C:\Users\brent\CLionProjects\FileSeperatorCopy\cmake-build-debug\Makefile VERBOSE=1 edit_cache"/>
-					<CompileFile command="nmake /NOLOGO /f C:\Users\brent\CLionProjects\FileSeperatorCopy\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="nmake /NOLOGO /f C:\Users\brent\CLionProjects\FileSeperatorCopy\cmake-build-debug\Makefile VERBOSE=1 clean"/>
-					<DistClean command="nmake /NOLOGO /f C:\Users\brent\CLionProjects\FileSeperatorCopy\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="C:/Users/brent/CLionProjects/FileSeperatorCopy/cmake-build-debug"/>
+				<Option working_dir="/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="nmake /NOLOGO /f C:\Users\brent\CLionProjects\FileSeperatorCopy\cmake-build-debug\Makefile VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="nmake /NOLOGO /f C:\Users\brent\CLionProjects\FileSeperatorCopy\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="nmake /NOLOGO /f C:\Users\brent\CLionProjects\FileSeperatorCopy\cmake-build-debug\Makefile VERBOSE=1 clean"/>
-					<DistClean command="nmake /NOLOGO /f C:\Users\brent\CLionProjects\FileSeperatorCopy\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="FileSeperator">
+				<Option output="/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/cmake-build-debug/FileSeperator" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/11.0.3/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/cmake-build-debug/Makefile&quot;  VERBOSE=1 FileSeperator"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="FileSeperator/fast">
+				<Option output="/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/cmake-build-debug/FileSeperator" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/11.0.3/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/cmake-build-debug/Makefile&quot;  VERBOSE=1 FileSeperator/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="C:/Users/brent/CLionProjects/FileSeperatorCopy/SUBMENU_Kmeans.h">
+		<Unit filename="/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/SUBMENU_Kmeans.h">
 			<Option target="FileSeperator"/>
 		</Unit>
-		<Unit filename="C:/Users/brent/CLionProjects/FileSeperatorCopy/SUBMENU_LinearRegression.h">
+		<Unit filename="/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/SUBMENU_LinearRegression.h">
 			<Option target="FileSeperator"/>
 		</Unit>
-		<Unit filename="C:/Users/brent/CLionProjects/FileSeperatorCopy/SUBMENU_OutlierDetection.h">
+		<Unit filename="/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/SUBMENU_OutlierDetection.h">
 			<Option target="FileSeperator"/>
 		</Unit>
-		<Unit filename="C:/Users/brent/CLionProjects/FileSeperatorCopy/dataHelper.h">
+		<Unit filename="/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/dataHelper.h">
 			<Option target="FileSeperator"/>
 		</Unit>
-		<Unit filename="C:/Users/brent/CLionProjects/FileSeperatorCopy/fileHelper.h">
+		<Unit filename="/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/fileHelper.h">
 			<Option target="FileSeperator"/>
 		</Unit>
-		<Unit filename="C:/Users/brent/CLionProjects/FileSeperatorCopy/globalDefinitions.h">
+		<Unit filename="/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/globalDefinitions.h">
 			<Option target="FileSeperator"/>
 		</Unit>
-		<Unit filename="C:/Users/brent/CLionProjects/FileSeperatorCopy/kmeans.h">
+		<Unit filename="/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/kmeans.h">
 			<Option target="FileSeperator"/>
 		</Unit>
-		<Unit filename="C:/Users/brent/CLionProjects/FileSeperatorCopy/linearRegression.h">
+		<Unit filename="/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/linearRegression.h">
 			<Option target="FileSeperator"/>
 		</Unit>
-		<Unit filename="C:/Users/brent/CLionProjects/FileSeperatorCopy/main.c">
+		<Unit filename="/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/main.c">
 			<Option target="FileSeperator"/>
 		</Unit>
-		<Unit filename="C:/Users/brent/CLionProjects/FileSeperatorCopy/outlierDetection.h">
+		<Unit filename="/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/outlierDetection.h">
 			<Option target="FileSeperator"/>
 		</Unit>
-		<Unit filename="C:/Users/brent/CLionProjects/FileSeperatorCopy/printHelper.h">
+		<Unit filename="/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/printHelper.h">
 			<Option target="FileSeperator"/>
 		</Unit>
-		<Unit filename="C:/Users/brent/CLionProjects/FileSeperatorCopy/pythagoreanMeans.h">
+		<Unit filename="/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/pythagoreanMeans.h">
 			<Option target="FileSeperator"/>
 		</Unit>
-		<Unit filename="C:/Users/brent/CLionProjects/FileSeperatorCopy/usefulStats.h">
+		<Unit filename="/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/usefulStats.h">
 			<Option target="FileSeperator"/>
 		</Unit>
-		<Unit filename="C:/Users/brent/CLionProjects/FileSeperatorCopy/CMakeLists.txt">
+		<Unit filename="/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>

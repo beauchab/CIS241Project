@@ -6,85 +6,85 @@
 
 #IncludeRegexTransform: 
 
-C:/Users/brent/CLionProjects/FileSeperatorCopy/SUBMENU_LinearRegression.h
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/SUBMENU_LinearRegression.h
 stdio.h
 -
 string.h
 -
 linearRegression.h
-C:/Users/brent/CLionProjects/FileSeperatorCopy/linearRegression.h
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/linearRegression.h
 globalDefinitions.h
-C:/Users/brent/CLionProjects/FileSeperatorCopy/globalDefinitions.h
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/globalDefinitions.h
 usefulStats.h
-C:/Users/brent/CLionProjects/FileSeperatorCopy/usefulStats.h
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/usefulStats.h
 dataHelper.h
-C:/Users/brent/CLionProjects/FileSeperatorCopy/dataHelper.h
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/dataHelper.h
 
-C:/Users/brent/CLionProjects/FileSeperatorCopy/dataHelper.h
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/dataHelper.h
 globalDefinitions.h
-C:/Users/brent/CLionProjects/FileSeperatorCopy/globalDefinitions.h
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/globalDefinitions.h
 stdlib.h
 -
 
-C:/Users/brent/CLionProjects/FileSeperatorCopy/fileHelper.h
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/fileHelper.h
 stdio.h
 -
 string.h
 -
 dataHelper.h
-C:/Users/brent/CLionProjects/FileSeperatorCopy/dataHelper.h
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/dataHelper.h
 globalDefinitions.h
-C:/Users/brent/CLionProjects/FileSeperatorCopy/globalDefinitions.h
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/globalDefinitions.h
 
-C:/Users/brent/CLionProjects/FileSeperatorCopy/globalDefinitions.h
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/globalDefinitions.h
 
-C:/Users/brent/CLionProjects/FileSeperatorCopy/linearRegression.h
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/linearRegression.h
 pythagoreanMeans.h
-C:/Users/brent/CLionProjects/FileSeperatorCopy/pythagoreanMeans.h
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/pythagoreanMeans.h
 usefulStats.h
-C:/Users/brent/CLionProjects/FileSeperatorCopy/usefulStats.h
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/usefulStats.h
 globalDefinitions.h
-C:/Users/brent/CLionProjects/FileSeperatorCopy/globalDefinitions.h
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/globalDefinitions.h
 
-C:/Users/brent/CLionProjects/FileSeperatorCopy/main.c
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/main.c
 stdio.h
 -
 string.h
 -
 printHelper.h
-C:/Users/brent/CLionProjects/FileSeperatorCopy/printHelper.h
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/printHelper.h
 fileHelper.h
-C:/Users/brent/CLionProjects/FileSeperatorCopy/fileHelper.h
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/fileHelper.h
 pythagoreanMeans.h
-C:/Users/brent/CLionProjects/FileSeperatorCopy/pythagoreanMeans.h
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/pythagoreanMeans.h
 stdlib.h
 -
 linearRegression.h
-C:/Users/brent/CLionProjects/FileSeperatorCopy/linearRegression.h
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/linearRegression.h
 usefulStats.h
-C:/Users/brent/CLionProjects/FileSeperatorCopy/usefulStats.h
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/usefulStats.h
 dataHelper.h
-C:/Users/brent/CLionProjects/FileSeperatorCopy/dataHelper.h
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/dataHelper.h
 SUBMENU_LinearRegression.h
-C:/Users/brent/CLionProjects/FileSeperatorCopy/SUBMENU_LinearRegression.h
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/SUBMENU_LinearRegression.h
 globalDefinitions.h
-C:/Users/brent/CLionProjects/FileSeperatorCopy/globalDefinitions.h
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/globalDefinitions.h
 
-C:/Users/brent/CLionProjects/FileSeperatorCopy/printHelper.h
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/printHelper.h
 stdio.h
 -
 string.h
 -
 
-C:/Users/brent/CLionProjects/FileSeperatorCopy/pythagoreanMeans.h
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/pythagoreanMeans.h
 math.h
 -
 dataHelper.h
-C:/Users/brent/CLionProjects/FileSeperatorCopy/dataHelper.h
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/dataHelper.h
 
-C:/Users/brent/CLionProjects/FileSeperatorCopy/usefulStats.h
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/usefulStats.h
 pythagoreanMeans.h
-C:/Users/brent/CLionProjects/FileSeperatorCopy/pythagoreanMeans.h
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/pythagoreanMeans.h
 globalDefinitions.h
-C:/Users/brent/CLionProjects/FileSeperatorCopy/globalDefinitions.h
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/globalDefinitions.h
 

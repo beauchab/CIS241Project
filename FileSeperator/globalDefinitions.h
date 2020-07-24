@@ -21,12 +21,10 @@ Description: This is a file which contains useful definitions for the
 #define PRINT_DATA        1
 #define LINEAR_REGRESSION 2
 #define KMEANS            3
-#define OUTLIER_DETECTION 4
-#define EXIT              5
+#define EXIT              4
 //Linear Regression
 #define LR_PERFORM_REGRESSION       0
-#define LR_ANALYZE_REGRESSION       1
-#define LR_EXIT                     2
+#define LR_EXIT                     1
 
 //Enums
 typedef enum Type{tInt, tDouble}Type;
@@ -47,8 +45,8 @@ typedef struct LR_StateControl {
     int userContinue;
 }lrSC;
 typedef struct LR_DataPoints {
-    char nameXY[40];
-    lrCo *lrP;
+    char nameXY[100];
+    lrCo lrP;
     int xData;
     void *xDatVec[2330];
     int yData;

@@ -30,7 +30,7 @@ Description: This function is the main driver for the kmeans
 **********************************************************************/
 void kmeansSubMenu(char dataSet[2330][5][20])
 {
-    lrSC session;
+    kmeans session;
     session.userContinue = 1;
     while(lrSub_receiveInput(&session))
     {
@@ -51,24 +51,23 @@ Description: This function is utilized to determine what the user will
                 This is a value which states 1 if the user would like
                 to continue running the program or 0 if the would not.
 **********************************************************************/
-int lrSub_receiveInput(lrSC *u)
+int kmeansSub_receiveInput(kmeansSC *u)
 {
     int ans;
     int invalid = 1;
     do {
-        printf("Linear Regression: STATE MACHINE\n");
+        printf("KMEANS: STATE MACHINE\n");
         printf("What would you like to do?\n");
         printf("Options:\n");
-        printf("0:\tPerform Regression\n");
-        printf("1:\tAnalyze Regression\n");
-        printf("2:\tEXIT\n");
+        printf("0:\tPerform Kmeans\n");
+        printf("1:\tEXIT\n");
 
         printf("Answer:\t");
         scanf("%d", &ans);
         printf("\n");
 
         //Answer is incorrect
-        if(ans < 0 || ans > 2 )
+        if(ans < 0 || ans > 1 )
         {
             printf("\nINVALID INPUT!\n");
         } else{
@@ -79,7 +78,7 @@ int lrSub_receiveInput(lrSC *u)
     //Set State
     u->state = ans;
 
-    return u->state == LR_EXIT ? 0 : 1;
+    return u->state == KMEANS_EXIT ? 0 : 1;
 }
 
 

@@ -1,6 +1,5 @@
 //TODO
 //FIXME CLEAN UP STATE MACHINE
-//FIXME HOW DO WE ACTUALL CALL THE LINEAR REGRESSION FUNCTION???
 //We can skip these if we run out of time
 //FIXME IMPLEMENT LINKED LIST TO PASS DATA TO ANALYZE REGRESSION
 //FIXME IMPLEMENT ANALYZE REGRESSION
@@ -31,7 +30,7 @@ void lrSub_performRegression(parDTok *dat[2330]);
 char *lrSub_dataName(int i);
 int lrSub_selectData(char* var);
 void linearRegressionSubMenu(parDTok *dat[2330]);
-lrCo *castToRegression(int xTyp, int yTyp, void *xDat[2330], void *yDat[2330]);
+lrCo castToRegression(int xTyp, int yTyp, void *xDat[2330], void *yDat[2330]);
 
 /**********************************************************************
 Name: linearRegressionSubMenu
@@ -74,17 +73,16 @@ int lrSub_receiveInput(lrSC *u)
         printf("What would you like to do?\n");
         printf("Options:\n");
         printf("0:\tPerform Regression\n");
-        printf("1:\tAnalyze Regression\n");
-        printf("2:\tEXIT\n");
+        printf("1:\tEXIT\n");
 
         printf("Answer:\t");
         scanf("%d", &ans);
         printf("\n");
 
         //Answer is incorrect
-        if(ans < 0 || ans > 2 )
+        if(ans < 0 || ans > 1 )
         {
-            printf("\nINVALID INPUT!\n");
+            printf("INVALID INPUT!\n\n");
         } else{
             invalid = 0;
         }
@@ -116,11 +114,6 @@ int lrSub_stateMachine(lrSC *u, parDTok *dat[2330])
         case LR_PERFORM_REGRESSION  :
             //State Machine for choosing what to regress
             lrSub_performRegression(dat);
-            break;
-
-        case LR_ANALYZE_REGRESSION  :
-            //State Machine for doing analysis on a member of the linked list
-            //FIXME
             break;
 
         case LR_EXIT       :
@@ -168,7 +161,7 @@ Description: This function asks the user which columns of Dr. Bhuse's
 void lrSub_performRegression(parDTok *dat[2330])
 {
     lrDP data;
-    char xDataType[20], yDataType[20];
+    char xDataType[40], yDataType[40];
 
     printf("Performing Linear Regression\n");
     printf("Y = aX + b\n");
@@ -191,6 +184,7 @@ void lrSub_performRegression(parDTok *dat[2330])
 
     //Concatenate Name of Data Structure "xDataType,yDataType"
     strcpy(data.nameXY, xDataType);
+    strcat(data.nameXY, " and \0");
     strcat(data.nameXY, yDataType);
 
     //Select Columns to Regress
@@ -198,14 +192,13 @@ void lrSub_performRegression(parDTok *dat[2330])
     selectColumn(dat, data.yData, data.yDatVec);
 
     //Perform Regression
-    printf("I'm at the regression. Horray!\n");
     data.lrP = castToRegression(data.xData, data.yData, data.xDatVec, data.yDatVec);
 
-    //Add to List
-    //FIXME IMPLEMENT LIST
-
     //Print Vars
-    lrSub_printRegression(*data.lrP);
+    lrSub_printRegression(data);
+    //printf("\nRegression of %s\n", xDataType);
+    //Analyze for Outliers
+
 }
 /**********************************************************************
 Name:lrSub_dataName
@@ -227,27 +220,27 @@ char *lrSub_dataName(int i)
     switch(i) {
 
         case DATE  :
-            ans = "Date";
+            ans = "Date\0";
             break;
 
         case SPY_PUT_CALL_RATIO            :
-            ans = "SPY Put Call Ratio";
+            ans = "SPY Put Call Ratio\0";
             break;
 
         case SPY_PUT_VOLUME                :
-            ans = "Spy Put Volume";
+            ans = "Spy Put Volume\0";
             break;
 
         case SPY_CALL_VOLUME                :
-            ans = "SPY Call Volume";
+            ans = "SPY Call Volume\0";
             break;
 
         case TOTAL_SPY_OPTIONS_VOLUME       :
-            ans = "Total SPY Options Volume";
+            ans = "Total SPY Options Volume\0";
             break;
 
         default :
-            ans = "Error";
+            ans = "Error\0";
             break;
     }
     return ans;
@@ -297,16 +290,16 @@ Description:
 @param -
 @return -
 **********************************************************************/
-lrCo *castToRegression(int xTyp, int yTyp, void *xDat[2330], void *yDat[2330])
+lrCo castToRegression(int xTyp, int yTyp, void *xDat[2330], void *yDat[2330])
 {
     lrCo ret;
     Type xT, yT;
 
-    xT = ((xTyp == 0)||(xTyp == 2)||(xTyp == 3)) ? tInt : tDouble;
-    yT = ((yTyp == 0)||(yTyp == 2)||(yTyp == 3)) ? tInt : tDouble;
+    xT = ((xTyp != 1)) ? tInt : tDouble;
+    yT = ((yTyp != 1)) ? tInt : tDouble;
 
     ret = linearRegression(xDat, xT, yDat, yT);
 
-    return &ret;
+    return ret;
 }
 #endif //FILESEPERATOR_SUBMENU_LINEARREGRESSION_H

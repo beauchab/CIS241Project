@@ -25,9 +25,7 @@ void analyzeCorXY(double c);
 Name: calcVar
 Description: This function calculates the variance of a dataset that
              is input to the function. The formula for variance is:
-
                     var = sum((x-xBar)^2)/(n-1)
-
 @author - Brendan P. Beauchamp
 @updated - 7/8/2020
 @param - double x[]
@@ -122,31 +120,31 @@ double calcCovXY(void *x[2330], Type xT, void *y[2330], Type yT, double xBar, do
             {
                 num += ((*(int*)x[i] - xBar)*(*(int*)y[i] - yBar));
             }
-        break;
+            break;
 
-        //x -> int, y -> double
+            //x -> int, y -> double
         case 1:
             for( i = 0; i < 2330; i++)
             {
                 num += ((double)(*(int*)x[i] - xBar)*(*(double*)y[i] - yBar));
             }
-        break;
+            break;
 
-        //x -> double, y -> int
+            //x -> double, y -> int
         case 2:
             for( i = 0; i < 2330; i++)
             {
                 num += ((*(double*)x[i] - xBar)*((double)*(int*)y[i] - yBar));
             }
-        break;
+            break;
 
-        //x -> double, y -> double
+            //x -> double, y -> double
         case 3:
             for( i = 0; i < 2330; i++)
             {
                 num += ((*(double*)x[i] - xBar)*(*(double*)y[i] - yBar));
             }
-        break;
+            break;
     }
 
     cov = num/2329;

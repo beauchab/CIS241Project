@@ -17,14 +17,14 @@ Description: This is a library which controls the kmeans Sub Menu.
 #include "dataHelper.h"
 
 //Function Prototypes
-void kmeansSubMenu(char dataSet[2330][5][20]);
+void kmeansSubMenu(parDTok *dat[2330]);
 int kmeansSub_receiveInput(kmSC *u);
 int kmeansSub_receiveInput(kmSC *u);
 int kmeansSub_stateMachine(kmSC *u, parDTok *dat[2330]);
 void kmSub_exit(kmSC *u);
 void kmeansSub_performKmeans(parDTok *dat[2330]);
 int kmSub_selectData(char* var);
-
+int createDim(int dim);
 /**********************************************************************
 Name: kmeansSubMenu
 Description: This function is the main driver for the kmeans
@@ -35,7 +35,7 @@ Description: This function is the main driver for the kmeans
                 This is the dataset read from Dr. Bhuse's input file
 @return - void
 **********************************************************************/
-void kmeansSubMenu(char dataSet[2330][5][20])
+void kmeansSubMenu(parDTok *dat[2330])
 {
     kmSC session;
     session.userContinue = 1;
@@ -121,13 +121,15 @@ void kmeansSub_performKmeans(parDTok *dat[2330])
 {
     kmDP data;
     char xDataType[40], yDataType[40];
-    int dim;
+    int dim, clusters;
 
     printf("Performing K Means:\n\n");
     printf("Please choose single or double dimension:\n");
     printf("0:\tSingle\n");
     printf("1:\tDouble\n");
     scanf("%d", &dim);
+
+
 
     //DataSet Options
     if(dim == 1) {
@@ -170,13 +172,19 @@ void kmeansSub_performKmeans(parDTok *dat[2330])
         selectColumn(dat, data.xData, data.xDatVec);
         strcpy(data.nameXY, xDataType);
 
+        do {
+            printf("How many clusters would you like to perform k means on? (1-10):\n");
+            scanf("%d", &clusters);
+        }while(clusters < 1 && clusters > 10);
     }
 
         printf("Clusters of ");
         printf(data.nameXY);
         printf("\n\n");
-    //data.lrP = castToRegression(data.xData, data.yData, data.xDatVec, data.yDatVec);
-
+        int outputCluster[clusters];
+        double initialCentroids[] = {100000, 200000, 300000};
+        dim = createDim(dim);
+        kmeans(dim, (double*) data.xDatVec , 2330, clusters, initialCentroids, outputCluster);
 }
 
 int kmSub_selectData(char* var)
@@ -185,7 +193,7 @@ int kmSub_selectData(char* var)
     int invalid = 1;
 
     do {
-        printf("Select Data Set to cluster: %c\n", var);
+        printf("Select Data Set to Cluster: %c\n", var);
 
         printf("Answer:\t");
         scanf("%d", &ans);
@@ -203,4 +211,19 @@ int kmSub_selectData(char* var)
     return ans;
 }
 
+double* createInitCluster(parDTok *dat[2330])
+{
+
+}
+
+int createDim(int dim){
+    int newDim;
+    if (dim == 0){
+        newDim = 1;
+    }
+    else if(dim == 1){
+        newDim = 2;
+    }
+    return newDim;
+}
 #endif //FILESEPERATOR_SUBMENU_KMEANS_H

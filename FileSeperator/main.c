@@ -147,6 +147,10 @@ Description: This is the state machine for the main menu.
 **********************************************************************/
 void stateMachine(struct stateControl *u, dat *d, struct files *f)
 {
+    double input[2330];
+    double initialCentroids[] = {100000, 200000, 300000};
+    int final[3];
+    int i;
     //int numClusters;
     switch(u->state) {
 
@@ -168,8 +172,12 @@ void stateMachine(struct stateControl *u, dat *d, struct files *f)
         case KMEANS  :
             //State Machine for KMEANS
             kmeansSubMenu(d->parsedData);
-            break;
+           /* for(i = 0; i < 2330; i++){
+                input[i] = (double)d->parsedData[i].spyCallVolume;
+            }
 
+            kmeans(1, (double *) &input, 2330, 3, initialCentroids, final);*/
+            break;
         case EXIT       :
             //Function for closing files and setting the control structure to exit
             exitProgram(u, f);
@@ -201,23 +209,3 @@ void exitProgram(struct stateControl *u, struct files *f)
     fclose(f->inFileP);
 }
 
-/*
-int* dataLinerization(struct Data data[])
-{
-	int i = 0, j=0, date[foo(data)], month[foo(data)];
-	static int newArray[][];
-	while( i < foo(data))
-	{
-		month = strtok(data.date[i], "/");
-		date[i] = strtok(NULL, "/");
-		i++;
-	}
-	i=0;
-	while(j < date[i])
-	{
-		newArray[j] = j + 1;
-		j++;
-	}
-	return newArray;
-}
- */

@@ -25,6 +25,10 @@ Description: This is a file which contains useful definitions for the
 //Linear Regression
 #define LR_PERFORM_REGRESSION       0
 #define LR_EXIT                     1
+//K Means
+#define PERFORM_KMEANS              0
+#define KMEANS_EXIT                 1
+
 
 //Enums
 typedef enum Type{tInt, tDouble}Type;
@@ -81,5 +85,16 @@ typedef struct theData {
     char arIn[2330][5][20];
     parDTok parsedData[2330];
 }dat;
-
+typedef struct Kmeans_StateControl {
+    int state;
+    int userContinue;
+}kmSC;
+typedef struct KM_DataPoints {
+    char nameXY[100];
+    //lrCo lrP;
+    int xData;
+    void *xDatVec[2330];
+    int yData;
+    void *yDatVec[2330];
+}kmDP;
 #endif //FILESEPERATOR_GLOBALDEFINITIONS_H

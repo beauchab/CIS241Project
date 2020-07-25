@@ -6,6 +6,20 @@
 
 #IncludeRegexTransform: 
 
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/SUBMENU_Kmeans.h
+stdio.h
+-
+string.h
+-
+math.h
+-
+kmeans.h
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/kmeans.h
+globalDefinitions.h
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/globalDefinitions.h
+dataHelper.h
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/dataHelper.h
+
 /Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/SUBMENU_LinearRegression.h
 stdio.h
 -
@@ -37,6 +51,14 @@ globalDefinitions.h
 /Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/globalDefinitions.h
 
 /Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/globalDefinitions.h
+
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/kmeans.h
+math.h
+-
+stdlib.h
+-
+stdio.h
+-
 
 /Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/linearRegression.h
 pythagoreanMeans.h
@@ -69,6 +91,10 @@ SUBMENU_LinearRegression.h
 /Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/SUBMENU_LinearRegression.h
 globalDefinitions.h
 /Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/globalDefinitions.h
+kmeans.h
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/kmeans.h
+SUBMENU_Kmeans.h
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/SUBMENU_Kmeans.h
 
 /Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/printHelper.h
 stdio.h

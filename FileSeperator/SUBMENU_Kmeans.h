@@ -14,9 +14,16 @@ Description: This is a library which controls the kmeans Sub Menu.
 #include <math.h>
 #include "kmeans.h"
 #include "globalDefinitions.h"
+#include "dataHelper.h"
 
-//State Definitions
-#define
+//Function Prototypes
+void kmeansSubMenu(char dataSet[2330][5][20]);
+int kmeansSub_receiveInput(kmSC *u);
+int kmeansSub_receiveInput(kmSC *u);
+int kmeansSub_stateMachine(kmSC *u, parDTok *dat[2330]);
+void kmSub_exit(kmSC *u);
+void kmeansSub_performKmeans(parDTok *dat[2330]);
+int kmSub_selectData(char* var);
 
 /**********************************************************************
 Name: kmeansSubMenu
@@ -30,11 +37,11 @@ Description: This function is the main driver for the kmeans
 **********************************************************************/
 void kmeansSubMenu(char dataSet[2330][5][20])
 {
-    kmeans session;
+    kmSC session;
     session.userContinue = 1;
-    while(lrSub_receiveInput(&session))
+    while(kmeansSub_receiveInput(&session))
     {
-        lrSub_stateMachine(&session, dataSet);
+        kmeansSub_stateMachine(&session, dataSet);
     }
 }
 
@@ -51,7 +58,7 @@ Description: This function is utilized to determine what the user will
                 This is a value which states 1 if the user would like
                 to continue running the program or 0 if the would not.
 **********************************************************************/
-int kmeansSub_receiveInput(kmeansSC *u)
+int kmeansSub_receiveInput(kmSC *u)
 {
     int ans;
     int invalid = 1;
@@ -81,7 +88,119 @@ int kmeansSub_receiveInput(kmeansSC *u)
     return u->state == KMEANS_EXIT ? 0 : 1;
 }
 
+int kmeansSub_stateMachine(kmSC *u, parDTok *dat[2330])
+{
+    switch(u->state) {
 
+        case PERFORM_KMEANS  :
+            //State Machine for choosing what to regress
+            kmeansSub_performKmeans(dat);
+            break;
 
+        case KMEANS_EXIT       :
+            //Function for setting control structure to exit
+            kmSub_exit(u);
+            break;
+
+        default :
+            //ERROR -> Exit state machine
+            printf("\nERROR: EXITING KMEANS\n");
+            u->state = KMEANS_EXIT;
+            break;
+    }
+    return u->userContinue;
+}
+
+void kmSub_exit(kmSC *u)
+{
+    u->state = KMEANS_EXIT;
+    u->userContinue = 0;
+}
+
+void kmeansSub_performKmeans(parDTok *dat[2330])
+{
+    kmDP data;
+    char xDataType[40], yDataType[40];
+    int dim;
+
+    printf("Performing K Means:\n\n");
+    printf("Please choose single or double dimension:\n");
+    printf("0:\tSingle\n");
+    printf("1:\tDouble\n");
+    scanf("%d", &dim);
+
+    //DataSet Options
+    if(dim == 1) {
+        printf("Options:\n");
+        printf("0:\tDate\n");
+        printf("1:\tSPY Put/Call Ratio\n");
+        printf("2:\tSPY Put Volume\n");
+        printf("3:\tSPY Call Volume\n");
+        printf("4:\tTotal SPY Options Volume\n");
+
+        //Select X Data Set
+        data.xData = kmSub_selectData('X');
+        strcpy(xDataType, lrSub_dataName(data.xData));
+
+        //Select Y Data Set
+        data.yData = kmSub_selectData('Y');
+        strcpy(yDataType, lrSub_dataName(data.yData));
+
+        //Select Columns to Regress
+        selectColumn(dat, data.xData, data.xDatVec);
+        selectColumn(dat, data.yData, data.yDatVec);
+
+        //Concatenate Name of Data Structure "xDataType,yDataType"
+        strcpy(data.nameXY, xDataType);
+        strcat(data.nameXY, " and \0");
+        strcat(data.nameXY, yDataType);
+
+    }
+    else{
+        printf("Options:\n");
+        printf("1:\tSPY Put/Call Ratio\n");
+        printf("2:\tSPY Put Volume\n");
+        printf("3:\tSPY Call Volume\n");
+        printf("4:\tTotal SPY Options Volume\n");
+
+        //Select X Data Set
+        data.xData = kmSub_selectData("Data");
+        strcpy(xDataType, lrSub_dataName(data.xData));
+
+        selectColumn(dat, data.xData, data.xDatVec);
+        strcpy(data.nameXY, xDataType);
+
+    }
+
+        printf("Clusters of ");
+        printf(data.nameXY);
+        printf("\n\n");
+    //data.lrP = castToRegression(data.xData, data.yData, data.xDatVec, data.yDatVec);
+
+}
+
+int kmSub_selectData(char* var)
+{
+    int ans;
+    int invalid = 1;
+
+    do {
+        printf("Select Data Set to cluster: %c\n", var);
+
+        printf("Answer:\t");
+        scanf("%d", &ans);
+        printf("\n");
+
+        //Answer is incorrect
+        if(ans < 0 || ans > 4 )
+        {
+            printf("\nINVALID INPUT!\n");
+        } else{
+            invalid = 0;
+        }
+    }while(invalid);
+
+    return ans;
+}
 
 #endif //FILESEPERATOR_SUBMENU_KMEANS_H

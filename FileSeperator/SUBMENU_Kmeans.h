@@ -24,7 +24,6 @@ int kmeansSub_stateMachine(kmSC *u, parDTok *dat[2330]);
 void kmSub_exit(kmSC *u);
 void kmeansSub_performKmeans(parDTok *dat[2330]);
 int kmSub_selectData(char* var);
-int createDim(int dim);
 double* createInitCentroid(double* dataVector, int n, int numClusters);
 /**********************************************************************
 Name: kmeansSubMenu
@@ -52,9 +51,9 @@ Description: This function is utilized to determine what the user will
          pass into the kmeans function.
 @author - Taylor A. Rieger
 @updated - 7/17/2020
-@param - lrSC *u
+@param - kmSC *u
                 This is a structure which contains variables useful to
-                maintaining the state of the linear regression sub menu.
+                maintaining the state of the kmeans sub menu.
 @return - int {1,0}
                 This is a value which states 1 if the user would like
                 to continue running the program or 0 if the would not.
@@ -88,13 +87,29 @@ int kmeansSub_receiveInput(kmSC *u)
 
     return u->state == KMEANS_EXIT ? 0 : 1;
 }
-
+/************************************************************
+Name: kmeansSub_stateMachine
+Description: This is a function that controls the flow of the
+             kmeans submenu state machine.
+@author - Taylor A. Rieger
+@updated - 7/21/2020
+@param - kmSC *u
+                This is a structure which contains variables
+                useful to maintaining the state of the kmeans
+                sub menu.
+@param - char dataSet[2330][5][20]
+                This is the dataset read from Dr. Bhuse's input
+                file.
+@return - int u->userContinue
+                This variable states whether the user would like
+                to continue running.
+*************************************************************/
 int kmeansSub_stateMachine(kmSC *u, parDTok *dat[2330])
 {
     switch(u->state) {
 
         case PERFORM_KMEANS  :
-            //State Machine for choosing what to regress
+            //Function for performing kmeans
             kmeansSub_performKmeans(dat);
             break;
 
@@ -111,13 +126,36 @@ int kmeansSub_stateMachine(kmSC *u, parDTok *dat[2330])
     }
     return u->userContinue;
 }
-
+/**********************************************************************
+Name: kmSub_exit
+Description: This is a function which sets parameters to exit the
+             linear regression sub menu.
+@author - Taylor A. Rieger
+@updated - 7/17/2020
+@param - kmSC *u
+            This is a structure which controls the state of the
+            kmeans sub menu state machine
+@return - void
+**********************************************************************/
 void kmSub_exit(kmSC *u)
 {
     u->state = KMEANS_EXIT;
     u->userContinue = 0;
 }
-
+/**********************************************************************
+Name: kmeansSub_performKmeans
+Description: This function asks the user which column of Dr. Bhuse's
+             file they would like to perform kmeans on, and then
+             performs kmeans on that single column with the inputted
+             number of centroids and clusters.
+             After kmeans is complete, its data is printed back
+             to the user.
+@author - Taylor A. Rieger
+@updated - 7/26/2020
+@param - char dataSet[2330][5][20]
+                This is the dataset read from Dr. Bhuse's input file
+@return - void
+**********************************************************************/
 void kmeansSub_performKmeans(parDTok *dat[2330])
 {
     kmDP data;
@@ -162,7 +200,18 @@ void kmeansSub_performKmeans(parDTok *dat[2330])
         dim = createDim(dim);
         kmeans(dim, *data.DatVec , 2330, clusters, initialCentroids, outputCluster);
 }
-
+/**********************************************************************
+Name: kmSub_selectData
+Description: This is a helper function for scanning in the datasets for
+             K means.
+@author - Taylor A. Rieger
+@updated - 7/17/2020
+@param - char* var
+                This is a character that is currently being scanned.
+@return - int ans
+                This is the user's choice for the column of the input
+                dataset to be selected.
+**********************************************************************/
 int kmSub_selectData(char* var)
 {
     int ans;
@@ -186,12 +235,28 @@ int kmSub_selectData(char* var)
 
     return ans;
 }
-
+/**********************************************************************
+Name: createInitCentroid
+Description: This is a helper function that creates
+@author - Taylor A. Rieger
+@updated - 7/25/2020
+@param - double* dataVector
+                This is a the data in the column selected by the user
+                in order to determine initial centroids.
+@param - int n
+                This is the number of rows/datapoints in the column.
+@param - int numClusters
+                This is the number of clusters the user wants to
+                create from the data.
+@return - double* initialCentroids
+                This is the initial array of centroids that are
+                doubles and to be passed to kmeans.
+**********************************************************************/
 double* createInitCentroid(double* dataVector, int n, int numClusters)
 {
     double min,max, range=0, gap;
     int i;
-    double initialClusters[numClusters];
+    double initialCentroids[numClusters];
     min=max=dataVector[0];
     for(i=1; i<n; i++)
     {
@@ -201,25 +266,15 @@ double* createInitCentroid(double* dataVector, int n, int numClusters)
             max=dataVector[i];
     }
     range = max - min;
-    initialClusters[0] = min;
-    initialClusters[numClusters-1] = max;
+    initialCentroids[0] = min;
+    initialCentroids[numClusters-1] = max;
     gap = range/numClusters;
     for(i=1; i<numClusters-1; i++){
-        initialClusters[i] += (min + gap*i);
+        initialCentroids[i] += (min + gap*i);
     }
-    return initialClusters;
+    return initialCentroids;
 
 }
 
-int createDim(int dim){
-    int newDim=1;
-    if (dim == 0){
-        newDim = 1;
-    }
-    else if(dim == 1){
-        newDim = 2;
-    }
-    return newDim;
-}
 
 #endif //FILESEPERATOR_SUBMENU_KMEANS_H

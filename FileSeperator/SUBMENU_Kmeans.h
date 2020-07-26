@@ -11,7 +11,7 @@ Description: This is a library which controls the kmeans Sub Menu.
 //Included Libraries
 #include <stdio.h>
 #include <string.h>
-#include <math.h>
+#include "math.h"
 #include "kmeans.h"
 #include "globalDefinitions.h"
 #include "dataHelper.h"
@@ -25,6 +25,7 @@ void kmSub_exit(kmSC *u);
 void kmeansSub_performKmeans(parDTok *dat[2330]);
 int kmSub_selectData(char* var);
 int createDim(int dim);
+double* createInitCentroid(double* dataVector, int n, int numClusters);
 /**********************************************************************
 Name: kmeansSubMenu
 Description: This function is the main driver for the kmeans
@@ -41,7 +42,7 @@ void kmeansSubMenu(parDTok *dat[2330])
     session.userContinue = 1;
     while(kmeansSub_receiveInput(&session))
     {
-        kmeansSub_stateMachine(&session, dataSet);
+        kmeansSub_stateMachine(&session, dat);
     }
 }
 
@@ -121,68 +122,38 @@ void kmeansSub_performKmeans(parDTok *dat[2330])
 {
     kmDP data;
     char xDataType[40], yDataType[40];
-    int dim, clusters;
+    int dim=1, clusters=1;
 
     printf("Performing K Means:\n\n");
-    printf("Please choose single or double dimension:\n");
-    printf("0:\tSingle\n");
-    printf("1:\tDouble\n");
-    scanf("%d", &dim);
-
-
 
     //DataSet Options
-    if(dim == 1) {
-        printf("Options:\n");
-        printf("0:\tDate\n");
-        printf("1:\tSPY Put/Call Ratio\n");
-        printf("2:\tSPY Put Volume\n");
-        printf("3:\tSPY Call Volume\n");
-        printf("4:\tTotal SPY Options Volume\n");
-
-        //Select X Data Set
-        data.xData = kmSub_selectData('X');
-        strcpy(xDataType, lrSub_dataName(data.xData));
-
-        //Select Y Data Set
-        data.yData = kmSub_selectData('Y');
-        strcpy(yDataType, lrSub_dataName(data.yData));
-
-        //Select Columns to Regress
-        selectColumn(dat, data.xData, data.xDatVec);
-        selectColumn(dat, data.yData, data.yDatVec);
-
-        //Concatenate Name of Data Structure "xDataType,yDataType"
-        strcpy(data.nameXY, xDataType);
-        strcat(data.nameXY, " and \0");
-        strcat(data.nameXY, yDataType);
-
-    }
-    else{
-        printf("Options:\n");
-        printf("1:\tSPY Put/Call Ratio\n");
-        printf("2:\tSPY Put Volume\n");
-        printf("3:\tSPY Call Volume\n");
-        printf("4:\tTotal SPY Options Volume\n");
-
-        //Select X Data Set
-        data.xData = kmSub_selectData("Data");
-        strcpy(xDataType, lrSub_dataName(data.xData));
-
-        selectColumn(dat, data.xData, data.xDatVec);
-        strcpy(data.nameXY, xDataType);
 
         do {
-            printf("How many clusters would you like to perform k means on? (1-10):\n");
-            scanf("%d", &clusters);
-        }while(clusters < 1 && clusters > 10);
-    }
+            printf("Options:\n");
+            printf("1:\tSPY Put/Call Ratio\n");
+            printf("2:\tSPY Put Volume\n");
+            printf("3:\tSPY Call Volume\n");
+            printf("4:\tTotal SPY Options Volume\n");
+
+            //Select X Data Set
+            data.xData = kmSub_selectData("Data");
+            strcpy(xDataType, lrSub_dataName(data.xData));
+        } while (data.xData < 1 || data.xData > 4);
+
+        selectColumn(dat, data.xData, data.xDatVec);
+        strcpy(data.nameXY, xDataType);
+
+    do {
+        printf("How many clusters would you like to perform k means on? (1-10):\n");
+        scanf("%d", &clusters);
+    }while(clusters < 1 || clusters > 10);
 
         printf("Clusters of ");
         printf(data.nameXY);
         printf("\n\n");
         int outputCluster[clusters];
-        double initialCentroids[] = {100000, 200000, 300000};
+        double initialCentroids[clusters];
+        initialCentroids[clusters] = *(createInitCentroid(((double*) data.xDatVec), 2330, clusters));
         dim = createDim(dim);
         kmeans(dim, (double*) data.xDatVec , 2330, clusters, initialCentroids, outputCluster);
 }
@@ -211,13 +182,32 @@ int kmSub_selectData(char* var)
     return ans;
 }
 
-double* createInitCluster(parDTok *dat[2330])
+double* createInitCentroid(double* dataVector, int n, int numClusters)
 {
+    double min,max, range=0, gap;
+    int i;
+    double initialClusters[numClusters];
+    min=max=dataVector[0];
+    for(i=1; i<n; i++)
+    {
+        if(min>dataVector[i])
+            min=dataVector[i];
+        if(max<dataVector[i])
+            max=dataVector[i];
+    }
+    range = max - min;
+    initialClusters[0] = min;
+    initialClusters[numClusters-1] = max;
+    gap = range/numClusters;
+    for(i=1; i<numClusters-1; i++){
+        initialClusters[i] += (min + gap*i);
+    }
+    return initialClusters;
 
 }
 
 int createDim(int dim){
-    int newDim;
+    int newDim=1;
     if (dim == 0){
         newDim = 1;
     }

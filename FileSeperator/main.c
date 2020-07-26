@@ -20,6 +20,7 @@ Description: This Program opens the data given to us by the professor,
 #include "SUBMENU_LinearRegression.h"
 #include "globalDefinitions.h"
 #include "kmeans.h"
+#include "SUBMENU_Kmeans.h"
 
 //Function Prototypes
 void stateMachine(struct stateControl *u, dat *d, struct files *f);
@@ -171,12 +172,7 @@ void stateMachine(struct stateControl *u, dat *d, struct files *f)
 
         case KMEANS  :
             //State Machine for KMEANS
-
-            for(i = 0; i < 2330; i++){
-                input[i] = (double)d->parsedData[i].spyCallVolume;
-            }
-
-            kmeans(1, (double *) &input, 2330, 3, initialCentroids, final);
+            kmeansSubMenu(d->parsedData);
             break;
 
         case EXIT       :

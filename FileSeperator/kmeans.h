@@ -16,7 +16,7 @@ Description: This library implements kmeans clustering functionality
 #include <stdio.h>
 //Definitions
 #define sqr(x) ((x)*(x))
-#define MAX_CLUSTERS 16
+#define MAX_CLUSTERS 4
 #define MAX_ITERATIONS 100
 #define BIG_double (INFINITY)
 //Function Prototypes - ONLY USE THE kmeans function, others are helpers
@@ -287,7 +287,11 @@ void cluster_diag(int dim, int n, int k, double* X, int* cluster_assignment_inde
 
     printf("  Final clusters \n");
     for (int ii = 0; ii < k; ii++)
-        printf("    cluster %d:     members: %8d, centroid (%.1f %.1f) \n", ii, cluster_member_count[ii], cluster_centroid[ii * dim + 0], cluster_centroid[ii * dim + 1]);
+        if(cluster_member_count[ii] == 0)
+            printf("    cluster %d:     members: %8d, centroid: N/A \n", ii, cluster_member_count[ii]);
+        else
+            printf("    cluster %d:     members: %8d, centroid: (%.1f %.1f) \n", ii, cluster_member_count[ii], cluster_centroid[ii * dim + 0], cluster_centroid[ii * dim + 1]);
+
 }
 /**********************************************************************
 Name:

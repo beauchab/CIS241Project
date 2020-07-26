@@ -8,6 +8,7 @@ Description: This is a library which controls the kmeans Sub Menu.
 *************************************************************/
 #ifndef FILESEPARATOR_SUBMENU_KMEANS_H
 #define FILESEPARATOR_SUBMENU_KMEANS_H
+
 //Included Libraries
 #include <stdio.h>
 #include <string.h>
@@ -22,9 +23,11 @@ int kmeansSub_receiveInput(kmSC *u);
 int kmeansSub_stateMachine(kmSC *u, parDTok *dat);
 void kmSub_exit(kmSC *u);
 void kmeansSub_performKmeans(parDTok *dat);
-int kmSub_selectData(parDTok *dat, kmDP *data);
+int kmSub_selectData1D(parDTok *dat, kmDP *data);
+int kmSub_selectData2D(parDTok *dat, kmDP *data);
 int createDim(int dim);
-void createInitCentroid(double* dataVector, int n, int numClusters, double* initialCentroids);
+void createInitCentroid1D(double* dataVector, int n, int numClusters, double* initialCentroids);
+void createInitCentroid2D(double dataVector[][DATA_SIZE], int n, int numClusters, double initialCentroids[0][MAX_CLUSTERS]);
 /**********************************************************************
 Name: kmeansSubMenu
 Description: This function is the main driver for the kmeans
@@ -120,9 +123,24 @@ void kmSub_exit(kmSC *u)
 void kmeansSub_performKmeans(parDTok *dat)
 {
     kmDP data;
-    int dim=1, clusters=1, i=0;
+    int dim=0, clusters=1, i=0;
 
     printf("Performing K Means:\n\n");
+
+    //DataSet Options
+    do {
+        printf("Please indicate dimension: \n");
+        printf("1:\t1-D Analysis\n");
+        printf("2:\t2-D Analysis\n");
+
+        printf("Answer:\t");
+        scanf("%d", &dim);
+        printf("\n");
+
+        //Select X Data Set
+        printf("\n%d-D Analysis Chosen\n", dim);
+
+    } while (dim < 1 || dim > 2);
 
     //DataSet Options
     do {
@@ -132,31 +150,44 @@ void kmeansSub_performKmeans(parDTok *dat)
         printf("3:\tSPY Call Volume\n");
         printf("4:\tTotal SPY Options Volume\n");
 
-        //Select X Data Set
-        data.Data = kmSub_selectData(dat, &data);
-
+        if(dim == 1)
+        {
+            //Select X Data Set
+            data.Data = kmSub_selectData1D(dat, &data);
+        }
+        else if(dim == 2)
+        {
+            //Select XY Data Set
+            data.Data = kmSub_selectData2D(dat, &data);
+        }
     } while (data.Data < 1 || data.Data > 4);
 
-    //seeing if data is correct
-//    for (i=0; i < 2330; i++){
-//        printf("%lf\n",  data.input[i]);
-//    }
 
     do {
         printf("How many clusters would you like to perform k means on? (1-4):\n");
         scanf("%d", &clusters);
-    }while(clusters < 1 || clusters > 4;
+    }while(clusters < 1 || clusters > 4);
 
 
     int outputCluster[clusters];
-    double initialCentroids[clusters];
 
-    createInitCentroid(data.input, DATA_SIZE, clusters, initialCentroids);
 
-    kmeans(dim, (double*)&data.input, DATA_SIZE, clusters, initialCentroids, outputCluster);
+    if(dim == 1)
+    {
+        double initialCentroids[clusters];
+        createInitCentroid1D(data.input1D, DATA_SIZE, clusters, initialCentroids);
+        kmeans(dim, (double *)&data.input1D, DATA_SIZE, clusters, initialCentroids, outputCluster);
+    }
+    else if(dim == 2)
+    {
+        double initialCentroids[2][MAX_CLUSTERS];
+        createInitCentroid2D(data.input2D, DATA_SIZE, clusters, initialCentroids);
+        kmeans(dim, (double *)&data.input2D, DATA_SIZE, clusters, (double *)initialCentroids, outputCluster);
+    }
+
 }
 
-int kmSub_selectData(parDTok *dat, kmDP *data)
+int kmSub_selectData1D(parDTok *dat, kmDP *data)
 {
     int ans, i;
     int invalid = 1;
@@ -180,30 +211,110 @@ int kmSub_selectData(parDTok *dat, kmDP *data)
     switch(ans) {
         case SPY_PUT_CALL_RATIO:
             for (i = 0; i < DATA_SIZE; i++) {
-                data->input[i] = (double) dat[i].spyPutCallRatio;
+                data->input1D[i] = (double) dat[i].spyPutCallRatio;
             } break;
         case SPY_PUT_VOLUME:
             for (i = 0; i < DATA_SIZE; i++) {
-                data->input[i] = (double) dat[i].spyPutVolume;
+                data->input1D[i] = (double) dat[i].spyPutVolume;
             } break;
         case SPY_CALL_VOLUME:
             for (i = 0; i < DATA_SIZE; i++) {
-                data->input[i] = (double) dat[i].spyCallVolume;
+                data->input1D[i] = (double) dat[i].spyCallVolume;
             } break;
         case TOTAL_SPY_OPTIONS_VOLUME:
             for (i = 0; i < DATA_SIZE; i++) {
-                data->input[i] = (double) dat[i].spyTotalOptionsVolume;
+                data->input1D[i] = (double) dat[i].spyTotalOptionsVolume;
             } break;
     }
 
     return ans;
 }
 
-void createInitCentroid(double* dataVector, int n, int numClusters, double* initialCentroids)
+int kmSub_selectData2D(parDTok *dat, kmDP *data)
+{
+    int ans, i;
+    int invalid = 1;
+
+    do {
+        printf("Select First Data Set to Cluster: \n");
+
+        printf("Answer:\t");
+        scanf("%d", &ans);
+        printf("\n");
+
+        //Answer is incorrect
+        if(ans < 0 || ans > 4 )
+        {
+            printf("\nINVALID INPUT!\n");
+        } else{
+            invalid = 0;
+        }
+    }while(invalid);
+
+    switch(ans) {
+        case SPY_PUT_CALL_RATIO:
+            for (i = 0; i < DATA_SIZE; i++) {
+                data->input2D[0][i] = (double) dat[i].spyPutCallRatio;
+            } break;
+        case SPY_PUT_VOLUME:
+            for (i = 0; i < DATA_SIZE; i++) {
+                data->input2D[0][i] = (double) dat[i].spyPutVolume;
+            } break;
+        case SPY_CALL_VOLUME:
+            for (i = 0; i < DATA_SIZE; i++) {
+                data->input2D[0][i] = (double) dat[i].spyCallVolume;
+            } break;
+        case TOTAL_SPY_OPTIONS_VOLUME:
+            for (i = 0; i < DATA_SIZE; i++) {
+                data->input2D[0][i] = (double) dat[i].spyTotalOptionsVolume;
+            } break;
+    }
+
+    invalid = 1;
+
+    do {
+        printf("Select Second Data Set to Cluster: \n");
+
+        printf("Answer:\t");
+        scanf("%d", &ans);
+        printf("\n");
+
+        //Answer is incorrect
+        if(ans < 0 || ans > 4 )
+        {
+            printf("\nINVALID INPUT!\n");
+        } else{
+            invalid = 0;
+        }
+    }while(invalid);
+
+    switch(ans) {
+        case SPY_PUT_CALL_RATIO:
+            for (i = 0; i < DATA_SIZE; i++) {
+                data->input2D[1][i] = (double) dat[i].spyPutCallRatio;
+            } break;
+        case SPY_PUT_VOLUME:
+            for (i = 0; i < DATA_SIZE; i++) {
+                data->input2D[1][i] = (double) dat[i].spyPutVolume;
+            } break;
+        case SPY_CALL_VOLUME:
+            for (i = 0; i < DATA_SIZE; i++) {
+                data->input2D[1][i] = (double) dat[i].spyCallVolume;
+            } break;
+        case TOTAL_SPY_OPTIONS_VOLUME:
+            for (i = 0; i < DATA_SIZE; i++) {
+                data->input2D[1][i] = (double) dat[i].spyTotalOptionsVolume;
+            } break;
+    }
+
+    return ans;
+}
+
+void createInitCentroid1D(double* dataVector, int n, int numClusters, double* initialCentroids)
 {
     double min,max, range=0, gap;
     int i;
-    min=max=dataVector[0];
+    min= max = dataVector[0];
 
     for(i=1; i<n; i++)
     {
@@ -219,6 +330,47 @@ void createInitCentroid(double* dataVector, int n, int numClusters, double* init
     gap = range/numClusters;
     for(i=1; i<numClusters-1; i++){
         initialCentroids[i] += (min + gap*i);
+    }
+}
+
+void createInitCentroid2D(double dataVector[][DATA_SIZE], int n, int numClusters, double initialCentroids[0][MAX_CLUSTERS])
+{
+    double min,max, range=0, gap;
+    int i;
+    min = max = dataVector[0][0];
+
+    for(i=1; i<n; i++)
+    {
+        if(min>dataVector[0][i])
+            min=dataVector[0][i];
+        if(max<dataVector[0][i])
+            max=dataVector[0][i];
+    }
+
+    range = max - min;
+    initialCentroids[0][0] = min;
+    initialCentroids[0][numClusters-1] = max;
+    gap = range/numClusters;
+    for(i=1; i<numClusters-1; i++){
+        initialCentroids[0][i] += (min + gap*i);
+    }
+
+    min = max = dataVector[1][0];
+
+    for(i=1; i<n; i++)
+    {
+        if(min>dataVector[1][i])
+            min=dataVector[1][i];
+        if(max<dataVector[1][i])
+            max=dataVector[1][i];
+    }
+
+    range = max - min;
+    initialCentroids[1][0] = min;
+    initialCentroids[1][numClusters-1] = max;
+    gap = range/numClusters;
+    for(i=1; i<numClusters-1; i++){
+        initialCentroids[1][i] += (min + gap*i);
     }
 }
 

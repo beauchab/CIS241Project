@@ -92,6 +92,7 @@ typedef struct Kmeans_StateControl {
 typedef struct KM_DataPoints {
     char name[100];
     int Data;
-    double input[2330];
+    double input1D[2330];
+    double input2D[2][2330];
 }kmDP;
 #endif //FILESEPERATOR_GLOBALDEFINITIONS_H

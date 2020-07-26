@@ -24,11 +24,11 @@ Description: This library implements kmeans clustering functionality
 //Stuctures
 void kmeans(
         int  dim,                     // dimension of data
-        double *X,                           // pointer to data
+        void *X,                           // pointer to data   //was double
         int   n,                             // number of elements
         int   k,                             // number of clusters
-        double *cluster_centroid,            // initial cluster centroids
-        int   *cluster_assignment_final      // output
+        void *cluster_centroid,            // initial cluster centroids //was double
+        void   *cluster_assignment_final      // output //was int
 );
 
 //Function Prototypes - ONLY USE THE kmeans function, others are helpers
@@ -388,12 +388,12 @@ Description:
 void kmeans(
         int  dim,                     // dimension of data
 
-        double* X,                           // pointer to data
+        void* X,                           // pointer to data
         int   n,                             // number of elements
 
         int   k,                             // number of clusters
-        double* cluster_centroid,            // initial cluster centroids
-        int* cluster_assignment_final        // output
+        void* cluster_centroid,            // initial cluster centroids
+        void* cluster_assignment_final        // output
 )
 {
     double* dist = (double*)malloc(sizeof(double) * n * k);

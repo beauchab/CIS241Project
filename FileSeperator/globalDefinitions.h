@@ -91,10 +91,7 @@ typedef struct Kmeans_StateControl {
 }kmSC;
 typedef struct KM_DataPoints {
     char nameXY[100];
-    //lrCo lrP;
-    int xData;
-    void *xDatVec[2330];
-    int yData;
-    void *yDatVec[2330];
+    int Data;
+    void *DatVec[2330];
 }kmDP;
 #endif //FILESEPERATOR_GLOBALDEFINITIONS_H

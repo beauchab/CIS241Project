@@ -136,12 +136,17 @@ void kmeansSub_performKmeans(parDTok *dat[2330])
             printf("4:\tTotal SPY Options Volume\n");
 
             //Select X Data Set
-            data.xData = kmSub_selectData("Data");
-            strcpy(xDataType, lrSub_dataName(data.xData));
-        } while (data.xData < 1 || data.xData > 4);
+            data.Data = kmSub_selectData("Data");
+            strcpy(xDataType, lrSub_dataName(data.Data));
+        } while (data.Data < 1 || data.Data > 4);
 
-        selectColumn(dat, data.xData, data.xDatVec);
+        selectColumn(dat, data.Data, data.DatVec);
         strcpy(data.nameXY, xDataType);
+
+        //seeing if data is correct
+        for (int i=0; i < 2330; i++){
+            printf("%lf\n",  *(double*)data.DatVec);
+        }
 
     do {
         printf("How many clusters would you like to perform k means on? (1-10):\n");
@@ -153,9 +158,9 @@ void kmeansSub_performKmeans(parDTok *dat[2330])
         printf("\n\n");
         int outputCluster[clusters];
         double initialCentroids[clusters];
-        initialCentroids[clusters] = *(createInitCentroid(((double*) data.xDatVec), 2330, clusters));
+        initialCentroids[clusters] = *(createInitCentroid(((double*) data.DatVec), 2330, clusters));
         dim = createDim(dim);
-        kmeans(dim, (double*) data.xDatVec , 2330, clusters, initialCentroids, outputCluster);
+        kmeans(dim, *data.DatVec , 2330, clusters, initialCentroids, outputCluster);
 }
 
 int kmSub_selectData(char* var)
@@ -216,4 +221,5 @@ int createDim(int dim){
     }
     return newDim;
 }
+
 #endif //FILESEPERATOR_SUBMENU_KMEANS_H

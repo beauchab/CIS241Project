@@ -28,7 +28,7 @@ Description: This is a file which contains useful definitions for the
 //K Means
 #define PERFORM_KMEANS              0
 #define KMEANS_EXIT                 1
-
+#define DATA_SIZE                   2330
 
 //Enums
 typedef enum Type{tInt, tDouble}Type;
@@ -90,8 +90,9 @@ typedef struct Kmeans_StateControl {
     int userContinue;
 }kmSC;
 typedef struct KM_DataPoints {
-    char nameXY[100];
+    char name[100];
     int Data;
-    void *DatVec[2330];
+    double input1D[2330];
+    double input2D[2][2330];
 }kmDP;
 #endif //FILESEPERATOR_GLOBALDEFINITIONS_H

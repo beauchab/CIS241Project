@@ -1,4 +1,4 @@
-  //FIXME UPDATE FUNCTION BLOCK HEADERS WITH NAMES, DESCRIPTIONS, PARAMS, AND RETURNS
+//FIXME UPDATE FUNCTION BLOCK HEADERS WITH NAMES, DESCRIPTIONS, PARAMS, AND RETURNS
 /**********************************************************************
 Name: kmeans.h
 Description: This library implements kmeans clustering functionality
@@ -16,22 +16,18 @@ Description: This library implements kmeans clustering functionality
 #include <stdio.h>
 //Definitions
 #define sqr(x) ((x)*(x))
-#define MAX_CLUSTERS 16
+#define MAX_CLUSTERS 4
 #define MAX_ITERATIONS 100
 #define BIG_double (INFINITY)
-
-
-//Stuctures
+//Function Prototypes - ONLY USE THE kmeans function, others are helpers
 void kmeans(
-        int  dim,                     // dimension of data
-        void *X,                           // pointer to data   //was double
+        int  dim,		                     // dimension of data
+        double *X,                           // pointer to data
         int   n,                             // number of elements
         int   k,                             // number of clusters
-        void *cluster_centroid,            // initial cluster centroids //was double
-        void   *cluster_assignment_final      // output //was int
+        double *cluster_centroid,            // initial cluster centroids
+        int   *cluster_assignment_final      // output
 );
-
-//Function Prototypes - ONLY USE THE kmeans function, others are helpers
 void fail(char* str);
 double calc_distance(int dim, double* p1, double* p2);
 void calc_all_distances(int dim, int n, int k, double* X, double* centroid, double* distance_output);
@@ -46,13 +42,12 @@ void copy_assignment_array(int n, int* src, int* tgt);
 int assignment_change_count(int n, int a[], int b[]);
 
 /**********************************************************************
-Name: fail
-Description: This function prints the string that the parameter is
-         pointing to and then exits the code.
+Name:
+Description:
 @author - Ethan Brodsky
 @updated - October 2011
-@param - char* str
-@return - void
+@param -
+@return -
 **********************************************************************/
 void fail(char* str)
 {
@@ -60,13 +55,12 @@ void fail(char* str)
     exit(-1);
 }
 /**********************************************************************
-Name: calc_distance
-Description: This function calculates the distance between 2 points.
+Name:
+Description:
 @author - Ethan Brodsky
 @updated - October 2011
-@param - int dim: dimension of the data
-     
-@return - double distance_sq_sum:
+@param -
+@return -
 **********************************************************************/
 double calc_distance(int dim, double* p1, double* p2)
 {
@@ -79,17 +73,12 @@ double calc_distance(int dim, double* p1, double* p2)
 
 }
 /**********************************************************************
-Name: calc_all_distances
+Name:
 Description:
 @author - Ethan Brodsky
 @updated - October 2011
-@param - int dim:
-     int n:
-      int k:
-     double* X:
-     double* centroid:
-     double* distance_output:
-@return - void
+@param -
+@return -
 **********************************************************************/
 void calc_all_distances(int dim, int n, int k, double* X, double* centroid, double* distance_output)
 {
@@ -101,17 +90,12 @@ void calc_all_distances(int dim, int n, int k, double* X, double* centroid, doub
         }
 }
 /**********************************************************************
-Name: calc_total_distance
+Name:
 Description:
 @author - Ethan Brodsky
 @updated - October 2011
-@param - int dim:
-     int n:
-     int k:
-     double* X:
-     double* centroids:
-     int* cluster_assignment_index:
-@return - double tot_D:
+@param -
+@return -
 **********************************************************************/
 double calc_total_distance(int dim, int n, int k, double* X, double* centroids, int* cluster_assignment_index)
 // NOTE: a point with cluster assignment -1 is ignored
@@ -132,16 +116,12 @@ double calc_total_distance(int dim, int n, int k, double* X, double* centroids, 
     return tot_D;
 }
 /**********************************************************************
-Name: choose_all_clusters_from_distances
+Name:
 Description:
 @author - Ethan Brodsky
 @updated - October 2011
-@param - int dim:
-     int n:
-      int k:
-     double* distance_array:
-     int* cluster_assignment_index:
-@return - void
+@param -
+@return -
 **********************************************************************/
 void choose_all_clusters_from_distances(int dim, int n, int k, double* distance_array, int* cluster_assignment_index)
 {
@@ -169,17 +149,12 @@ void choose_all_clusters_from_distances(int dim, int n, int k, double* distance_
     }
 }
 /**********************************************************************
-Name: calc_cluster_centroids
+Name:
 Description:
 @author - Ethan Brodsky
 @updated - October 2011
-@param - int dim:
-     int n:
-     int k:
-     double* X:
-     int* cluster_assigment_index:
-     double* new_cluster_centroid:
-@return - void
+@param -
+@return -
 **********************************************************************/
 void calc_cluster_centroids(int dim, int n, int k, double* X, int* cluster_assignment_index, double* new_cluster_centroid)
 {
@@ -224,15 +199,12 @@ void calc_cluster_centroids(int dim, int n, int k, double* X, int* cluster_assig
     }
 }
 /**********************************************************************
-Name: get_cluster_member_count
+Name:
 Description:
 @author - Ethan Brodsky
 @updated - October 2011
-@param - int n:
-     int k:
-     int* cluster_assignment_index:
-     int* cluster_member_count:
-@return - void
+@param -
+@return -
 **********************************************************************/
 void get_cluster_member_count(int n, int k, int* cluster_assignment_index, int* cluster_member_count)
 {
@@ -245,20 +217,12 @@ void get_cluster_member_count(int n, int k, int* cluster_assignment_index, int* 
         cluster_member_count[cluster_assignment_index[ii]]++;
 }
 /**********************************************************************
-Name: update_delta_score_table
-Description: This function
+Name:
+Description:
 @author - Ethan Brodsky
 @updated - October 2011
-@param - int dim:
-     int n:
-     int k:
-     double* X:
-     int* cluster_assigment_cur:
-     double* cluster_centroid:
-     int* cluster_member_count:
-     double* point_move_score_table:
-     int cc:
-@return - void
+@param -
+@return -
 **********************************************************************/
 void update_delta_score_table(int dim, int n, int k, double* X, int* cluster_assignment_cur, double* cluster_centroid, int* cluster_member_count, double* point_move_score_table, int cc)
 {
@@ -278,21 +242,12 @@ void update_delta_score_table(int dim, int n, int k, double* X, int* cluster_ass
     }
 }
 /**********************************************************************
-Name: perform_move
-Description: This function moves the point from the previous cluster to
-         to the next cluster.
+Name:
+Description:
 @author - Ethan Brodsky
 @updated - October 2011
-@param - int dim:
-     int n:
-     int k:
-     double* X:
-     int* cluster_assignment:
-     double* cluster_centroid:
-     int* cluster_member_count:
-     int move_point:
-     int move_target_cluster:
-@return - void
+@param -
+@return -
 **********************************************************************/
 void  perform_move(int dim, int n, int k, double* X, int* cluster_assignment, double* cluster_centroid, int* cluster_member_count, int move_point, int move_target_cluster)
 {
@@ -317,19 +272,12 @@ void  perform_move(int dim, int n, int k, double* X, int* cluster_assignment, do
     }
 }
 /**********************************************************************
-Name: cluster_diag
-Description: This function creates an outputted list of the clusters
-         developed by the kmeans function. It prints out the
-         cluster, the members, and the centroid.
+Name:
+Description:
 @author - Ethan Brodsky
 @updated - October 2011
-@param - int dim:
-     int n:
-     int k:
-     double* X:
-     int* cluster_assignment_index:
-     double* cluster_centroid:
-@return - void
+@param -
+@return -
 **********************************************************************/
 void cluster_diag(int dim, int n, int k, double* X, int* cluster_assignment_index, double* cluster_centroid)
 {
@@ -339,17 +287,19 @@ void cluster_diag(int dim, int n, int k, double* X, int* cluster_assignment_inde
 
     printf("  Final clusters \n");
     for (int ii = 0; ii < k; ii++)
-        printf("    cluster %d:     members: %8d, centroid (%.1f %.1f) \n", ii, cluster_member_count[ii], cluster_centroid[ii * dim + 0], cluster_centroid[ii * dim + 1]);
+        if(cluster_member_count[ii] == 0)
+            printf("    cluster %d:     members: %8d, centroid: N/A \n", ii, cluster_member_count[ii]);
+        else
+            printf("    cluster %d:     members: %8d, centroid: (%.1f %.1f) \n", ii, cluster_member_count[ii], cluster_centroid[ii * dim + 0], cluster_centroid[ii * dim + 1]);
+
 }
 /**********************************************************************
-Name: copy_assignment_array
-Description: This function copies one array into another array.
+Name:
+Description:
 @author - Ethan Brodsky
 @updated - October 2011
-@param - int n: The length of the data set.
-     int* src: Pointer to the src array in memory.
-     int* tgt: Pointer to the tgt array in memory.
-@return - void
+@param -
+@return -
 **********************************************************************/
 void copy_assignment_array(int n, int* src, int* tgt)
 {
@@ -357,15 +307,12 @@ void copy_assignment_array(int n, int* src, int* tgt)
         tgt[ii] = src[ii];
 }
 /**********************************************************************
-Name: assignment_change_count
-Description: This function counts the number of values in arrays a and
-         b that are not equal.
+Name:
+Description:
 @author - Ethan Brodsky
 @updated - October 2011
-@param - int n: length of data set
-     int a[]: array of values
-     int b[]: array of values
-@return - int change_count: number of differing values between 2 arrays
+@param -
+@return -
 **********************************************************************/
 int assignment_change_count(int n, int a[], int b[])
 {
@@ -378,22 +325,22 @@ int assignment_change_count(int n, int a[], int b[])
     return change_count;
 }
 /**********************************************************************
-Name: kmeans
+Name:
 Description:
 @author - Ethan Brodsky
 @updated - October 2011
 @param -
-@return - void
+@return -
 **********************************************************************/
 void kmeans(
-        int  dim,                     // dimension of data
+        int  dim,		                     // dimension of data
 
-        void* X,                           // pointer to data
-        int   n,                             // number of elements
+        double* X,                        // pointer to data
+        int   n,                         // number of elements
 
-        int   k,                             // number of clusters
-        void* cluster_centroid,            // initial cluster centroids
-        void* cluster_assignment_final        // output
+        int   k,                         // number of clusters
+        double* cluster_centroid,         // initial cluster centroids
+        int* cluster_assignment_final  // output
 )
 {
     double* dist = (double*)malloc(sizeof(double) * n * k);
@@ -469,26 +416,21 @@ void kmeans(
 
 
     // ONLINE UPDATE
-    /* The online update portion of this code has never worked properly, but batch update has been adequate for our projects so far.
+    /* The online update prtion of this code has never worked properly, but batch update has been adequate for our projects so far.
         int online_iteration = 0;
         int last_point_moved = 0;
-
         int cluster_changed[MAX_CLUSTERS];
         for (int ii = 0; ii < k; ii++)
           cluster_changed[ii] = 1;
-
         int cluster_member_count[MAX_CLUSTERS];
         get_cluster_member_count(n, k, cluster_assignment_cur, cluster_member_count);
-
         while (online_iteration < MAX_ITERATIONS)
           {
     //        printf("online iteration %d \n", online_iteration);
-
            // for each cluster
             for (int ii = 0; ii < k; ii++)
               if (cluster_changed[ii])
                 update_delta_score_table(dim, n, k, X, cluster_assignment_cur, cluster_centroid, cluster_member_count, point_move_score, ii);
-
            // pick a point to move
            // look at points in sequence starting at one after previously moved point
             int make_move = 0;
@@ -497,17 +439,14 @@ void kmeans(
             for (int ii = 0; ii < n; ii++)
               {
                 int point_to_consider = (last_point_moved + 1 + ii) % n;
-
                // find the best target for it
                 int best_target_cluster = -1;
                 int best_match_count    = 0;
                 double best_delta        = BIG_double;
-
                // for each possible target
                 for (int jj = 0; jj < k; jj++)
                   {
                     double cur_delta = point_move_score[point_to_consider*k + jj];
-
                    // is this the best move so far?
                     if (cur_delta < best_delta)
                      // yes - record it
@@ -520,12 +459,10 @@ void kmeans(
                      // no, but it's tied with the best one
                      best_match_count++;
                   }
-
                // is the best cluster for this point its current cluster?
                 if (best_target_cluster == cluster_assignment_cur[point_to_consider])
                  // yes - don't move this point
                    continue;
-
                // do we have a unique best move?
                 if (best_match_count > 1)
                  // no - don't move this point (ignore ties)
@@ -539,30 +476,23 @@ void kmeans(
                     break;
                   }
               }
-
             if (make_move)
               {
                // where should we move it to?
                 printf("  %10d: moved %d to %d \n", point_to_move, cluster_assignment_cur[point_to_move], target_cluster);
-
                // mark which clusters have been modified
                 for (int ii = 0; ii < k; ii++)
                   cluster_changed[ii] = 0;
                 cluster_changed[cluster_assignment_cur[point_to_move]] = 1;
                 cluster_changed[target_cluster] = 1;
-
                // perform move
                 perform_move(dim, n, k, X, cluster_assignment_cur, cluster_centroid, cluster_member_count, point_to_move, target_cluster);
-
                // count an iteration every time we've cycled through all the points
                 if (point_to_move < last_point_moved)
                   online_iteration++;
-
                 last_point_moved = point_to_move;
               }
-
           }
-
     */
 
     //    printf("iterations: %3d %3d \n", batch_iteration, online_iteration);

@@ -305,28 +305,29 @@ Description: This is a function which prints the linear regression
 **********************************************************************/
 void lrSub_printRegression(lrDP d)
 {
-    printf("Regression of %s\n\n", d.nameXY);
+    printf("Regression of %s:\n", d.nameXY);
+
     //Equation Y = ax + b
-    printf("Regression Equation:\n");
-    printf("\tY = %lfx + %lf\n\n",d.lrP.alpha,d.lrP.beta);
-    printf("Alpha\t\t\t\t\t\t%lf\n",d.lrP.alpha);
-    printf("Beta\t\t\t\t\t\t%lf\n",d.lrP.beta);
+    printf(" - Equation:");
+    printf("\ty = %.02lfx + %.02lf\n\n",d.lrP.alpha,d.lrP.beta);
+    printf("\t> Alpha -\t\t\t%lf\n",d.lrP.alpha);
+    printf("\t> Beta  -\t\t\t%lf\n",d.lrP.beta);
 
     //Standard Deviations
-    printf("Standard Deviation X\t\t%lf\n",d.lrP.stdDevX);
-    printf("Standard Deviation Y\t\t%lf\n",d.lrP.stdDevY);
+    printf("\t> Standard Deviation (x) -\t%lf\n",d.lrP.stdDevX);
+    printf("\t> Standard Deviation (y) -\t%lf\n",d.lrP.stdDevY);
 
     //Regressional Analysis Correlation
     //R Squared
-    printf("\nR Squared\t\t\t\t\t%lf\n",d.lrP.R_2);
+    printf("\n\t> R Squared -\t\t\t%lf\n",d.lrP.R_2);
     analyzeRSquared(d.lrP.R_2);
 
     //Covariance
-    printf("Covariance XY\t\t\t\t%lf\n",d.lrP.covXY);
+    printf("\t> Covariance XY -\t\t%lf\n",d.lrP.covXY);
     analyzeCovXY(d.lrP.covXY);
 
     //Correlation Coefficient
-    printf("Correlation Coefficent XY\t%lf\n",d.lrP.corXY);
+    printf("\t> Correlation Coefficent XY -\t%lf\n",d.lrP.corXY);
     analyzeCorXY(d.lrP.corXY);
 }
 #endif //FILESEPERATOR_LINEARREGRESSION_H

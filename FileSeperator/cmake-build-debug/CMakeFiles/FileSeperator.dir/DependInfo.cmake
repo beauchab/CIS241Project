@@ -4,7 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "C:/Users/brent/CLionProjects/FileSeperatorCopy/main.c" "C:/Users/brent/CLionProjects/FileSeperatorCopy/cmake-build-debug/CMakeFiles/FileSeperator.dir/main.c.obj"
+  "C:/Users/brent/CLionProjects/FileSeperator/main.c" "C:/Users/brent/CLionProjects/FileSeperator/cmake-build-debug/CMakeFiles/FileSeperator.dir/main.c.obj"
   )
 set(CMAKE_C_COMPILER_ID "MSVC")
 

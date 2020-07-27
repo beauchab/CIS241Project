@@ -190,21 +190,21 @@ void analyzeRSquared(double r)
 {
     if      (r>0.999)
     {
-        printf("Regression is exact");
+        printf("\t Regression is exact");
     }
     else if (r>0.85)
     {
-        printf("Regression is a very precise");
+        printf("\t Regression is a very precise");
     }
     else if (r>0.50)
     {
-        printf("Regression is a loose");
+        printf("\t Regression is a loose");
     }
     else
     {
-        printf("Regression is not an accurate");
+        printf("\t Regression is not an accurate");
     }
-    printf(" representation of data\n\n");
+    printf(" representation of data.\n\n");
 }
 /**********************************************************************
 Name: analyzeCovXY
@@ -222,15 +222,15 @@ void analyzeCovXY(double c)
 {
     if      (c>0.0)
     {
-        printf("Data sets exhibit positive relationship\n\n");
+        printf("\t Data sets exhibit positive relationship.\n\n");
     }
     else if (c<0.0)
     {
-        printf("Data sets exhibit negative relationship\n\n");
+        printf("\t Data sets exhibit negative relationship.\n\n");
     }
     else
     {
-        printf("Data sets exhibit no relationship\n\n");
+        printf("\t Data sets exhibit no relationship.\n\n");
     }
 }
 /**********************************************************************
@@ -250,20 +250,20 @@ void analyzeCorXY(double c)
 {
     if      (c>0.80)
     {
-        printf("Significant positive");
+        printf("\t Significant positive");
     }
     else if (c>0.0)
     {
-        printf("Insignificant positive");
+        printf("\t Insignificant positive");
     }
     else if (c<-0.80)
     {
-        printf("Significant negative");
+        printf("\t Significant negative");
     }
     else
     {
-        printf("Insignificant negative");
+        printf("\t Insignificant negative");
     }
-    printf(" relationship between data sets\n\n");
+    printf(" relationship between data sets.\n\n");
 }
 #endif //FILESEPERATOR_USEFULSTATS_H

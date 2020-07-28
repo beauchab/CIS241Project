@@ -3,12 +3,14 @@
 
 CMakeFiles/FileSeperator.dir/main.c.o: ../SUBMENU_Kmeans.h
 CMakeFiles/FileSeperator.dir/main.c.o: ../SUBMENU_LinearRegression.h
+CMakeFiles/FileSeperator.dir/main.c.o: ../SUBMENU_OutlierDetection.h
 CMakeFiles/FileSeperator.dir/main.c.o: ../dataHelper.h
 CMakeFiles/FileSeperator.dir/main.c.o: ../fileHelper.h
 CMakeFiles/FileSeperator.dir/main.c.o: ../globalDefinitions.h
 CMakeFiles/FileSeperator.dir/main.c.o: ../kmeans.h
 CMakeFiles/FileSeperator.dir/main.c.o: ../linearRegression.h
 CMakeFiles/FileSeperator.dir/main.c.o: ../main.c
+CMakeFiles/FileSeperator.dir/main.c.o: ../outlierDetection.h
 CMakeFiles/FileSeperator.dir/main.c.o: ../printHelper.h
 CMakeFiles/FileSeperator.dir/main.c.o: ../pythagoreanMeans.h
 CMakeFiles/FileSeperator.dir/main.c.o: ../usefulStats.h

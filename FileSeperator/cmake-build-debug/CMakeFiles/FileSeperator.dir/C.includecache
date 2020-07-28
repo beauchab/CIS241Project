@@ -33,6 +33,24 @@ usefulStats.h
 /Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/usefulStats.h
 dataHelper.h
 /Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/dataHelper.h
+SUBMENU_OutlierDetection.h
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/SUBMENU_OutlierDetection.h
+
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/SUBMENU_OutlierDetection.h
+stdio.h
+-
+string.h
+-
+outlierDetection.h
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/outlierDetection.h
+globalDefinitions.h
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/globalDefinitions.h
+usefulStats.h
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/usefulStats.h
+dataHelper.h
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/dataHelper.h
+globalDefinitions.h
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/globalDefinitions.h
 
 /Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/dataHelper.h
 globalDefinitions.h
@@ -95,6 +113,14 @@ kmeans.h
 /Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/kmeans.h
 SUBMENU_Kmeans.h
 /Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/SUBMENU_Kmeans.h
+
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/outlierDetection.h
+pythagoreanMeans.h
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/pythagoreanMeans.h
+usefulStats.h
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/usefulStats.h
+globalDefinitions.h
+/Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/globalDefinitions.h
 
 /Users/tay/Desktop/GitHub/CIS241Project/FileSeperator/printHelper.h
 stdio.h

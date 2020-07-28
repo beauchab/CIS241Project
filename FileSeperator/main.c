@@ -51,7 +51,7 @@ int main()
         } while (receiveInput(&sC));
     } while(userContinue());
 
-    printf("Have a nice day!\n");
+    printf("Have a nice day!\n\n\t*EXITING*\n");
     return 0;
 }
 

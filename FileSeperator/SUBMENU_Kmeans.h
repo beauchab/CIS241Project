@@ -65,19 +65,18 @@ int kmeansSub_receiveInput(kmSC *u)
     do {
         printf("-_-_-_-_-_/ K MEANS MENU /-_-_-_-_-_\n");
         printf("Options:\n");
-        printf("0:\tPerform Kmeans\n");
-        printf("1:\tEXIT\n");
+        printf("0 -\tPerform Kmeans\n");
+        printf("1 -\tEXIT\n");
         printf("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-\n");
         printf("What would you like to do?\n\n\t-> ");
 
-        printf("Answer:\t");
         scanf("%d", &ans);
         printf("\n");
 
         //Answer is incorrect
         if(ans < 0 || ans > 1 )
         {
-            printf("\nINVALID INPUT!\n");
+            printf("\t*INVALID INPUT!*\n\n");
         } else{
             invalid = 0;
         }
@@ -121,7 +120,7 @@ int kmeansSub_stateMachine(kmSC *u, parDTok *dat)
 
         default :
             //ERROR -> Exit state machine
-            printf("\nERROR: EXITING KMEANS\n");
+            printf("\n\t*ERROR: EXITING KMEANS*\n\n");
             u->state = KMEANS_EXIT;
             break;
     }
@@ -169,13 +168,16 @@ void kmeansSub_performKmeans(parDTok *dat)
         printf("Please indicate dimension: \n");
         printf("1 -\t1-D Analysis\n");
         printf("2 -\t2-D Analysis\n");
+        printf("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-\n");
+        printf("What would you like to do?\n\n\t-> ");
 
-        printf("Answer:\t");
         scanf("%d", &dim);
         printf("\n");
 
         //Select X Data Set
-        printf("\n%d-D Analysis Chosen\n", dim);
+        printf("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-\n");
+        printf("%d-D Analysis Chosen\n", dim);
+        printf("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-\n\n");
 
     } while (dim < 1 || dim > 2);
 
@@ -186,7 +188,7 @@ void kmeansSub_performKmeans(parDTok *dat)
         printf("2 -\tSPY Put Volume\n");
         printf("3 -\tSPY Call Volume\n");
         printf("4 -\tTotal SPY Options Volume\n");
-        printf("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_");
+        printf("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_\n");
         if(dim == 1)
         {
             //Select X Data Set
@@ -201,7 +203,8 @@ void kmeansSub_performKmeans(parDTok *dat)
 
 
     do {
-        printf("How many clusters would you like to perform k means on? (1-4):\n");
+        printf("How many clusters would you like to perform k means on? (1-4):\n\n\t->");
+
         scanf("%d", &clusters);
     }while(clusters < 1 || clusters > 4);
 
@@ -244,9 +247,7 @@ int kmSub_selectData1D(parDTok *dat, kmDP *data)
     int invalid = 1;
 
     do {
-        printf("Select Data Set to Cluster: \n");
-
-        printf("Answer:\t");
+        printf("What data set would you like to cluster?\n\n\t->");
         scanf("%d", &ans);
         printf("\n");
 
@@ -301,9 +302,8 @@ int kmSub_selectData2D(parDTok *dat, kmDP *data)
     int invalid = 1;
 
     do {
-        printf("Select First Data Set to Cluster: \n");
+        printf("What data set would you like to cluster first?\n\n\t->");
 
-        printf("Answer:\t");
         scanf("%d", &ans);
         printf("\n");
 
@@ -338,16 +338,15 @@ int kmSub_selectData2D(parDTok *dat, kmDP *data)
     invalid = 1;
 
     do {
-        printf("Select Second Data Set to Cluster: \n");
+        printf("What data set would you like to cluster second?\n\n\t->");
 
-        printf("Answer:\t");
         scanf("%d", &ans);
         printf("\n");
 
         //Answer is incorrect
         if(ans < 0 || ans > 4 )
         {
-            printf("\nINVALID INPUT!\n");
+            printf("\n\t*INVALID INPUT!*\n\n");
         } else{
             invalid = 0;
         }

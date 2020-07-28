@@ -21,6 +21,7 @@ Description: This is a library which controls the Linear Regression
 #include "globalDefinitions.h"
 #include "usefulStats.h"
 #include "dataHelper.h"
+#include "SUBMENU_OutlierDetection.h"
 
 //Function Prototypes
 int lrSub_receiveInput(lrSC *u);
@@ -69,13 +70,13 @@ int lrSub_receiveInput(lrSC *u)
     int ans;
     int invalid = 1;
     do {
-        printf("Linear Regression: STATE MACHINE\n");
-        printf("What would you like to do?\n");
+        printf("-_-_/ LINEAR REGRESSION MENU /-_-_\n");
         printf("Options:\n");
-        printf("0:\tPerform Regression\n");
-        printf("1:\tEXIT\n");
+        printf("0 -\tPerform Regression\n");
+        printf("1 -\tEXIT\n");
+        printf("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-\n");
+        printf("What would you like to do?\n\n\t-> ");
 
-        printf("Answer:\t");
         scanf("%d", &ans);
         printf("\n");
 
@@ -163,16 +164,15 @@ void lrSub_performRegression(parDTok *dat[2330])
     lrDP data;
     char xDataType[40], yDataType[40];
 
-    printf("Performing Linear Regression\n");
-    printf("Y = aX + b\n");
-
-    //DataSet Options
+    printf("Linear Regression Formula: [ y = Ax + B ]\n");
+    printf("-_-_-_/ x & y Data Options /-_-_-_\n");
     printf("Options:\n");
-    printf("0:\tDate\n");
-    printf("1:\tSPY Put/Call Ratio\n");
-    printf("2:\tSPY Put Volume\n");
-    printf("3:\tSPY Call Volume\n");
-    printf("4:\tTotal SPY Options Volume\n");
+    printf("0 -\tDate\n");
+    printf("1 -\tSPY Put/Call Ratio\n");
+    printf("2 -\tSPY Put Volume\n");
+    printf("3 -\tSPY Call Volume\n");
+    printf("4 -\tTotal SPY Options Volume\n");
+    printf("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_\n");
 
     //Select X Data Set
     data.xData = lrSub_selectData('X');
@@ -196,8 +196,7 @@ void lrSub_performRegression(parDTok *dat[2330])
 
     //Print Vars
     lrSub_printRegression(data);
-    //printf("\nRegression of %s\n", xDataType);
-    //Analyze for Outliers
+    outlierDetectionSubMenu(data);
 
 }
 /**********************************************************************
@@ -264,9 +263,8 @@ int lrSub_selectData(char* var)
     int invalid = 1;
 
     do {
-        printf("Select Data Set for %c\n", var);
+        printf("Select Data Set for %c:  ", var);
 
-        printf("Answer:\t");
         scanf("%d", &ans);
         printf("\n");
 

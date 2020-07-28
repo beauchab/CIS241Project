@@ -30,7 +30,7 @@ void createInitCentroid2D(double dataVector[][DATA_SIZE], int n, int numClusters
 Name: kmeansSubMenu
 Description: This function is the main driver for the kmeans
              submenu.
-@author - Taylor A. Rieger
+@author - Taylor A. Rieger, Brendan P. Beauchamp
 @updated - 7/22/2020
 @param - char dataSet[2330][5][20]
                 This is the dataset read from Dr. Bhuse's input file
@@ -49,7 +49,7 @@ void kmeansSubMenu(parDTok *dat)
 Name:kmeansSub_receiveInput
 Description: This function is utilized to determine what the user will
          pass into the kmeans function.
-@author - Taylor A. Rieger
+@author - Taylor A. Rieger, Brendan P. Beauchamp
 @updated - 7/17/2020
 @param - kmSC *u
                 This is a structure which contains variables useful to
@@ -63,11 +63,12 @@ int kmeansSub_receiveInput(kmSC *u)
     int ans;
     int invalid = 1;
     do {
-        printf("KMEANS: STATE MACHINE\n");
-        printf("What would you like to do?\n");
+        printf("-_-_-_-_-_/ K MEANS MENU /-_-_-_-_-_\n");
         printf("Options:\n");
         printf("0:\tPerform Kmeans\n");
         printf("1:\tEXIT\n");
+        printf("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-\n");
+        printf("What would you like to do?\n\n\t-> ");
 
         printf("Answer:\t");
         scanf("%d", &ans);
@@ -91,7 +92,7 @@ int kmeansSub_receiveInput(kmSC *u)
 Name: kmeansSub_stateMachine
 Description: This is a function that controls the flow of the
              kmeans submenu state machine.
-@author - Taylor A. Rieger
+@author - Taylor A. Rieger, Brendan P. Beauchamp
 @updated - 7/21/2020
 @param - kmSC *u
                 This is a structure which contains variables
@@ -130,7 +131,7 @@ int kmeansSub_stateMachine(kmSC *u, parDTok *dat)
 Name: kmSub_exit
 Description: This is a function which sets parameters to exit the
              linear regression sub menu.
-@author - Taylor A. Rieger
+@author - Taylor A. Rieger, Brendan P. Beauchamp
 @updated - 7/17/2020
 @param - kmSC *u
             This is a structure which controls the state of the
@@ -150,7 +151,7 @@ Description: This function asks the user which column of Dr. Bhuse's
              number of centroids and clusters.
              After kmeans is complete, its data is printed back
              to the user.
-@author - Taylor A. Rieger & Kendra Haan
+@author - Taylor A. Rieger, Kendra Haan
 @updated - 7/26/2020
 @param - char dataSet[2330][5][20]
                 This is the dataset read from Dr. Bhuse's input file
@@ -161,13 +162,13 @@ void kmeansSub_performKmeans(parDTok *dat)
     kmDP data;
     int dim=0, clusters=1, i=0;
 
-    printf("Performing K Means:\n\n");
+    printf("-_-_-_/ Performing K Means: /-_-_-_\n");
 
     //DataSet Options
     do {
         printf("Please indicate dimension: \n");
-        printf("1:\t1-D Analysis\n");
-        printf("2:\t2-D Analysis\n");
+        printf("1 -\t1-D Analysis\n");
+        printf("2 -\t2-D Analysis\n");
 
         printf("Answer:\t");
         scanf("%d", &dim);
@@ -180,12 +181,12 @@ void kmeansSub_performKmeans(parDTok *dat)
 
     //DataSet Options
     do {
-        printf("Options:\n");
-        printf("1:\tSPY Put/Call Ratio\n");
-        printf("2:\tSPY Put Volume\n");
-        printf("3:\tSPY Call Volume\n");
-        printf("4:\tTotal SPY Options Volume\n");
-
+        printf("-_-_-_/ Dataset Options: /-_-_-_\n");
+        printf("1 -\tSPY Put/Call Ratio\n");
+        printf("2 -\tSPY Put Volume\n");
+        printf("3 -\tSPY Call Volume\n");
+        printf("4 -\tTotal SPY Options Volume\n");
+        printf("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_");
         if(dim == 1)
         {
             //Select X Data Set
@@ -226,7 +227,7 @@ void kmeansSub_performKmeans(parDTok *dat)
 Name: kmSub_selectData1D
 Description: This is a helper function for scanning in the datasets for
              K means in 1 Dimensional analysis.
-@author - Taylor A. Rieger & Kendra Haan
+@author - Taylor A. Rieger, Kendra Haan
 @updated - 7/26/2020
 @param - char dataSet[2330][5][20]
                 This is the dataset read from Dr. Bhuse's input file
@@ -377,7 +378,7 @@ int kmSub_selectData2D(parDTok *dat, kmDP *data)
 Name: createInitCentroid1D
 Description: This is a helper function that creates initial centroids
              to be passed into the kmeans function.
-@author - Taylor A. Rieger and Kendra Haan
+@author - Taylor A. Rieger, Kendra Haan
 @updated - 7/26/2020
 @param - double* dataVector
                 This is a the data in the column selected by the user

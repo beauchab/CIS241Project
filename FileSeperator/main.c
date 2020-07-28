@@ -100,24 +100,21 @@ int receiveInput(struct stateControl *u)
     int ans;
     int invalid = 1;
     do {
-        printf("MAIN: STATE MACHINE\n");
-        printf("What would you like to do?\n");
+        printf("-_-_-_-_-_/ MAIN MENU /-_-_-_-_-_\n");
         printf("Options:\n");
-
-        //FIXME INCLUDE NEW OPTION EVERY TIME ONE IS MADE
-        printf("1:\tPrint Data\n");
-        printf("2:\tLinear Regression\n");
-        printf("3:\tKMeans\n");
-        printf("4:\tEXIT\n");
-
-        printf("Answer:\t");
+        printf("1 -\tPrint Data\n");
+        printf("2 -\tLinear Regression\n");
+        printf("3 -\tKMeans\n");
+        printf("4 -\tEXIT\n");
+        printf("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-\n");
+        printf("What would you like to do?\n\n\t-> ");
         scanf("%d", &ans);
         printf("\n");
 
         //Answer is incorrect
         if(ans < 1 || ans > 4 )
         {
-            printf("INVALID INPUT!\n\n");
+            printf("\t*INVALID INPUT!*\n\n");
         } else{
             invalid = 0;
         }

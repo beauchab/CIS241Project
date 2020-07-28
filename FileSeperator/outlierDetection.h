@@ -1,65 +1,131 @@
 /**********************************************************************
 Name: outlierDetection.h
-Description:
+Description: This program integrates logic for outlier detection
 @author - Green Team SS20 CIS241
 @updated - 7/16/2020
 **********************************************************************/
 #ifndef FILESEPERATOR_OUTLIERDETECTION_H
 #define FILESEPERATOR_OUTLIERDETECTION_H
 
-void outlierDetection() {
-    int standDev, menuOption;
-    int a = 0;
-    int b = 0;
+#include "pythagoreanMeans.h"
+#include "usefulStats.h"
+#include "globalDefinitions.h"
 
-    printf("\nOUTLIER DETECTION\n\n");
+void castVector(void *x[2330], double yHat[2330]);
 
-    while(a == 0) {
-        printf("How many standard deviations will be used to detect outliers?\n\t");
-        scanf("%d", &standDev);
+/*
+     * Outlier Detection Submenu
+     * 1. Perform outlier detection
+     *  -> choose number of std dev
+     *      -> perform logic
+     *          -> count number of outliers
+     *          -> print lin regression eq
+     *          -> print upper bound
+     *          -> print lower bound
+     *          -> divide count by 2330 for percentage of outliers
+     * 2. EXIT
+     */
+void outlierDetection(lrDP data)
+{
+    int stdDev, i;
+    double yUpper[2330];
+    double yBottom[2330];
+    void *outliers[2330];
+    int outlierIndex = 0;
+    double outlierPercent = 0.0;
+    int invalid = 1;
 
-        if(standDev > 1 && standDev < 10) a++;
-        else printf("\n*ERROR*\nPlease enter a valid number.\n\n");
+    do{
+        printf("Enter a Standard Deviation to calculate outliers with\n");
+        printf("Number of standard deviations must be between 1 and 10: ");
+        scanf("%d", &stdDev);
+
+        if(stdDev < 1 || stdDev > 10 )
+            printf("\n\t*ERROR*\n\nChoose number between 1 and 10.\n\n");
+        else
+            invalid = 0;
+
+    }while(invalid);
+
+    printf("\nPerforming Outlier Detection based on Standard Deviation of %d:\n", stdDev);
+
+
+    Type xT = ((data.xData != 1)) ? tInt : tDouble;
+    Type yT = ((data.yData != 1)) ? tInt : tDouble;
+
+    calcYHat(data.xDatVec, xT, yUpper, data.lrP.alpha, (data.lrP.beta + (stdDev * data.lrP.stdDevY)));
+    calcYHat(data.xDatVec, xT, yBottom, data.lrP.alpha, (data.lrP.beta - (stdDev * data.lrP.stdDevY)));
+
+    switch(yT) {
+
+        case tInt:
+            for (i = 0; i < 2330; i++)
+            {
+                if ((*(int*)data.yDatVec[i] > yUpper[i] || *(int*)data.yDatVec[i] < yBottom[i]))
+                {
+                    outliers[outlierIndex] = (int*)data.yDatVec[i];
+                    outlierIndex++;
+                }
+            }
+            break;
+
+        case tDouble:
+            for (i = 0; i < 2330; i++)
+            {
+                if ((*(double*)data.yDatVec[i] > yUpper[i] || *(double*)data.yDatVec[i] < yBottom[i]))
+                {
+                    outliers[outlierIndex] = (double*)data.yDatVec[i];
+                    outlierIndex++;
+                }
+            }
+            break;
     }
-    while(b == 0) {
-        printf("\n\nWhat would you like to do?\nOptions:\n");
-        printf("0\tPrint the outliers of %d standard deviations.\n", standDev);
-        printf("1\tRemove the outliers from the current set of data.\n");
-        printf("2\tEXIT\n\n");
-        scanf("%d", &menuOption);
-
-        if (menuOption == 0){
-            printOutliers(standDev);
-        }
-        else if (menuOption == 1){
-            removeOutliers(standDev);
-        }
-        else b++;
-    }
-
+    outlierPercent = outlierIndex / 2330.0;
+    printf(" Upper Bound Equation:");
+    printf("\ty = %.02lfx + %.02lf\n",data.lrP.alpha,data.lrP.beta + (stdDev * data.lrP.stdDevY));
+    printf(" Regression Equation:");
+    printf("\ty = %.02lfx + %.02lf\n",data.lrP.alpha,data.lrP.beta);
+    printf(" Lower Bound Equation:");
+    printf("\ty = %.02lfx + %.02lf\n",data.lrP.alpha,data.lrP.beta - (stdDev * data.lrP.stdDevY));
+    printf("\n\t> Number of Outliers -  \t%d\n", outlierIndex);
+    printf("\t> Percentage of Outliers -\t%2.2g %%\n\n", outlierPercent * 100);
 }
 
-void printOutliers(int StandardDeviations){
+/**********************************************************************
+Name: castVector
+Description: This function takes an input of array x, its type,
+             and an array of doubles to write the void vector casted as
+             a double vector to.
+@author - Nicholas Bernhardt, Brendan Beauchamp
+@updated - 7/24/2020
+@param - double x[]
+                    This is an array which contains all of the x values
+                    for the linear regression.
+@param - double yHat[]
+                    This is an array of predicted values for y using
+                    the linear regression coefficients.
+@return - void
+**********************************************************************/
+void castVector(void *x[2330], double yHat[2330])
+{
+    int i;
+    for( i = 0; i < 2330; i++)
+    {
+        yHat[i] = (*(double*)x[i]); //Yhat = aX +b
+    }
+//    switch(xT) {
+//
+//        case tInt:
+//            for( i = 0; i < 2330; i++)
+//            {
+//                yHat[i] = (double)(*(int*)x[i]); //Yhat = aX +b
+//            }
+//            break;
 
-    printf("This will print the outliers of %d standard deviations\n\n", StandardDeviations);
+//        case tDouble:
 
-    //LOOP through all the data ...
-    //IF an outlier, print
-
-    //ELSE nothing
-
-}
-
-void removeOutliers(int StandardDeviations){
-
-    printf("This will remove the outliers from the data of %d standard deviations\n\n", StandardDeviations);
-
-    //LOOP through all the data ...
-    //IF an outlier, nothing
-
-    //ELSE add to new array
-
-    //then add this new array everywhere else in the code...yikes
+//            break;
+//    }
 }
 
 #endif //FILESEPERATOR_OUTLIERDETECTION_H

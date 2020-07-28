@@ -325,7 +325,7 @@ int assignment_change_count(int n, int a[], int b[])
     return change_count;
 }
 /**********************************************************************
-Name:
+Name: kmeans
 Description:
 @author - Ethan Brodsky
 @updated - October 2011

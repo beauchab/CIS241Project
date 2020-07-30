@@ -1,5 +1,5 @@
 /**********************************************************************
-Name: File Sperator
+Name: File Seperator
 Description: This Program opens the data given to us by the professor,
              and ...
 @author - Green Team SS20 CIS241
